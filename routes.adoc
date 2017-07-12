@@ -9,39 +9,21 @@ image::roadshow-app-architecture-parksmap-2.png[Application architecture,800,ali
 
 ### Background: Routes
 
-While *Services* provide internal abstraction and load balancing within an
-OpenShift environment, sometimes clients (users, systems, devices, etc.)
-**outside** of OpenShift need to access an application. The way that external
-clients are able to access applications running in OpenShift is through the
-OpenShift routing layer. And the data object behind that is a *Route*.
+While *Services* provide internal abstraction and load balancing within an OpenShift environment, sometimes clients (users, systems, devices, etc.) **outside** of OpenShift need to access an application. The way that external clients are able to access applications running in OpenShift is through the OpenShift routing layer. And the data object behind that is a *Route*.
 
-中 *Services* 内部抽象化を行うし、負荷の分散、
-OpenShift 環境、時々 クライアント (ユーザー、システム、装置、等)
-* * 外 * * OpenShift のアプリケーションにアクセスする必要があります。方法、外部
-クライアントがアクセスできる OpenShift で実行されているアプリケーションは、
-OpenShift ルーティング層。データ オブジェクトの背後にあると、*Route*。
+OpenShift環境では*Servics* が内部抽象化と負荷分散を実現するので、OpenShiftの外部のクライアント (ユーザー、システム、装置、等) がアプリケーションにアクセスする必要があります。外部クライアントは、OpenShift で実行されているアプリケーションにアクセスする方法は、OpenShift ルーティング層を介してです。具体的には *Route* です。
+
+The default OpenShift router (HAProxy) uses the HTTP header of the incoming request to determine where to proxy the connection. You can optionally define security, such as TLS, for the *Route*. If you want your *Services*, and, by extension, your *Pods*,  to be accessible to the outside world, you need to create a *Route*.
 
 
-The default OpenShift router (HAProxy) uses the HTTP header of the incoming
-request to determine where to proxy the connection. You can optionally define
-security, such as TLS, for the *Route*. If you want your *Services*, and, by
-extension, your *Pods*,  to be accessible to the outside world, you need to
-create a *Route*.
-
-デフォルトルータ OpenShift (HAProxy) 受信の HTTP ヘッダーを使用して、
-プロキシ接続する場所を決定するを要求します。必要に応じて定義することができます。
-TLS など、セキュリティのため、*Route*。場合は、*Services* と、
-拡張、あなた *Pods*、外の世界にアクセスできるようにする必要があります
-作成する *Route*。
+既定の OpenShift ルーター (HAProxy) は、着信要求の http ヘッダーを使用して、接続のプロキシ先を決定します。必要に応じて、TLS などのセキュリティを *Route* に定義できます。あなたの *Service*、および、拡張機能によって、あなたの *Pod* は、外部の世界にアクセスできるようにする場合は、*Route* を作成する必要があります。
 
 
 #### Exercise: Creating a Route
 
-Fortunately, creating a *Route* is a pretty straight-forward process.  You simply
-`expose` the *Service* via the command line. Or, via the web console, just click
-the "Create Route" button associated with the service.
-幸いにも、作成する、*Route* はかなりまっすぐ進むプロセスです。 あなただけ
-サービスに関連付けられている「ルート作成」ボタン。
+Fortunately, creating a *Route* is a pretty straight-forward process.  You simply `expose` the *Service* via the command line. Or, via the web console, just click the "Create Route" button associated with the service.
+
+幸いにも、*Route* の作成はかなりまっすぐ進むプロセスです。 あなたは単にコマンドラインで`expose` *Service* とするだけ。または、web コンソール経由でサービスに関連付けられている「ルートの作成」ボタンをクリックしますします。
 
 First we want to verify that we don't already have any existing routes:
 
@@ -55,7 +37,7 @@ No resources found.
 
 Now we need to get the *Service* name to expose:
 
-取得する必要があります、*Services* を公開する名前。
+公開する *Service* の名前を取得する必要があります。
 
 [source]
 ----
@@ -67,7 +49,7 @@ parksmap   172.30.169.213   <none>        8080/TCP   5h
 
 Once we know the *Service* name, creating a *Route* is a simple one-command task:
 
-わかれば、*Services* 名、作成、*Route* は単純な 1 つのコマンド タスク。
+*Services* 名がわかってしまえば、*Route* の作成は単純な 1 つのコマンド タスク。
 
 [source]
 ----
@@ -88,15 +70,12 @@ parksmap   parksmap-{{EXPLORE_PROJECT_NAME}}{{USER_SUFFIX}}.{{ROUTER_ADDRESS}}  
 
 You can also verify the *Route* by looking at the project in the OpenShift web console:
 
-確認することができます、*Route* OpenShift web コンソールでプロジェクトを見ることによって。
+OpenShift web コンソールでプロジェクトを見ることによって *Route* を確認することができます。
 
 image::parksmap-route.png[Route]
 
-Pretty nifty, huh?  This application is now available at the URL shown in the
-web console. Click the link and you will see:
+Pretty nifty, huh?  This application is now available at the URL shown in the web console. Click the link and you will see:
 
-かなり気の利いたでしょ? このアプリケーションに示すように URL で使用可能な今、
-web コンソール。リンクをクリックしてが表示されます。
-
+かなり気が効いてるでしょ? このアプリケーションは、web コンソールに表示される URL で利用できるようになりました。リンクをクリックすると表示されます:
 
 image::parksmap-empty.png[Route]
