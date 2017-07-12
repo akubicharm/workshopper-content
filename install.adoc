@@ -7,6 +7,11 @@ to provide users with a nice interface to work with applications deployed to the
 platform.  The OpenShift tools are a single executable written in the Go
 programming language and is available for the following operating systems:
 
+機能豊富な web コンソールだけでなく、コマンドラインツールを使用して openshift 船
+に配置されたアプリケーションを操作するための素敵なインターフェイスをユーザーに提供するには、
+プラットフォーム. openshift ツールは、go で書かれた単一の実行可能ファイルです。
+プログラミング言語であり、次のオペレーティングシステムで使用できます。
+
 - Microsoft Windows
 - Apple OS X
 - Linux
@@ -29,6 +34,10 @@ operating system as linked below:
 Once the file has been downloaded, you will need to extract the contents as it
 is a compressed archive.  I would suggest saving this file to the following
 directories:
+
+一旦ファイルがダウンロードされたならば、あなたは、それとして内容を抽出する必要があるでしょう
+は圧縮されたアーカイブです。 私は次のようにこのファイルを保存することをお勧め
+ディレクトリ:
 
 **Windows:**
 
@@ -53,6 +62,7 @@ C:\OpenShift
 
 #### Extracting the tools
 Once you have the tools downloaded, you will need to extract the contents:
+一度ダウンロードしたツールがある場合は、コンテンツを抽出する必要があります:
 
 **Windows:**
 
@@ -61,10 +71,18 @@ installed on your system.  With newer versions of windows (greater than XP),
 this is provided by the operating system.  Just right click on the downloaded
 file using file explorer and select to extract the contents.
 
+windows 上で zip アーカイブを抽出するためには、zip ユーティリティが必要になります
+システムにインストールされています。 windows の新しいバージョン (xp より大きい) では、
+これは、オペレーティングシステムによって提供されます。 ダウンロードした上でちょうど右クリック
+ファイルエクスプローラーを使用して、コンテンツを抽出する] を選択します。
+
 **OS X:**
 
 Open up a terminal window and change to the directory where you downloaded the
 file.  Once you are in the directory, enter in the following command:
+
+ターミナルウィンドウを開き、ダウンロードしたディレクトリに移動します。
+ファイル. ディレクトリに移動したら、次のコマンドを入力します。
 
 [source,role=copypaste]
 ----
@@ -72,16 +90,23 @@ $ tar zxvf oc-macosx.tar.gz
 ----
 The tar.gz file name needs to be replaced by the entire name that was downloaded in the previous step.
 
+tar.gz ファイル名は、前の手順でダウンロードした名前全体に置き換える必要があります。
+
 **Linux:**
 
 Open up a terminal window and change to the directory where you downloaded the
 file.  Once you are in the directory, enter in the following command:
+
+ターミナルウィンドウを開き、ダウンロードしたディレクトリに移動します。
+ファイル. ディレクトリに移動したら、次のコマンドを入力します。
 
 [source,role=copypaste]
 ----
 $ tar zxvf oc-linux.tar.gz
 ----
 The tar.gz file name needs to be replaced by the entire name that was downloaded in the previous step.
+
+tar.gz ファイル名は、前の手順でダウンロードした名前全体に置き換える必要があります。
 
 
 #### Adding `oc` to your PATH
@@ -96,6 +121,15 @@ Click on the advanced tab, and then finally click on Environment variables.
 Once the new dialog opens, select the Path variable and add ";C:\OpenShift" at
 the end.  For an easy way out, you could always just copy it to C:\Windows or a
 directory you know is already on your path. For more detailed instructions:
+
+windows でのパスの変更はオペレーティングシステムのバージョンによって異なるため、
+ここでは、各オペレーティングシステムの一覧は表示されません。 ただし、一般的なワークフローは
+ファイルエクスプローラ内のコンピュータ名を右クリックします。 [詳細
+システム設定。私はあなたのパスを変更する高度なタスクと見なされると思いますか?:)
+[詳細設定] タブをクリックし、最後に [環境変数] をクリックします。
+新しいダイアログが開いたら、path 変数を選択して追加します。C:\OpenShift "で
+最後です。 簡単な方法については、いつでも c:\windows またはにコピーすることができます
+知っているディレクトリは既にパスにあります。詳細な手順については:
 
 https://support.microsoft.com/en-us/kb/310519[Windows XP]
 
@@ -125,12 +159,17 @@ $ export PATH=$PATH:~/OpenShift
 At this point, we should have the oc tool available for use.  Let's test this
 out by printing the version of the oc command:
 
+この時点で、oc ツールを使用できるようにする必要があります。 これをテストしましょう
+oc コマンドのバージョンを出力します。
+
 [source]
 ----
 $ oc version
 ----
 
 You should see the following (or something similar):
+
+次のようなものが表示されます。
 
 [source]
 ----
@@ -139,3 +178,6 @@ You should see the following (or something similar):
 
 If you get an error message, you have not updated your path correctly.  If you
 need help, raise your hand and the instructor will assist.
+
+エラーメッセージが表示された場合は、パスを正しく更新していません。 ば
+助けが必要、あなたの手を上げるとインストラクターが支援します。
