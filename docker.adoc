@@ -32,13 +32,10 @@ project" at the top of the screen.
 プロジェクト"画面の上部に。
 
 
-There are several options, but we are only concerned with "Deploy Image". Click
-it. We will learn more about image streams and image stream tags later. For now,
-select the "Image Name" option, and copy/paste the following into the box:
+There are several options, but we are only concerned with "Deploy Image". Click it. We will learn more about image streams and image stream tags later. For now, select the "Image Name" option, and copy/paste the following into the box: 
 
-いくつかのオプションがありますが、我々"Deploy Image"と懸念しています。クリックします。
-それは。後で画像ストリームと画像ストリームのタグについての詳細を学習します。今のところ
-「イメージ名」オプションを選択し、、コピー/貼り付けボックス次のよう。
+ここではいくつかのオプションがありますが、我々は "Deploy Image" にのみかかわっている。クリックします。我々は、後で画像ストリームとイメージストリームのタグの詳細について説明します。今のところ、"Image Name" オプションを選択し、次の箱に copy/pastee:
+
 
 
 [source]
@@ -89,7 +86,7 @@ a single non-exiting CMD to execute on start.
 受賞!これらのいくつかの手順は、「バニラ」を取得するために実行する必要があります唯一のもの
 港湾労働者フォーマット画像 OpenShift に展開します。 これは、動作するはずです。
 港湾労働者フォーマットのイメージの公開を定義するなど、ベスト プラクティス
-ポート、具体的に実行する必要がない、*ルート ユーザー* または他のユーザー名と
+ポート、具体的に実行する必要がない、*root user* または他のユーザー名と
 起動時に実行する単一非終了 CMD。
 
 
@@ -173,8 +170,8 @@ output readable, I suggest changing the output type to *YAML* using the
 following syntax:
 
 すべての上記の出力が表示されます、*Pods* 現在 *Project* など、
-*Pod** 名、状態、再起動、およびアップタイム。 *Pod* の名前、することができます
-に関するより多くの情報を取得します *Pod** を使用して、* oc get * コマンド。 ため、
+*Pod* 名、状態、再起動、およびアップタイム。 *Pod* の名前、することができます
+に関するより多くの情報を取得します *Pod* を使用して、*oc get* コマンド。 ため、
 読みやすい出力する出力の種類を変更します *YAML* を使用して、。
 次の構文:
 
@@ -279,7 +276,7 @@ them as endpoints to the *Service*, and the incoming requests would not notice
 anything different except that the *Service* was now doing a better job handling
 the requests.
 
-*Service* を検索する OpenShift 内の便利な抽象化レイヤーを提供します。
+*Services* を検索する OpenShift 内の便利な抽象化レイヤーを提供します。
 ようなのグループ *Pods*。 彼らは、間内部プロキシ/ロード バランサーとしても機能します。
 それら *Pods*、その他の中からアクセスする必要があります、
 OpenShift 環境。 たとえば、さらに公園マップ サーバーを必要とされる場合
@@ -355,7 +352,7 @@ fixed and never change for the life of the *Service*.
 
 In the web console, service information is available by clicking "Applications" and then clicking "Services" in the "Networking" submenu.
 
-web コンソールでは、*APplications* をクリックし、*Networking* サブメニューの *Services* をクリックして、サービス情報を入手できます。
+web コンソールでは、「Applications」 をクリックし、「Networking」 サブメニューの「Services」 をクリックして、サービス情報を入手できます。
 
 You can also get more detailed information about a *Service* by using the
 following command to display the data in YAML:
@@ -414,7 +411,7 @@ It is also of interest to view the JSON of the *Pod* to understand how OpenShift
 wires components together.  For example, run the following command to get the
 name of your `parksmap` *Pod*:
 
-それはまた興味の JSON を表示するのには、*Pod** を理解する方法 OpenShift
+それはまた興味の JSON を表示するのには、*Pod* を理解する方法 OpenShift
 コンポーネントを一緒に配線します。 たとえば、取得する次のコマンドを実行します
 あなたの `parksmap` の名前 *Pod*。
 
@@ -436,7 +433,7 @@ parksmap-1-hx0kv   1/1       Running   0          3h
 
 Now you can view the detailed data for your *Pod* with the following command:
 
-今の詳細データを表示することができます、*Pod** 次のコマンド。
+今の詳細データを表示することができます、*Pod* 次のコマンド。
 
 
 [source]
@@ -457,12 +454,8 @@ labels:
 ----
 
 * The *Service* has `selector` stanza that refers to `deploymentconfig=parksmap`.
-* The *Pod* has multiple *Labels*:
-** `deploymentconfig=parksmap`
-** `app=parksmap`
-** `deployment=parksmap-1`
-
 * *Service* を参照する `selector` スタンザには ' deploymentconfig = parksmap'。
+* The *Pod* has multiple *Labels*:
 * *Pod* は複数 *Labels*。
 ** `deploymentconfig=parksmap`
 ** `app=parksmap`
@@ -474,7 +467,7 @@ labels:
 matches the *Selector* will be associated with the *Service*. To see this in
 action, issue the following command:
 
-*Labels*、キー/値ペアだけです。 任意の*Pod* *Project* が、*Label* を
+*Labels*、key/value ペアだけです。 任意の*Pod* *Project* が、*Label* を
 一致する、*Selector* に関連付けられます、*Service*。 確認するには
 アクションは、次のコマンドを発行します。
 
@@ -501,12 +494,6 @@ Session Affinity:       None
 No events.
 ----
 
-You may be wondering why only one end point is listed. That is because there is
-only one *Pod* currently running.  In the next lab, we will learn how to scale
-an application, at which point you will be able to see multiple endpoints
-associated with the *Service*.
+You may be wondering why only one end point is listed. That is because there is only one *Pod* currently running.  In the next lab, we will learn how to scale an application, at which point you will be able to see multiple endpoints associated with the *Service*.
 
-のみ 1 つの終点を表示する理由を疑問に思うかもしれない。 あるためにであります。
-1 つだけ * * 現在実行されているポッド。 次の実習でスケーリングする方法を学習します
-アプリケーションは、その時点で複数のエンドポイントを参照してくださいすることができます。
-関連付けられている、*Service*。
+なぜ1つだけのエンドポイントが記載されて疑問に思うことがあります。これは1つだけ *Pod* 現在実行しているためです。 次の実習では、アプリケーションをスケーリングする方法を学習し、その時点で、*Service* に関連付けられた複数のエンドポイントを表示できるようにします。

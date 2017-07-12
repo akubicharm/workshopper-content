@@ -8,10 +8,10 @@ environment that has been provided for this Roadshow session.  In
 order to login, we will use the `oc` command and then specify the server that we
 want to authenticate to.  Issue the following command:
 
-我々は ' oc ' コマンドラインツールがされたことを確認するためにしたい最初の事
+我々は `oc` コマンドラインツールがされたことを確認するためにしたい最初の事
 インストールされ、正常に私たちのパスに追加された openshift にログインしている
 このロードショーセッションのために提供されている環境。 で
-ログインするためには、我々は ' oc ' コマンドを使用し、サーバーを指定します
+ログインするためには、我々は `oc` コマンドを使用し、サーバーを指定します
 を認証する必要があります。 次のコマンドを発行します
 
 [source]
@@ -39,10 +39,10 @@ corporate-standard CA that you already have installed on your system.
 
 潜在的に安全でない接続を使用するには、*Y* を入力してください。 受け取った理由
 このメッセージは、自己署名証明書を使用しているため
-ワークショップですが、生成された ca 証明書を提供しませんでした
+ワークショップですが、生成された CA 証明書を提供しませんでした
 で openshift。 現実世界のシナリオでは、openshift の証明書のいずれかが
-標準の ca (例: Thawte、ベリサイン、startssl など) によって署名されたか、または
-既にシステムにインストールされている企業標準の ca。
+標準の ca (例: Thawte、Verisign、StartSSL など) によって署名されたか、または
+既にシステムにインストールされている企業標準の CA。
 
 [NOTE]
 ====
@@ -50,7 +50,7 @@ On some versions of Microsoft Windows, you may get an error that the
 server has an invalid x.509 certificate.  If you receive this error, enter in
 the following command:
 
-一部のバージョンの microsoft windows では、エラーが発生することがあります。
+一部のバージョンの Microsoft Windows では、エラーが発生することがあります。
 サーバーに無効な x.509 証明書があります。 このエラーが表示された場合は、
 次のコマンド:
 
@@ -75,7 +75,7 @@ Password: {{USER_PASSWORD}}
 Once you have authenticated to the OpenShift server, you will see the
 following confirmation message:
 
-openshift サーバーへの認証が完了すると、次の確認メッセージが表示されます。
+OpenShift サーバーへの認証が完了すると、次の確認メッセージが表示されます。
 
 [source]
 ----
@@ -91,12 +91,11 @@ obtain OAuth access tokens to authenticate themselves to the API. By default
 your authorization token will last for 24 hours. There is more information about
 the login command and its configuration in the https://{{DOCS_URL}}/cli_reference/get_started_cli.html#basic-setup-and-login[OpenShift Documentation].
 
-おめでとう、あなたは今 openshift サーバーに認証されています。
-openshift マスターには、oauth サーバーが組み込まれています。開発者と管理者
-oauth アクセストークンを取得して、api を認証します。既定で
+おめでとう、あなたは今 OpenShift サーバーに認証されています。
+OpenShift マスターには、oauth サーバーが組み込まれています。開発者と管理者
+OAuth アクセストークンを取得して、API を認証します。既定で
 承認トークンは24時間持続します。詳細については、
-ログインコマンドとその構成は、https://{{DOCS_URL}}/cli_reference/get_started_cli.html#basic-setup
--and-login[openshift ドキュメント] にあります。
+ログインコマンドとその構成は、https://{{DOCS_URL}}/cli_reference/get_started_cli.html#basic-setup-and-login[openshift ドキュメント] にあります。
 
 ### Using a project
 
@@ -109,8 +108,8 @@ application services and endpoints you (or your teams) are using for your work.
 For this first lab, we are going to use a project named *smoke* that has been
 created and populated with an application for you.
 
-プロジェクトは、展開の整理に役立つトップレベルの概念です。、
-openshift プロジェクトは、ユーザー (またはユーザー) のコミュニティを整理し、管理することができます
+プロジェクトは、展開の整理に役立つトップレベルの概念です。
+OpenShift プロジェクトは、ユーザー (またはユーザー) のコミュニティを整理し、管理することができます
 他のコミュニティからの分離の彼らの内容。各プロジェクトには独自の
 リソース、ポリシー (アクションを実行できるかどうか)、および制約 (クォータ
 資源の制限など)。プロジェクトは、すべての周りの "ラッパー" として機能する
@@ -130,8 +129,8 @@ understand all of the terminology as we will cover it in detail in later labs.
 The first thing we want to do is create the *{{EXPLORE_PROJECT_NAME}}{{USER_SUFFIX}}*
 project. You can do this with the following command:
 
-まず、*{{EXPLORE_PROJECT_NAME}}{{USER_SUFFIX}}* を作成します。
-プロジェクト.これは、次のコマンドで行うことができます。
+まず、 *{{EXPLORE_PROJECT_NAME}}{{USER_SUFFIX}}* プロジェクトを作成します。
+これは、次のコマンドで行うことができます。
 
 [source,role=copypaste]
 ----
@@ -200,17 +199,9 @@ web コンソールを認証した後、
 
 image::explore-webconsole1.png[Web Console]
 
-Click on the *{{EXPLORE_PROJECT_NAME}}{{USER_SUFFIX}}* project. When you click on the
-*{{EXPLORE_PROJECT_NAME}}{{USER_SUFFIX}}* project, you will be taken to the project overview page
-which will list all of the routes, services, deployments, and pods that you have
-running as part of your project. There's nothing there now, but that's about to
-change.
+Click on the *{{EXPLORE_PROJECT_NAME}}{{USER_SUFFIX}}* project. When you click on the *{{EXPLORE_PROJECT_NAME}}{{USER_SUFFIX}}* project, you will be taken to the project overview page which will list all of the routes, services, deployments, and pods that you have running as part of your project. There's nothing there now, but that's about to change.
 
-*{{EXPLORE_PROJECT_NAME}}{{USER_SUFFIX}}* プロジェクトをクリックします。をクリックすると、
-*{{EXPLORE_PROJECT_NAME}}{{USER_SUFFIX}}}* プロジェクトの概要ページが表示されます。
-あなたが持っているすべてのルート、サービス、展開、およびポッドが一覧表示されます。
-プロジェクトの一部として実行されます。今は何もないけど、
-変更.
+*{{EXPLORE_PROJECT_NAME}}{{USER_SUFFIX}}* プロジェクトをクリックします。 *{{EXPLORE_PROJECT_NAME}}{{USER_SUFFIX}}}* プロジェクトをクリックすると、プロジェクトの一部として実行しているすべてのルート、サービス、デプロイ、およびポッドが一覧表示され、[プロジェクトの概要] ページに運ばれます。今は何もないが、それは変更することです。
 
 image::explore-webconsole2.png[Explore Project]
 
@@ -220,9 +211,9 @@ Lastly, the web console will show you an error: _An error occurred getting
 metrics._  We need to accept another self-signed certificate for OpenShift's metrics
 aggregation. If we don't, then the metrics will not display in the OpenShift UI.
 
-最後に、web コンソールにエラーが表示されます: _An エラーが発生しました。
-openshift のメトリックスに対して、別の自己署名証明書を受け入れる必要があります。
-集計.そうしないと、メトリックは openshift ui に表示されません。
+最後に、web コンソールにエラーが表示されます: エラーが発生しました。
+OpenShift のメトリックスに対して、別の自己署名証明書を受け入れる必要があります。
+集計.そうしないと、メトリックは OpenShift UI に表示されません。
 
 Click the link that says *Open metrics URL*, and accept the certificate.
 
