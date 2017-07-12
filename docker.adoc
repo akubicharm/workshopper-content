@@ -86,7 +86,7 @@ single operation.
 
 *Pods* can contain multiple Docker instances. The general idea is for a Pod to contain a "server" and any auxiliary services you want to run along with that server. Examples of containers you might put in a *Pod* are, an Apache HTTPD server, a log analyzer, and a file service to help manage uploaded files.
 
-* pod * には複数の docker インスタンスを含めることができます。一般的なアイデアは、ポッドの "サーバー" と、そのサーバーと一緒に実行する任意の補助サービスを含むようにしています。*Pod* に入れられるコンテナの例としては、apache httpd サーバ、ログアナライザ、アップロードしたファイルの管理に役立つファイルサービスなどがあります。
+*Pods* には複数の docker インスタンスを含めることができます。一般的なアイデアは、ポッドの "サーバー" と、そのサーバーと一緒に実行する任意の補助サービスを含むようにしています。*Pod* に入れられるコンテナの例としては、apache httpd サーバ、ログアナライザ、アップロードしたファイルの管理に役立つファイルサービスなどがあります。
 
 
 ### Exercise: Examining the Pod
@@ -335,8 +335,12 @@ labels:
 ----
 
 * The *Service* has `selector` stanza that refers to `deploymentconfig=parksmap`.
-* *Service* を参照する `selector` スタンザには ' deploymentconfig = parksmap'。
 * The *Pod* has multiple *Labels*:
+** `deploymentconfig=parksmap`
+** `app=parksmap`
+** `deployment=parksmap-1`
+
+* *Service* を参照する `selector` スタンザには ' deploymentconfig = parksmap'。
 * *Pod* は複数 *Labels*。
 ** `deploymentconfig=parksmap`
 ** `app=parksmap`

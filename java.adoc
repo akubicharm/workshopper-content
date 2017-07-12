@@ -84,6 +84,7 @@ http://{{GITLAB_URL_PREFIX}}.{{ROUTER_ADDRESS}}/{{GITLAB_USER}}/nationalparks/tr
 [NOTE]
 ====
 Your GitLab credentials are: *{{GITLAB_USER}}/{{GITLAB_PASSWORD}}*
+
 GitLab 資格情報です: *{{GITLAB_USER}}/{{GITLAB_PASSWORD}}*
 ====
 
@@ -195,21 +196,19 @@ $ oc logs -f builds/nationalparks-1
 
 After the build has completed and successfully:
 
-ビルドが完了した後、正常に。
 
 * The S2I process will push the resulting Docker-formatted image to the internal OpenShift registry
 * The *DeploymentConfiguration* (DC) will detect that the image has changed, and this will cause a new deployment to happen.
-
-* S2I プロセスは、内部 openshift レジストリに結果の docker フォーマットのイメージをプッシュします
-* *DeploymentConfiguration* (DC) はイメージが変更されたことを検出し、これにより新しい展開が発生します
-
-
 * A *ReplicationController* (RC) will be spawned for this new deployment.
 * The RC will detect no *Pods* are running and will cause one to be deployed, as our default replica count is just 1.
 
+
+ビルドが完了した後、正常に。
+
+* S2I プロセスは、内部 openshift レジストリに結果の docker フォーマットのイメージをプッシュします
+* *DeploymentConfiguration* (DC) はイメージが変更されたことを検出し、これにより新しい展開が発生します
 * *ReplicationController* (RC) は、この新しい展開のために生成されます。
 * RC は、私たちのデフォルトのレプリカ数はわずか1であるため、*Pod* が実行されていることを検出し、1つが展開される原因となります。
-
 
 In the end, when issuing the `oc get pods` command, you will see that the build Pod
 has finished (exited) and that an application *Pod* is in a ready and running state:

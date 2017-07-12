@@ -200,6 +200,7 @@ Based on these health checks, if OpenShift decided that our `parksmap` applicati
 More information on probing applications is available in the https://{{DOCS_URL}}/latest/dev_guide/application_health.html[Application Health] section of the documentation.
 
 徹底的なアプリケーションの詳細については https://{{DOCS_URL}}/latest/dev_guide/application_health.html[Application Health] で利用可能なドキュメントのセクション。
+
 ### Exercise: Scale Down
 
 Before we continue, go ahead and scale your application down to a single instance. Feel free to do this using whatever method you like.

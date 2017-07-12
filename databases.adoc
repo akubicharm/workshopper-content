@@ -39,11 +39,15 @@ As you've seen so far, the web console makes it very easy to deploy things onto 
 
 The database image is built in a way that it will automatically configure itself using the supplied information (assuming there is no data already present in the persistent storage!). The image will ensure that:
 
-データベースのイメージは、自動的に (永続的なストレージに存在するデータがないと仮定!) 指定された情報を使用して自分自身を設定するという方法で構築されます。画像を確認します。
-
 - A database exists with the specified name
 - A user exists with the specified name
 - The user can access the specified database with the specified password
+
+データベースのイメージは、自動的に (永続的なストレージに存在するデータがないと仮定!) 指定された情報を使用して自分自身を設定するという方法で構築されます。イメージを確認します。
+
+-指定した名前のデータベースが存在します
+-指定した名前のユーザーが存在する
+-指定されたパスワードで指定されたデータベースにアクセスできます
 
 In the web console in your `{{EXPLORE_PROJECT_NAME}}{{USER_SUFFIX}}` project, again click the *"Add to Project"* button. Click the *Data Stores* category.
 

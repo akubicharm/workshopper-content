@@ -223,10 +223,7 @@ You will see the following output:
 
 OpenShift will now:
 
-OpenShift は今は。
-
 * Configure and start a build
-
 * 構成し、ビルドを開始
 
 {% if USE_MAVEN %}
@@ -234,6 +231,8 @@ OpenShift は今は。
 ** Using the supplied Maven mirror URL
 
 ** 付属の Maven ミラー URL を使用してください。
+OpenShift は今は。
+
 
 {% endif %}
 
