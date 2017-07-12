@@ -7,7 +7,7 @@ from xml.etree.ElementTree import *
 
 
 def doTrans(str):
-   return len(str) > 0 and (str[0:1].isalnum() or str[0:1] == '*' ) and not checkKeyword(str)
+   return len(str) > 0 and (str[0:1].isalnum() or str[0:1] == '*' or str[0:1] == '`') and not checkKeyword(str)
    
 
 def checkKeyword(str):
@@ -17,13 +17,15 @@ def checkKeyword(str):
    s = re.match(r"\[", row)
    f = re.match(r"{", row)
    l = re.match(r".*link:", row)
-   if t or i or s or f or l:
+   w = re.match(r"WARNING:", row)
+   n = re.match(r"NOTE:", row)
+   if t or i or s or f or l or w or n:
       return True
    else:
       return False
 
 def checkBlock(str):
-   return re.match(r"-", row)
+   return re.match(r"----", row)
 
 #  Source text
 # word =  "it's true it's damn true."

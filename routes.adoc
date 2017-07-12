@@ -15,11 +15,11 @@ OpenShift environment, sometimes clients (users, systems, devices, etc.)
 clients are able to access applications running in OpenShift is through the
 OpenShift routing layer. And the data object behind that is a *Route*.
 
-中 * サービス * 内部抽象化を行うし、負荷の分散、
+中 *Services* 内部抽象化を行うし、負荷の分散、
 OpenShift 環境、時々 クライアント (ユーザー、システム、装置、等)
 * * 外 * * OpenShift のアプリケーションにアクセスする必要があります。方法、外部
 クライアントがアクセスできる OpenShift で実行されているアプリケーションは、
-OpenShift ルーティング層。データ オブジェクトの背後にあると、* ルート *。
+OpenShift ルーティング層。データ オブジェクトの背後にあると、*Route*。
 
 
 The default OpenShift router (HAProxy) uses the HTTP header of the incoming
@@ -30,20 +30,17 @@ create a *Route*.
 
 デフォルトルータ OpenShift (HAProxy) 受信の HTTP ヘッダーを使用して、
 プロキシ接続する場所を決定するを要求します。必要に応じて定義することができます。
-TLS など、セキュリティのため、* ルート *。場合は、* サービス * と、
-拡張、あなた * さや *、外の世界にアクセスできるようにする必要があります
-作成する * ルート *。
+TLS など、セキュリティのため、*Route*。場合は、*Services* と、
+拡張、あなた *Pods*、外の世界にアクセスできるようにする必要があります
+作成する *Route*。
 
 
 #### Exercise: Creating a Route
 
 Fortunately, creating a *Route* is a pretty straight-forward process.  You simply
 `expose` the *Service* via the command line. Or, via the web console, just click
-幸いにも、作成する、* ルート * はかなりまっすぐ進むプロセスです。 あなただけ
-
-
 the "Create Route" button associated with the service.
-
+幸いにも、作成する、*Route* はかなりまっすぐ進むプロセスです。 あなただけ
 サービスに関連付けられている「ルート作成」ボタン。
 
 First we want to verify that we don't already have any existing routes:
@@ -58,7 +55,7 @@ No resources found.
 
 Now we need to get the *Service* name to expose:
 
-取得する必要があります、* サービス * を公開する名前。
+取得する必要があります、*Services* を公開する名前。
 
 [source]
 ----
@@ -70,7 +67,7 @@ parksmap   172.30.169.213   <none>        8080/TCP   5h
 
 Once we know the *Service* name, creating a *Route* is a simple one-command task:
 
-わかれば、* サービス * 名、作成、* ルート * は単純な 1 つのコマンド タスク。
+わかれば、*Services* 名、作成、*Route* は単純な 1 つのコマンド タスク。
 
 [source]
 ----
@@ -80,7 +77,7 @@ route "parksmap" exposed
 
 Verify the *Route* was created with the following command:
 
-確認、* ルート * は次のコマンドで作成されました。
+確認、*Route* は次のコマンドで作成されました。
 
 [source]
 ----
@@ -91,7 +88,7 @@ parksmap   parksmap-{{EXPLORE_PROJECT_NAME}}{{USER_SUFFIX}}.{{ROUTER_ADDRESS}}  
 
 You can also verify the *Route* by looking at the project in the OpenShift web console:
 
-確認することができます、* ルート * OpenShift web コンソールでプロジェクトを見ることによって。
+確認することができます、*Route* OpenShift web コンソールでプロジェクトを見ることによって。
 
 image::parksmap-route.png[Route]
 

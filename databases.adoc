@@ -4,13 +4,10 @@
 In this lab, we're going to deploy a Mongo database that will be used to store
 the data for the `nationalparks` application. We will also connect the
 `nationalparks` service with the newly deployed Mongo database, so that the
-この演習では 'nationalparks' アプリケーションのデータを格納するために使用されます Mongo データベースを配置するつもりです。我々 は接続も、
-
-
 `nationalparks` service can load and query the database for the corresponding
 information.
 
-情報。
+この演習では `nationalparks` アプリケーションのデータを格納するために使用されます Mongo データベースを配置するつもりです。`nationalparks` サービスがロードしてについては、対応するデータベースを照会できるように `nationalparks` サービス新しく展開した Mongo データベースと接続もします。
 
 Finally, we will mark the `nationalparks` application as a backend for the map
 visualization tool, so that it can be dynamically discovered by the `parksmap`
@@ -28,8 +25,7 @@ usually achieved with a database or other data storage. In this next lab we are
 going to add MongoDB to our `nationalparks` application and then rewire it to
 talk to the database using environment variables.
 
-最も有用なアプリケーションは「ステートフル」または「動的」いくつかの方法で、これは通常データベースまたは他のデータ記憶域で達成です。'Nationalparks' アプリケーションを MongoDB を追加し、配線環境変数を使用してデータベースに相談するつもりですこの次の演習では。
-
+最も有用なアプリケーションは"ステートフル"または"動的"いくつかの方法で、これは通常データベースまたは他のデータ記憶域で達成です。`nationalparks` アプリケーションを MongoDB を追加し、配線環境変数を使用してデータベースに相談するつもりですこの次の演習では。
 
 We are going to use the MongoDB image that is included with OpenShift.
 
@@ -41,8 +37,7 @@ OpenShift's persistent storage mechanism to attach real-world storage (NFS,
 Gluster, EBS, etc) to the *Pods* to give them a persistent place to store their
 data.
 
-既定では、これを使用 * EmptyDir * 場合を意味するデータ ストレージ用、* ポッド * データが消える同様に行います。実際のアプリケーションを実環境におけるストレージ (NFS、Gluster、EBS など) を添付する OpenShift の永続ストレージ メカニズムを使用と、* さや * それらのデータの格納に永続的な場所を与えるため。
-
+既定では、これを使用 *EmptyDir* 場合を意味するデータ ストレージ用、*Pod* データが消える同様に行います。実際のアプリケーションを実環境におけるストレージ (NFS、Gluster、EBS など) を添付する OpenShift の永続ストレージ メカニズムを使用と、*Pods* それらのデータの格納に永続的な場所を与えるため。
 
 ### Background: Environment Variables
 
@@ -56,7 +51,6 @@ we are going to be setting are as follows:
 あなたがこれまで見てきたように web コンソール、OpenShift に物事を展開する非常に簡単になります。データベースに展開する場合我々 はいくつかの環境変数を渡します。
 これらの環境変数を使用して、ユーザー名、パスワード、およびデータベースの名前を設定します。 あなたが望む何かにこれらの環境変数の値を変更できます。 設定している変数は次のとおりです。
 
-
 - MONGODB_USER
 - MONGODB_PASSWORD
 - MONGODB_DATABASE
@@ -68,7 +62,6 @@ persistent storage!). The image will ensure that:
 
 データベースの画像は、自動的に (永続的なストレージに存在するデータがないと仮定!) 指定された情報を使用して自分自身を設定するという方法で構築されます。画像が確認します。
 
-
 - A database exists with the specified name
 - A user exists with the specified name
 - The user can access the specified database with the specified password
@@ -76,13 +69,13 @@ persistent storage!). The image will ensure that:
 In the web console in your `{{EXPLORE_PROJECT_NAME}}{{USER_SUFFIX}}` project,
 again click the *"Add to Project"* button. Click the *Data Stores* category.
 
+Web コンソールの `{{EXPLORE_PROJECT_NAME}}{{USER_SUFFIX}}` プロジェクトで、もう一度クリックして、*Add to Project* ボタン。クリックして、*Data Stores* カテゴリ。
+
 image::mongodb-datastores.png[Data Stores]
 
-Type `mongodb` in the search box, and then scroll down to find the *MongoDB
-(Ephemeral)* template, and click it.  You will notice that there are several
-MongoDB templates available, some of which come with application servers
-pre-configured.  We just need a database, though, so the ephemeral Mongo
-template is what you should choose.
+Type `mongodb` in the search box, and then scroll down to find the *MongoDB (Ephemeral)* template, and click it.  You will notice that there are several MongoDB templates available, some of which come with application servers pre-configured.  We just need a database, though, so the ephemeral Mongo template is what you should choose.
+
+検索ボックスに `mongodb` と入力し、下にスクロールして *MongoDB (Ephemeral)* テンプレートを見つけてクリックします。 使用可能な MongoDB テンプレートがいくつかあり、そのうちのいくつかがアプリケーションサーバーにあらかじめ構成されていることがわかります。 私たちは、しかし、データベースを必要とするので MongoDB(Ephemeral) テンプレートを選択する必要があります。
 
 image::ocp-mongodb-template.png[MongoDB]
 
@@ -93,11 +86,16 @@ parameters that can be customized. In our case, the parameters we are concerned
 with are the environment variables discussed -- user, password, database, and
 admin password.
 
+我々 は、アプリケーションのビルドを実行するとき、テンプレートはありませんでした。むしろ、我々は直接ビルダー イメージを選択、OpenShift が標準のビルド ワークフローのみを提示します。
+今我々 はテンプレートを使用しているリソースのセットがあらかじめパラメーターを含むカスタマイズことができます。私たちのケースで我々 はかかわっているパラメーターは、議論 - 環境変数ユーザー、パスワード、データベース、および管理者パスワードです。
+
 image::ocp-mongo-template-deploy.png[MongoDB]
 
 You can see that some of the fields say *"generated if empty"*. This is a
 feature of *Templates* in OpenShift that will be covered in the next lab. For
 now, be sure to use the following values in their respective fields:
+
+フィールドのいくつかが言うことを見ることができます *generated if empty*。これはの機能 *Templates* は、次の実習で説明 OpenShift で。今のところ、必ずそれぞれのフィールドで次の値を使用します。
 
 * `MONGODB_USER` : `mongodb`
 * `MONGODB_PASSWORD` : `mongodb`
@@ -108,14 +106,14 @@ You can leave the rest of the values as their defaults, and then click
 *"Create"*. Then click *Continue to overview*. The MongoDB instance should
 quickly be deployed.
 
+残りは既定値のままにしてをクリックして *"Create"*。クリックして *Continue to overview*。Mongo インスタンスは、迅速に展開する必要があります。
 
 image::mongo-group-db-1.png[Service Groups]
 
-You can group services in OpenShift Console in order to display related services
-together in one panel. Click on the chain icon on the right-top corner of the
-`nationalparks` service, choose `mongodb` from the drop-down list in the
-*Group Service to nationalparks* dialog and click on *OK*. The `nationalparks` and
- `mongodb` services are groups and displayed together.
+You can group services in OpenShift Console in order to display related services together in one panel. Click on the chain icon on the right-top corner of the `nationalparks` service, choose `mongodb` from the drop-down list in the *Group Service to nationalparks* dialog and click on *OK*. The `nationalparks` and `mongodb` services are groups and displayed together.  
+
+
+openshift console のサービスをグループ化して、関連するサービスを1つのパネルにまとめて表示することができます。`nationalparks` サービスの右上隅にあるチェーンアイコンをクリックし、*Group Service to nationalparks * ダイアログのドロップダウンリストから`mongodb`を選択し、*OK* をクリックします。`nationalparks` および `mongodb` サービスはグループであり、一緒に表示されます。
 
 image::mongo-group-db-2.png[Service Groups]
 
@@ -126,19 +124,23 @@ When we initially created the `nationalparks` application, we provided no enviro
 variables. The application is looking for a database, but can't find one, and it
 fails gracefully (you don't see an error).
 
+ときに我々 は当初、`nationalparks` アプリケーションを作成、我々 は環境変数提供されません。それは失敗し、アプリケーション データベースを探していますが、見つけることができません (エラーが表示されない)。
+
 We need to configure the `nationalparks` *Pod*(s) to have the right values in
 the right environment variables so that the application knows how and where to
 find MongoDB.
 
-If you think way back to the beginning of the labs, you will recall that a
-*DeploymentConfiguration* tells OpenShift how to deploy something. This includes
-things like what environment variables to configure. So, to set up the right
-environment variables, we simply need to modify the *DeploymentConfiguration*
-(DC).  This can easily be done from either the web interface or via the command
-line.
+我々 は `nationalparks` を設定する必要があります。アプリケーションは、方法や場所を知っているように、適切な環境変数に適切な値を持っている *Pod*(s) MongoDB を見つけよう。
+
+If you think way back to the beginning of the labs, you will recall that a *DeploymentConfiguration* tells OpenShift how to deploy something. This includes things like what environment variables to configure. So, to set up the right environment variables, we simply need to modify the *DeploymentConfiguration* (DC).  This can easily be done from either the web interface or via the command line.
+
+
+あなたは、ラボの先頭に戻る方法を考える場合は、*DeploymentConfiguration* は何かを展開する方法を openshift に指示することを思い出すでしょう。これには、構成する環境変数のようなものが含まれます。したがって、適切な環境変数を設定するには、単に *DeploymentConfiguration* (dc) を変更する必要があります。 これは、簡単に web インターフェイスまたはコマンドラインを介してから行うことができます。
 
 The command line takes a little less time, so let's use that option. First, find
 the name of the DC:
+
+コマンド ・ ラインは少し時間がかかります、そのオプションを使うことにしましょう。まず、DC の名前を見つけます。
 
 [source]
 ----
@@ -146,6 +148,8 @@ $ oc get dc
 ----
 
 Then, use the `oc env` command to set environment variables directly on the DC:
+
+その後、DC に直接環境変数を設定する `oc env` コマンドを使用します。
 
 [source]
 ----
@@ -155,12 +159,16 @@ $ oc env dc nationalparks -e MONGODB_USER=mongodb -e MONGODB_PASSWORD=mongodb -e
 After you have modified the *DeploymentConfig* object, you can verify the
 environment variables have been added by viewing the YAML for it:
 
+変更した後、*DeploymentConfig* オブジェクト、変数はそれの YAML の表示によって追加されている環境を確認できます。
+
 [source]
 ----
 $ oc get dc nationalparks -o yaml
 ----
 
 You should see the following section:
+
+次のセクションを参照してくださいする必要があります。
 
 [source]
 ----
@@ -191,13 +199,13 @@ MONGODB_SERVER_HOST=mongodb
 ----
 
 #### Exercise: Exploring OpenShift Magic
+
 As soon as we set the environment variables on the *DeploymentConfiguration*, some
 magic happened. OpenShift decided that this was a significant enough change to
 warrant updating the internal version number of the *DeploymentConfiguration*. You
 can verify this by looking at the output of `oc get dc`:
 
-我々 はの環境変数を設定するとすぐに、* DeploymentConfiguration * いくつかの魔法が起こった。決定したの内部バージョン番号の更新を保証する十分に大きな変化の OpenShift、* DeploymentConfiguration *。'Oc は、dc を得る' の出力を見ることによってこれを確認できます。
-
+我々 はの環境変数を設定するとすぐに、*DeploymentConfiguration* いくつかの魔法が起こった。決定したの内部バージョン番号の更新を保証する十分に大きな変化の OpenShift、*DeploymentConfiguration*。`oc get dc` の出力を見ることによってこれを確認できます。
 
 [source]
 ----
@@ -211,8 +219,7 @@ Something that increments the version of a *DeploymentConfiguration*, by default
 causes a new deployment. You can verify this by looking at the output of `oc get
 rc`:
 
-何かのバージョンをインクリメントする、* DeploymentConfiguration * 既定では、によって新しい展開。「Oc rc を得る' の出力を見ることによってこれを確認できます。
-
+何かのバージョンをインクリメントする、*DeploymentConfiguration* 既定では、によって新しい展開。`oc get rc` の出力を見ることによってこれを確認できます。
 
 [source]
 ----
@@ -228,16 +235,15 @@ is 0. The desired and current number of instances for the "-2" deployment is 1.
 This means that OpenShift has gracefully torn down our "old" application and
 stood up a "new" instance.
 
-「-1」展開のインスタンスの目的と現在の数が 0 であることがわかります。「-2」展開のインスタンスの目的と現在の数は 1 です。
-これは、OpenShift が正常に私たちの「古い」アプリケーションを引き裂かれた、「新しい」インスタンス立ち上がったことを意味します。
-
+"-1"展開のインスタンスの目的と現在の数が 0 であることがわかります。"-2"展開のインスタンスの目的と現在の数は 1 です。
+これは、OpenShift が正常に私たちの"古い"アプリケーションを引き裂かれた、"新しい"インスタンス立ち上がったことを意味します。
 
 #### Exercise: Data, Data, Everywhere
 
 Now that we have a database deployed, we can again visit the `nationalparks` web
 service to query for data:
 
-配備されているデータベースがあるので、我々 は再びデータのクエリに 'nationalparks' web サービスを訪れることができます。
+配備されているデータベースがあるので、我々 は再びデータのクエリに `nationalparks` web サービスを訪れることができます。
 
 [source]
 ----
@@ -253,12 +259,9 @@ And the result?
 []
 ----
 
-Where's the data? Think about the process you went through. You deployed the
-application and then deployed the database. Nothing actually loaded anything
-*INTO* the database, though.
+Where's the data? Think about the process you went through. You deployed the application and then deployed the database. Nothing actually loaded anything *INTO* the database, though.
 
-データはどこですかあなたが経験したプロセスについて考えます。アプリケーションを展開し、データベースを展開します。何も実際に何かをロード * に * データベースも。
-
+データはどこにありますか?あなたが通ったプロセスについて考えなさい。アプリケーションを展開し、データベースを配置します。何も実際には * データベースに何もロードされていない。
 
 The application provides an endpoint to do just that:
 
@@ -284,12 +287,11 @@ That's great. Our parks map should finally work!
 場合は、戻ることを '/ws/データ/すべて' 今 JSON データのトンが表示されます。
 素晴らしい。私達の公園の地図は最終的に働くべきです!
 
-
 NOTE: There's some errors reported with browsers like firefox 54 that don't properly parse the resulting JSON. It's
 a browser problem, and the application is working properly. 
 
-注: 結果として得られる JSON を正しく解析しない firefox 54 のようなブラウザーで報告されたいくつかのエラーがあります。ブラウザーの問題であり、アプリケーションが正常に動作します。
-
+NOTE: 結果の json を正しく解析しない firefox 54 のようなブラウザで報告されたいくつかのエラーがあります。それは
+ブラウザの問題、およびアプリケーションが正常に動作している。
 
 [source]
 ----
@@ -297,12 +299,10 @@ http://parksmap-{{EXPLORE_PROJECT_NAME}}{{USER_SUFFIX}}.{{ROUTER_ADDRESS}}
 ----
 
 Hmm... There's just one thing. The main map **STILL** isn't displaying the parks.
-That's because the front end parks map only tries to talk to services that have
-the right *Label*.
+That's because the front end parks map only tries to talk to services that have the right *Label*.
 
-んん。。。ちょうど 1 つの事があります。メインの地図 * * まだ * * 公園が表示されていません。
-それはフロント エンドの公園マップだけしようとする権利を有するサービスと通信するため * ラベル *。
-
+んん。。。1つだけです。メインマップはまだ * * 公園を表示していません。
+それは、フロントエンドの公園のマップは、正しい *Label* を持っているサービスに話をしようとするためです。
 
 [NOTE]
 ====
@@ -315,7 +315,6 @@ here:
 
 データベース接続が魔法のように作業を開始する方法あなたはおそらく疑問?OpenShift にアプリケーションを展開すると、常に依存してシステムへの接続を定義する環境変数を使用してお勧めします。 これにより、異なる環境でアプリケーションの移植性のため。 データベース スキーマを作成すると同様に、接続を実行するソース ファイルは、ここで表示できます。
 
-
 [source,role=copypaste]
 ----
 {% if PARKSMAP_PY %}
@@ -325,58 +324,46 @@ http://{{GITLAB_URL_PREFIX}}.{{ROUTER_ADDRESS}}/{{GITLAB_USER}}/nationalparks/bl
 {% endif %}
 ----
 
-In short summary: By referring to environment variables to connect to services
-(like databases), it can be trivial to promote applications throughout different
-要するに概要: サービスに接続するための環境変数を参照して
+In short summary: By referring to environment variables to connect to services (like databases), it can be trivial to promote applications throughout different lifecycle environments on OpenShift without having to modify application code.  
 
-lifecycle environments on OpenShift without having to modify application code.
+要約すると、(データベースのような) サービスに接続するための環境変数を参照することで、アプリケーションコードを変更することなく、openshift 上のさまざまなライフサイクル環境全体でアプリケーションを促進することは簡単です。
 
-アプリケーション コードを変更することがなく OpenShift のライフ サイクル環境。
-
-You can learn more about environment variables in the
-https://{{DOCS_URL}}/latest/dev_guide/environment_variables.html[environment
-variables] section of the Developer Guide.
+You can learn more about environment variables in the https://{{DOCS_URL}}/latest/dev_guide/environment_variables.html[environment variables] section of the Developer Guide.
 ====
 Https://{{DOCS_URL}}/latest/dev_guide/environment_variables.html[environment 変数の環境変数についての詳細を学ぶことができます] 開発者ガイドのセクション。
 
-
 #### Exercise: Working With Labels
 
-We explored how a *Label* is just a key=value pair earlier when looking at
-*Services* and *Routes* and *Selectors*. In general, a *Label* is simply an
-arbitrary key=value pair. It could be anything.
+We explored how a *Label* is just a key=value pair earlier when looking at *Services* and *Routes* and *Selectors*. In general, a *Label* is simply an arbitrary key=value pair. It could be anything.  
 
-我々 どのように探検、* ラベル * は、キー = 値ペアだけ以前見て * サービス * と * ルート * と * セレクター *。一般に、* ラベル * は、単に任意のキー = 値のペア。それは何もすることができます。
-
+我々は、*Label* は、*Services* と *Route* と *Selectors* を見ているときに、以前の key=value のペアだけである方法を検討した。一般的に、*Label* は単に任意の key=value のペアです。それは何でもよい。
 
 * `pizza=pepperoni`
 * `wicked=googly`
 * `openshift=awesome`
 
-* 'ピザ ペパロニを =' * '邪悪なぎょろ目を =' *' openshift = 素晴れらしい '
+In the case of the parks map, the application is actually querying the OpenShift API and asking about the *Routes* and *Services* in the project. If any of them have a *Label* that is `type=parksmap-backend`, the application knows to interrogate the endpoints to look for map data.
 
-In the case of the parks map, the application is actually querying the OpenShift
-API and asking about the *Routes* and *Services* in the project. If any of them have a
-*Label* that is `type=parksmap-backend`, the application knows to interrogate
-the endpoints to look for map data.
+公園マップの場合、アプリケーションは実際に openshift api を照会し、プロジェクトの *Routes* および *Services* について尋ねることになります。それらのいずれかが `type = parksmap-backend` である *Label* を持っている場合、アプリケーションは、マップデータを探すためにエンドポイントを尋問することを知っています。
+
 {% if PARKSMAP_PY %}
-公園マップの場合実際に OpenShift API のクエリを実行して、アプリケーションがについて尋ねること、* ルート * と * サービス * プロジェクトで。それらのいずれかがあれば、* ラベル * である ' 型 parksmap バックエンドを ='、アプリケーションが地図データを探すエンドポイントを尋問する知っています。
-
-
 You can see the code that does this link:https://github.com/openshift-roadshow/parksmap-web-py/blob/1.0.0/app.py#L97[here].
+
+あなたはこのリンクを行うコードを見ることができます: https://github.com/openshift-roadshow/parksmap-web-py/blob/1.0.0/app.py#L97 [ここ]。
 {% else %}
+
 You can see the code that does this
-link:https://github.com/openshift-roadshow/parksmap-web/blob/{{PARKSMAP_VERSION}}/src/main/java/com/openshift/evg/roadshow/rest/RouteWatcher.java#L20[here].
+
 これを行うコードを見ることができます。
 
+link:https://github.com/openshift-roadshow/parksmap-web/blob/{{PARKSMAP_VERSION}}/src/main/java/com/openshift/evg/roadshow/rest/RouteWatcher.java#L20[here].
 {% endif %}
 
 
 Fortunately, the command line provides a convenient way for us to manipulate
 labels. `describe` the `nationalparks` service:
 
-幸いなことに、コマンド ・ ラインは、私たちのラベルを操作するための便利な方法を提供します。'' 'nationalparks' サービスを説明します。
-
+幸いなことに、コマンド ・ ラインは、私たちのラベルを操作するための便利な方法を提供します。'describe` `nationalparks` サービスを説明します。
 
 [source]
 ----
@@ -400,8 +387,7 @@ Endpoints:              10.1.9.8:8080
 
 You see that it only has one label: `app=nationalparks`. Now, use `oc label`:
 
-あなたはのみ 1 つのラベルがあるを参照してください: ' アプリ = nationalparks'。今、'oc ラベル' を使用します。
-
+あなたはのみ 1 つのラベルがあるを参照してください: `app=nationalparks`。今、`oc label` を使用します。
 
 [source]
 ----
@@ -429,5 +415,5 @@ http://parksmap-{{EXPLORE_PROJECT_NAME}}{{USER_SUFFIX}}.{{ROUTER_ADDRESS}}/
 image::parksmap-new-parks.png[MongoDB]
 
 You'll notice that the parks suddenly are showing up. That's really cool!
-突然公園示していることがわかります。それは実際に涼しい!
 
+突然公園示していることがわかります。それは実際に涼しい!

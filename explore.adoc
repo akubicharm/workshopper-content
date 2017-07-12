@@ -8,21 +8,11 @@ environment that has been provided for this Roadshow session.  In
 order to login, we will use the `oc` command and then specify the server that we
 want to authenticate to.  Issue the following command:
 
-確実に私たちの 'oc' コマンド ライン ツールがインストールされ、正常に私たちのパスに追加したい最初のことは、このロードショー セッションで提供されています OpenShift 環境へのログインです。 ログイン、するために 'oc' コマンドを使用して、認証するサーバーを指定します。 次のコマンドを発行します。
-
-
 我々は ' oc ' コマンドラインツールがされたことを確認するためにしたい最初の事
 インストールされ、正常に私たちのパスに追加された openshift にログインしている
 このロードショーセッションのために提供されている環境。 で
 ログインするためには、我々は ' oc ' コマンドを使用し、サーバーを指定します
 を認証する必要があります。 次のコマンドを発行します
-
-我々は ' oc ' コマンドラインツールがされたことを確認するためにしたい最初の事
-インストールされ、正常に私たちのパスに追加された openshift にログインしている
-このロードショーセッションのために提供されている環境。 で
-ログインするためには、我々は ' oc ' コマンドを使用し、サーバーを指定します
-を認証する必要があります。 次のコマンドを発行します
-
 
 [source]
 ----
@@ -47,16 +37,6 @@ by OpenShift. In a real-world scenario, either OpenShift's certificate would be
 signed by a standard CA (eg: Thawte, Verisign, StartSSL, etc.) or signed by a
 corporate-standard CA that you already have installed on your system.
 
-入力 * Y * 可能性があります安全でない接続を使用します。 このメッセージが表示された理由は、我々 はこのワーク ショップでは、自己署名証明書を使用しているが、我々 は OpenShift によって生成された CA の証明書を提供しませんでした。現実世界のシナリオでどちらかの OpenShift の証明書は、標準の CA によって署名されるだろう (例えば: Thawte、Verisign、使用、等) またはあなたはあなたのシステムにインストールされている企業標準の CA によって署名されました。
-
-
-潜在的に安全でない接続を使用するには、*Y* を入力してください。 受け取った理由
-このメッセージは、自己署名証明書を使用しているため
-ワークショップですが、生成された ca 証明書を提供しませんでした
-で openshift。現実世界のシナリオでは、openshift の証明書のいずれかが
-標準の ca (例: Thawte、ベリサイン、startssl など) によって署名されたか、または
-既にシステムにインストールされている企業標準の ca。
-
 潜在的に安全でない接続を使用するには、*Y* を入力してください。 受け取った理由
 このメッセージは、自己署名証明書を使用しているため
 ワークショップですが、生成された ca 証明書を提供しませんでした
@@ -64,25 +44,15 @@ corporate-standard CA that you already have installed on your system.
 標準の ca (例: Thawte、ベリサイン、startssl など) によって署名されたか、または
 既にシステムにインストールされている企業標準の ca。
 
-
-
 [NOTE]
 ====
 On some versions of Microsoft Windows, you may get an error that the
 server has an invalid x.509 certificate.  If you receive this error, enter in
 the following command:
 
-Microsoft Windows の一部のバージョンで可能性がありますエラー メッセージが表示されるサーバーは、無効な x.509 証明書。 このエラーが発生する場合は、次のコマンドを入力します。
-
-
 一部のバージョンの microsoft windows では、エラーが発生することがあります。
 サーバーに無効な x.509 証明書があります。 このエラーが表示された場合は、
 次のコマンド:
-
-一部のバージョンの microsoft windows では、エラーが発生することがあります。
-サーバーに無効な x.509 証明書があります。 このエラーが表示された場合は、
-次のコマンド:
-
 
 [source]
 ----
@@ -93,14 +63,8 @@ $ oc login {{CONSOLE_ADDRESS}} --insecure-skip-tls-verify=true
 Once you issue the `oc login` command, you will be prompted for the username and
 password combination for your user account:
 
-'Oc ログイン' コマンドを実行した後、ユーザー アカウントのユーザー名とパスワードの組み合わせを求め。
-
 一旦あなたが `oc login` コマンドを発行すれば、あなたは、ユーザー名のために促されて、そして
 ユーザーアカウントのパスワードの組み合わせ:
-
-一旦あなたが `oc login` コマンドを発行すれば、あなたは、ユーザー名のために促されて、そして
-ユーザーアカウントのパスワードの組み合わせ:
-
 
 [source,role=copypaste]
 ----
@@ -111,12 +75,7 @@ Password: {{USER_PASSWORD}}
 Once you have authenticated to the OpenShift server, you will see the
 following confirmation message:
 
-あなたが OpenShift サーバーに認証されると、次の確認メッセージが表示されます。
-
 openshift サーバーへの認証が完了すると、次の確認メッセージが表示されます。
-
-openshift サーバーへの認証が完了すると、次の確認メッセージが表示されます。
-
 
 [source]
 ----
@@ -132,21 +91,12 @@ obtain OAuth access tokens to authenticate themselves to the API. By default
 your authorization token will last for 24 hours. There is more information about
 the login command and its configuration in the https://{{DOCS_URL}}/cli_reference/get_started_cli.html#basic-setup-and-login[OpenShift Documentation].
 
-おめでとう、あなたは今 OpenShift サーバーに認証されます。OpenShift マスターには、組み込みの OAuth サーバーが含まれています。開発者および管理者は、API に対して自己認証する OAuth アクセス トークンを取得します。既定では認証トークンが 24 時間の最後の。ある login コマンドと https://{{DOCS_URL}}/cli_reference/get_started_cli.html#basic-setup-and-login[OpenShift のドキュメントでその構成についての詳細]
-
-
 おめでとう、あなたは今 openshift サーバーに認証されています。
 openshift マスターには、oauth サーバーが組み込まれています。開発者と管理者
 oauth アクセストークンを取得して、api を認証します。既定で
 承認トークンは24時間持続します。詳細については、
-ログインコマンドとその構成は、https://{{DOCS_URL}} UR/cli_reference/get_started_cli.html # basic-セットアップアンドログイン [openshift ドキュメント] にあります。
-
-おめでとう、あなたは今 openshift サーバーに認証されています。
-openshift マスターには、oauth サーバーが組み込まれています。 開発者と管理者
-oauth アクセストークンを取得して、api を認証します。 既定で
-承認トークンは24時間持続します。 詳細については、
-ログインコマンドとその構成は、https://{{DOCS_URL}} UR/cli_reference/get_started_cli.html # basic-セットアップアンドログイン [openshift ドキュメント] にあります。
-
+ログインコマンドとその構成は、https://{{DOCS_URL}}/cli_reference/get_started_cli.html#basic-setup
+-and-login[openshift ドキュメント] にあります。
 
 ### Using a project
 
@@ -159,10 +109,6 @@ application services and endpoints you (or your teams) are using for your work.
 For this first lab, we are going to use a project named *smoke* that has been
 created and populated with an application for you.
 
-プロジェクトは、あなたの展開を整理するために最上位概念です。OpenShift プロジェクトでは、整理および他のコミュニティから単独で自分のコンテンツを管理するユーザー (またはユーザー) のコミュニティをことができます。各プロジェクトには独自のリソース (ユーザーことができますまたは実行できません) ポリシー、および制約 (制限およびリソースなど)。プロジェクトは、すべてのアプリケーション サービスとあなたの仕事のあなた (またはあなたのチーム) を使用してエンドポイントの「ラッパー」として機能します。
-この最初の演習のという名前のプロジェクトを使用している * 煙 * 作成されており、アプリケーションに設定されます。
-
-
 プロジェクトは、展開の整理に役立つトップレベルの概念です。、
 openshift プロジェクトは、ユーザー (またはユーザー) のコミュニティを整理し、管理することができます
 他のコミュニティからの分離の彼らの内容。各プロジェクトには独自の
@@ -172,45 +118,20 @@ openshift プロジェクトは、ユーザー (またはユーザー) のコミ
 この最初の研究室では、*smoke* という名前のプロジェクトを使用する予定です。
 アプリケーションを作成して設定します。
 
-プロジェクトは、展開の整理に役立つトップレベルの概念です。 、
-openshift プロジェクトは、ユーザー (またはユーザー) のコミュニティを整理し、管理することができます
-他のコミュニティからの分離の彼らの内容。 各プロジェクトには独自の
-リソース、ポリシー (アクションを実行できるかどうか)、および制約 (クォータ
-資源の制限など)。 プロジェクトは、すべての周りの "ラッパー" として機能する
-アプリケーションサービスとエンドポイント (またはチーム) は、作業に使用しています。
-この最初の研究室では、*smoke* という名前のプロジェクトを使用する予定です。
-アプリケーションを作成して設定します。
-
-
 During this lab, we are going to use a few different commands to make sure that
 things in the environment are working as expected.  Don't worry if you don't
 understand all of the terminology as we will cover it in detail in later labs.
 
-この実習では、我々 は環境で物事が期待どおりに動作しているかどうかを確認するいくつかの異なるコマンドを使用しています。 後の演習で詳しく取り上げるとあなたはすべての用語を理解していない場合心配しないでください。
-
-
 このラボでは、いくつかの異なるコマンドを使用して、
 環境のものは期待どおりに働いています。 あなたがいない場合は心配しないでください
 後の実習で詳しく説明するように、すべての用語を理解します。
-
-このラボでは、いくつかの異なるコマンドを使用して、
-環境のものは期待どおりに働いています。 あなたがいない場合は心配しないでください
-後の実習で詳しく説明するように、すべての用語を理解します。
-
 
 {% if NO_USER_PROJECT == true %}
 The first thing we want to do is create the *{{EXPLORE_PROJECT_NAME}}{{USER_SUFFIX}}*
 project. You can do this with the following command:
 
-我々 がしたいと思う最初の事は作成、* {{EXPLORE_PROJECT_NAME}} {{USER_SUFFIX}} * プロジェクト。以下のコマンドでこれを行うことができます。
-
-
-まず、* {{EXPLORE_PROJECT_NAME}} {{USER_SUFFIX}} を作成します。
+まず、*{{EXPLORE_PROJECT_NAME}}{{USER_SUFFIX}}* を作成します。
 プロジェクト.これは、次のコマンドで行うことができます。
-
-まず、* {{EXPLORE_PROJECT_NAME}} {{USER_SUFFIX}} を作成します。
-プロジェクト.これは、次のコマンドで行うことができます。
-
 
 [source,role=copypaste]
 ----
@@ -221,11 +142,6 @@ You will see the following confirmation message:
 
 次の確認メッセージが表示されます。
 
-次の確認メッセージが表示されます。
-
-次の確認メッセージが表示されます。
-
-
 [source]
 ----
 Now using project "{{EXPLORE_PROJECT_NAME}}{{USER_SUFFIX}}" on server "https://{{CONSOLE_ADDRESS}}".
@@ -234,15 +150,8 @@ Now using project "{{EXPLORE_PROJECT_NAME}}{{USER_SUFFIX}}" on server "https://{
 The first thing we want to do is switch to the *{{EXPLORE_PROJECT_NAME}}{{USER_SUFFIX}}* project. You
 can do this with the following command:
 
-我々 がしたいと思う最初の事に切り替える、* {{EXPLORE_PROJECT_NAME}} {{USER_SUFFIX}} * プロジェクト。以下のコマンドでこれを行うことができます。
-
-
-まず最初に、* {{EXPLORE_PROJECT_NAME}} {{USER_SUFFIX}}} プロジェクトに切り替えます。あなたが
+まず最初に、*{{EXPLORE_PROJECT_NAME}}{{USER_SUFFIX}}}* プロジェクトに切り替えます。あなたが
 次のコマンドでこれを行うことができます:
-
-まず最初に、* {{EXPLORE_PROJECT_NAME}} {{USER_SUFFIX}}} プロジェクトに切り替えます。 あなたが
-次のコマンドでこれを行うことができます:
-
 
 [source,role=copypaste]
 ----
@@ -252,11 +161,6 @@ $ oc project {{EXPLORE_PROJECT_NAME}}{{USER_SUFFIX}}
 You will see the following confirmation message:
 
 次の確認メッセージが表示されます。
-
-次の確認メッセージが表示されます。
-
-次の確認メッセージが表示されます。
-
 
 [source]
 ----
@@ -272,26 +176,11 @@ works, open your browser and go to the following URL:
 
 OpenShift は、ブラウザー経由でさまざまなタスクを実行するユーザーは、web ベースのコンソールに同梱されています。 Web コンソールの動作方法の感触を取得するためには、ブラウザーを開き、次の URL に行きなさい。
 
-
-openshift は、ユーザーができるようになります web ベースのコンソールで発送
-ブラウザを介してさまざまなタスクを実行します。 web コンソールの感触を得るには
-、ブラウザを開いて、次の url に移動します。
-openshift は、ユーザーができるようになります web ベースのコンソールで発送
-ブラウザを介してさまざまなタスクを実行します。 web コンソールの感触を得るには
-
-
-
 *link:https://{{CONSOLE_ADDRESS}}[]*
 
 The first screen you will see is the authentication screen.  Enter in the following credentials:
 
-最初の画面が表示されます、認証画面です。 次の資格情報を入力します。
-
-
 最初に表示される画面は認証画面です。 次の資格情報を入力します。
-
-最初に表示される画面は認証画面です。 次の資格情報を入力します。
-
 
 [source]
 ----
@@ -305,17 +194,9 @@ After you have authenticated to the web console, you will be presented with a
 list of projects that your user has permission to work with. You will see
 something that looks like the following image:
 
-あなたが web コンソールに認証されると、プロジェクトを操作する権限を持つユーザーの一覧が表示されます。あなたは次の画像のように見える何かを参照してください。
-
-
 web コンソールを認証した後、
 ユーザーが操作する権限を持つプロジェクトの一覧。見ていてください
 次のイメージのようなもの:
-
-web コンソールを認証した後、
-ユーザーが操作する権限を持つプロジェクトの一覧。 見ていてください
-次のイメージのようなもの:
-
 
 image::explore-webconsole1.png[Web Console]
 
@@ -325,21 +206,11 @@ which will list all of the routes, services, deployments, and pods that you have
 running as part of your project. There's nothing there now, but that's about to
 change.
 
-クリックして、* {{EXPLORE_PROJECT_NAME}} {{USER_SUFFIX}} * プロジェクト。クリックすると、* {{EXPLORE_PROJECT_NAME}} {{USER_SUFFIX}} * プロジェクト、あなたが表示されますすべてのルート、サービス、導入、およびポッド プロジェクトの一部として実行があることをリストするプロジェクトの概要ページ。今、何もないがあるが、それは約変更します。
-
-
-* {{EXPLORE_PROJECT_NAME}} {{USER_SUFFIX}} * プロジェクトをクリックします。をクリックすると、
-* {{EXPLORE_PROJECT_NAME}} {{USER_SUFFIX}}} プロジェクトの概要ページが表示されます。
+*{{EXPLORE_PROJECT_NAME}}{{USER_SUFFIX}}* プロジェクトをクリックします。をクリックすると、
+*{{EXPLORE_PROJECT_NAME}}{{USER_SUFFIX}}}* プロジェクトの概要ページが表示されます。
 あなたが持っているすべてのルート、サービス、展開、およびポッドが一覧表示されます。
 プロジェクトの一部として実行されます。今は何もないけど、
 変更.
-
-* {{EXPLORE_PROJECT_NAME}} {{USER_SUFFIX}} * プロジェクトをクリックします。 をクリックすると、
-* {{EXPLORE_PROJECT_NAME}} {{USER_SUFFIX}}} プロジェクトの概要ページが表示されます。
-あなたが持っているすべてのルート、サービス、展開、およびポッドが一覧表示されます。
-プロジェクトの一部として実行されます。 今は何もないけど、
-変更.
-
 
 image::explore-webconsole2.png[Explore Project]
 
@@ -349,42 +220,18 @@ Lastly, the web console will show you an error: _An error occurred getting
 metrics._  We need to accept another self-signed certificate for OpenShift's metrics
 aggregation. If we don't, then the metrics will not display in the OpenShift UI.
 
-最後に、web コンソールにエラーが表示されます: メトリックを取得 _An エラーが発生しました。 _ 別に同意しなければ自己 OpenShift のメトリックの集計の証明書に署名します。そうしないと、OpenShift の UI ではメトリックは表示されません。
-
-
 最後に、web コンソールにエラーが表示されます: _An エラーが発生しました。
 openshift のメトリックスに対して、別の自己署名証明書を受け入れる必要があります。
 集計.そうしないと、メトリックは openshift ui に表示されません。
-
-最後に、web コンソールにエラーが表示されます: _An エラーが発生しました。
-openshift のメトリックスに対して、別の自己署名証明書を受け入れる必要があります。
-集計.そうしないと、メトリックは openshift ui に表示されません。
-
 
 Click the link that says *Open metrics URL*, and accept the certificate.
 
-というリンクをクリックします * メトリック URL * を開き、証明書を受け入れます。
-
 *Open metrics URL* というリンクをクリックし、証明書を受け入れます。
-
-*Open metrics URL* というリンクをクリックし、証明書を受け入れます。
-
-
-
 
 {% endif %}
 
 We will be using a mix of command line tooling and the web console for the labs.
 Get ready!
 
-我々 は演習用コマンド ライン ツールおよび web コンソールのミックスを使用します。
-準備をして！
-
-
 ここでは、コマンドラインツールと、ラボ用の web コンソールを組み合わせて使用します。
 準備をして！
-
-ここでは、コマンドラインツールと、ラボ用の web コンソールを組み合わせて使用します。
-準備をして！
-
-

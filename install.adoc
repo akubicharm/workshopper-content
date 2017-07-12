@@ -7,17 +7,6 @@ to provide users with a nice interface to work with applications deployed to the
 platform.  The OpenShift tools are a single executable written in the Go
 programming language and is available for the following operating systems:
 
-コマンド ライン ツールと同様に、機能豊富な web コンソールが付属して OpenShift
-配置されたアプリケーションで動作するように素敵なインターフェイスをユーザーに提供する、
-プラットフォームです。 OpenShift ツールは、外出先で書かれた単一の実行可能
-プログラミング言語は、次のオペレーティング システムで利用可能。
-
-
-機能豊富な web コンソールだけでなく、コマンドラインツールを使用して openshift 船
-に配置されたアプリケーションを操作するための素敵なインターフェイスをユーザーに提供するには、
-プラットフォーム. openshift ツールは、go で書かれた単一の実行可能ファイルです。
-プログラミング言語であり、次のオペレーティングシステムで使用できます。
-
 機能豊富な web コンソールだけでなく、コマンドラインツールを使用して openshift 船
 に配置されたアプリケーションを操作するための素敵なインターフェイスをユーザーに提供するには、
 プラットフォーム. openshift ツールは、go で書かれた単一の実行可能ファイルです。
@@ -33,8 +22,15 @@ During this lab, we are going to download the client tool and add them to our
 operating system $PATH environment variables so the executable is accessible
 from any directory on the command line.
 
+この実習では、クライアントツールをダウンロードして、
+オペレーティングシステム $ path 環境変数実行可能ファイルがアクセス可能であるため
+コマンドライン上の任意のディレクトリから。
+
 The first thing we want to do is download the correct executable for your
 operating system as linked below:
+
+私たちがしたい最初のものは、あなたのための正しい実行可能ファイルをダウンロードすることです
+以下にリンクされているオペレーティングシステム:
 
 - {{DOWNLOAD_CLIENT_WINDOWS}}[Microsoft Windows]
 - {{DOWNLOAD_CLIENT_MAC}}[Apple OS X]

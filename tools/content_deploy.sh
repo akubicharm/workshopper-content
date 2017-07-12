@@ -1,5 +1,6 @@
 #!/bin/sh
-#oc login https://komizo-openshift34.japanwest.cloudapp.azure.com:8443/ -u joe -p redhat
+# get token
+# curl -k https://api.starter-us-east-1.openshift.com/oauth/token/request
 
 
 # ENVIRONMENT VARIABLS
@@ -15,7 +16,7 @@ WORKSHOPS_URLS=https://raw.githubusercontent.com/$GITHUB_REPOSITORY/workshopper-
 EOL
 
 
-#oc new-project workshop
-oc project workshop
+oc new-project komizows
+oc project komizows
 oc delete all --all
-oc new-app osevg/workshopper -n workshop --env-file=./workshopper.env
+oc new-app osevg/workshopper  --env-file=./workshopper.env
