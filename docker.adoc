@@ -3,6 +3,8 @@
 ### Application description
 In this lab, we're going to deploy the web component of the ParksMap application which is also called `parksmap` and uses OpenShift service discovery mechanism to discover the backend services deployed and shows their data on the map.
 
+この演習では、'parksmap' とも呼ばれますが、OpenShift サービス検索バックエンド サービスを検出するためのメカニズムを展開し、マップ上のデータを示していますを使用して、ParksMap アプリケーションの web コンポーネントを配置するつもり。
+
 image::roadshow-app-architecture-parksmap-1.png[Application architecture,800,align="center"]
 
 ### Exercise: Deploying your first Image
@@ -12,16 +14,33 @@ Docker-formatted image to run on OpenShift. This is incredibly simple to do.
 With {{OPENSHIFT_NAME}} {{OPENSHIFT_VERSION}} it can be done directly from the
 web console.
 
+Let's 可能な最も単純なことをやって起動 - 古い形式を取得
+OpenShift 上で実行する港湾労働者フォーマットのイメージ。これは信じられないほど簡単です。
+{{OPENSHIFT_NAME}} {{OPENSHIFT_VERSION}} とから直接行うことができます、
+web コンソール。
+
+
 Return to the web console:
+
+Web コンソールに戻ります。
 
 *link:https://{{CONSOLE_ADDRESS}}[]*
 
 Find your *{{EXPLORE_PROJECT_NAME}}{{USER_SUFFIX}}* project and click it. Next, click "Add to
 project" at the top of the screen.
 
+見つけるあなた * {{EXPLORE_PROJECT_NAME}} {{USER_SUFFIX}} * プロジェクトし、それをクリックします。次への追加」をクリックします。
+プロジェクト"画面の上部に。
+
+
 There are several options, but we are only concerned with "Deploy Image". Click
 it. We will learn more about image streams and image stream tags later. For now,
 select the "Image Name" option, and copy/paste the following into the box:
+
+いくつかのオプションがありますが、我々「展開イメージ」と懸念しています。クリックします。
+それは。後で画像ストリームと画像ストリームのタグについての詳細を学習します。今のところ
+「イメージ名」オプションを選択し、、コピー/貼り付けボックス次のよう。
+
 
 [source]
 ----
@@ -30,6 +49,8 @@ docker.io/openshiftroadshow/{{PARKSMAP_IMAGENAME}}:{{PARKSMAP_VERSION}}
 
 Your screen will end up looking something like this:
 
+あなたのスクリーンはこのような何かを探し終わる。
+
 image::parksmap-image.png[Explore Project]
 
 Either press *enter* or click on the magnifying glass. OpenShift will then go
@@ -37,9 +58,17 @@ out to the Docker registry specified and interrogate the image. You then are
 presented with some options to add things like environment variables, labels,
 and etc. -- which we will learn about later.
 
+押すか * 入力 * または虫眼鏡をクリックします。OpenShift が行く
+港湾労働者にレジストリを指定してイメージを調査します。あなたは、します。
+環境変数、ラベルのようなものを追加するいくつかのオプションが表示
+等--後について学びます。
+
+
 {% if PARKSMAP_PY %}
 
 For now, change the application name:
+
+今のところ、アプリケーションの名前を変更します。
 
 image::parksmap-image-options.png[Explore Project]
 
@@ -47,13 +76,24 @@ image::parksmap-image-options.png[Explore Project]
 
 Hit the blue "Create" button at the bottom of the screen and then click the
 "Continue to overview" link. Take a moment to look at the various messages that
+画面の下部に青色の「作成」ボタンを押すし、クリックして、
+
 you now see on the overview page.
+
+[概要] ページが表示されます。
 
 WINNING! These few steps are the only ones you need to run to get a "vanilla"
 Docker-formatted image deployed on OpenShift. This should work with any
 Docker-formatted image that follows best practices, such as defining an EXPOSE
 port, not needing to run specifically as the *root user* or other user name, and
 a single non-exiting CMD to execute on start.
+
+受賞!これらのいくつかの手順は、「バニラ」を取得するために実行する必要があります唯一のもの
+港湾労働者フォーマット画像 OpenShift に展開します。これは、動作するはずです。
+港湾労働者フォーマットのイメージの公開を定義するなど、ベスト プラクティス
+ポート、具体的に実行する必要がない、* ルート ユーザー * または他のユーザー名と
+起動時に実行する単一非終了 CMD。
+
 
 ### Background: Containers and Pods
 
@@ -63,9 +103,21 @@ and how it uses containers and *Pods*, we will not be covering the background on
 these technologies in this lab.  Instead, we will dive right in and start using
 them.
 
+理解しなければ掘り始める前にどのようにコンテナーと * さや * が
+関連しています。午前中のセッションを与え、OpenShift プラットフォームを話し合った
+コンテナーを使用する方法と、* さや * 我々 は説明しません、背景に
+この演習ではこれらの技術。 代わりに、私たちはダイビングで右とスタートを使用して
+それら。
+
+
 In OpenShift, the smallest deployable unit is a *Pod*. A *Pod* is a group of one or
 more Docker containers deployed together and guaranteed to be on the same host.
 From the doc:
+
+OpenShift、最小の配備可能なユニットは、* ポッド *。A * ポッド * は、1 つのグループまたは
+多くの港湾労働者の容器を一緒に導入し、同じホスト上にあります。
+Doc: から
+
 
 [source]
 ----
@@ -80,13 +132,26 @@ contain a "server" and any auxiliary services you want to run along with that
 server. Examples of containers you might put in a *Pod* are, an Apache HTTPD
 server, a log analyzer, and a file service to help manage uploaded files.
 
+* さや * 港湾労働者の複数のインスタンスを含めることができます。一般的な考えは、ポッドに
+「サーバー」およびそれと一緒に実行する補助サービスが含まれて
+サーバー。コンテナーにまとめることができますの例を * Apache HTTPD はポッド *、
+アップロードされたファイルを管理するためにサーバー、ログ解析、ファイル サービス。
+
+
 ### Exercise: Examining the Pod
 
 In the web console's overview page you will see that there is a single *Pod* that
 was created by your actions. This *Pod* contains a single container, which
 happens to be the parks map application - a simple Spring Boot/Java application.
 
+Web コンソールの概要ページに単一があることが表示されます * * ポッドを
+あなたの行動によって作成されました。これは、* ポッド * 単一のコンテナーが含まれていますが
+公園マップ アプリケーション - 簡単な春ブート/Java アプリケーションに発生します。
+
+
 You can also examine *Pods* from the command line:
+
+調べることができます * さや * コマンド行から。
 
 [source]
 ----
@@ -94,6 +159,8 @@ $ oc get pod
 ----
 
 You should see output that looks similar to:
+
+次のような出力が表示されます。
 
 [source]
 ----
@@ -107,7 +174,16 @@ get more information about the *Pod* using the *oc get* command.  To make the
 output readable, I suggest changing the output type to *YAML* using the
 following syntax:
 
+すべての上記の出力が表示されます、* さや * 現在 * プロジェクト * など、
+* ポッド * 名、状態、再起動、およびアップタイム。* ポッド * の名前、することができます
+に関するより多くの情報を取得します * ポッド * を使用して、* oc get * コマンド。 ため、
+読みやすい出力する出力の種類を変更します * YAML * を使用して、。
+次の構文:
+
+
 NOTE: Make sure you use the correct *Pod* name from your output.
+
+注: 必ず正しいを使用して * ポッド * あなたの出力からの名前。
 
 [source,role=copypaste]
 ----
@@ -116,6 +192,10 @@ $ oc get pod parksmap-1-hx0kv -o yaml
 
 You should see something like the following output (which has been truncated due
 to space considerations of this workshop manual):
+
+(これは期限切れて次の出力のようなものを参照してくださいする必要があります。
+スペース考察にこのワーク ショップ マニュアル)。
+
 
 [source]
 ----
@@ -147,6 +227,11 @@ The web interface also shows a lot of the same information on the *Pod* details
 page. If you click in the *Pod* circle, and then click the *Pod* name, you will
 find the details page. You can also get there by clicking "Applications", then
 "Pods", at the left, and then clicking the *Pod* name.
+Web インターフェイスはまたの同じ情報の多くを示しています、* ポッドの詳細
+ページ。クリックした場合、* ポッド * 円、しをクリック、* ポッド * 名、必要になります
+詳細ページを見つけます。あなたも行けるし、「アプリケーション」をクリックして
+
+
 
 Getting the parks map image running may take a little while to complete. Each
 OpenShift node that is asked to run the image has to pull (download) it if the
@@ -154,16 +239,34 @@ node does not already have it cached locally. You can check on the status of the
 image download and deployment in the *Pod* details page, or from the command
 line with the `oc get pods` command that you used before.
 
+公園マップ イメージの実行を取得を完了する少しの間がかかることがあります。各
+イメージを実行するように求められます OpenShift ノードは、プル (ダウンロード) それ場合、
+ノードいないそれをローカルにキャッシュします。状態を確認することができます、
+画像のダウンロードと展開、* ポッド * 詳細ページ、またはコマンドから
+以前使用していた 'oc は、ポッドを得る' コマンドで行。
+
+
 ### Background: A Little About the Docker Daemon
 
 Whenever OpenShift asks the node's Docker daemon to run an image, the Docker
 daemon will check to make sure it has the right "version" of the image to run.
 If it doesn't, it will pull it from the specified registry.
 
+OpenShift が、港湾労働者のイメージを実行するノードの港湾労働者デーモンを頼むたびに
+デーモンは、それが右の画像の「バージョン」を実行するかどうかを確認するチェックします。
+そうでない場合、それは指定したレジストリからそれを引くでしょう。
+
+
 There are a number of ways to customize this behavior. They are documented in
 https://{{DOCS_URL}}/latest/dev_guide/application_lifecycle/new_app.html#specifying-an-image[specifying an image]
 as well as
 https://{{DOCS_URL}}/latest/dev_guide/managing_images.html#image-pull-policy[image pullpolicy].
+
+この動作をカスタマイズする方法の数があります。彼らに記載されています
+https://{{DOCS_URL}}/latest/dev_guide/application_lifecycle/new_app.html#specifying-an-image[specifying 画像]
+同様
+https://{{DOCS_URL}}/latest/dev_guide/managing_images.html#image-pull-policy[image pullpolicy]。
+
 
 #### Background: Services
 
@@ -176,22 +279,53 @@ them as endpoints to the *Service*, and the incoming requests would not notice
 anything different except that the *Service* was now doing a better job handling
 the requests.
 
+* サービス * を検索する OpenShift 内の便利な抽象化レイヤーを提供します。
+ようなのグループ * さや *。彼らは、間内部プロキシ/ロード バランサーとしても機能します。
+それら * さや *、その他の中からアクセスする必要があります、
+OpenShift 環境。たとえば、さらに公園マップ サーバーを必要とされる場合
+負荷を処理よりスピン可能性があります * さや *。OpenShift が自動的にマップします。
+エンドポイントとしてそれら、* サービス * と着信要求に気付かないだろう
+何か違うことを除いて、* サービス * より良い仕事の処理をしていた今
+要求します。
+
+
 When you asked OpenShift to run the image, it automatically created a *Service*
 for you. Remember that services are an internal construct. They are not
 available to the "outside world", or anything that is outside the OpenShift
 environment. That's OK, as you will learn later.
 
+イメージを実行する OpenShift をされたら、それは自動的に作成され、* サービス *
+あなたに。サービスが内部コンス トラクターであることに注意してください。彼らはありません。
+「外の世界」や、OpenShift の外部にある何かに利用できます。
+環境。後で学びますので、OK です。
+
+
 The way that a *Service* maps to a set of *Pods* is via a system of *Labels* and
 *Selectors*. *Services* are assigned a fixed IP address and many ports and
 protocols can be mapped.
+
+* サービス * を一連のマップ * さや * のシステムを介して、* ラベル * と
+* セレクター *。* サービス * 割り当てられている固定の IP アドレスとポートに多く、
+プロトコルをマップすることができます。
+
 
 There is a lot more information about
 https://{{DOCS_URL}}/latest/architecture/core_concepts/pods_and_services.html#services[Services],
 including the YAML format to make one by hand, in the official documentation.
 
+についてより多くの情報があります。
+https://{{DOCS_URL}}/latest/architecture/core_concepts/pods_and_services.html#services[Services]
+YAML 形式を公式ドキュメントに、手で 1 つを含みます。
+
+
 Now that we understand the basics of what a *Service* is, let's take a look at
 the *Service* that was created for the image that we just deployed.  In order to
 view the *Services* defined in your *Project*, enter in the following command:
+
+今では私たちは何の基礎を理解して、* サービス * を見てみましょう、
+* サービス * 展開しましたイメージのために作成されました。 ために
+ビュー、* サービス * で定義されている、* プロジェクト *、次のコマンドを入力します。
+
 
 [source]
 ----
@@ -199,6 +333,8 @@ $ oc get services
 ----
 
 You should see output similar to the following:
+
+次のような出力が表示されます。
 
 [source]
 ----
@@ -211,11 +347,25 @@ IP/Port combination of 172.30.169.213/8080TCP. Your IP address may be different,
 each *Service* receives a unique IP address upon creation. *Service* IPs are
 fixed and never change for the life of the *Service*.
 
+上記の出力では、我々 は我々 が持っているを見ることができます、* サービス * 'parksmap' を付け、
+172.30.169.213/8080TCP の IP/ポートの組み合わせ。あなたの IP アドレスは、別のものかもしれません
+各 * サービス * の作成時に一意の IP アドレスを受け取ります。* サービス * ip アドレスします。
+固定し、の生活も変わらない、* サービス *。
+
+
 In the web console, service information is available by clicking "Applications"
 and then clicking "Services" in the "Networking" submenu.
 
+Web コンソールでサービス情報は、クリックして「アプリケーション」
+「ネットワー キング」のサブメニューで「サービス」をクリックして。
+
+
 You can also get more detailed information about a *Service* by using the
 following command to display the data in YAML:
+
+より詳細な情報を得ることができますも、* サービス * を使用して、
+YAML ではデータを表示する次のコマンド:
+
 
 [source]
 ----
@@ -223,6 +373,8 @@ $ oc get service parksmap -o yaml
 ----
 
 You should see output similar to the following:
+
+次のような出力が表示されます。
 
 [source]
 ----
@@ -256,9 +408,17 @@ status:
 
 Take note of the `selector` stanza. Remember it.
 
+'選択' スタンザの注意してください。それを覚えています。
+
+
 It is also of interest to view the JSON of the *Pod* to understand how OpenShift
 wires components together.  For example, run the following command to get the
 name of your `parksmap` *Pod*:
+
+それはまた興味の JSON を表示するのには、* ポッド * を理解する方法 OpenShift
+コンポーネントを一緒に配線します。 たとえば、取得する次のコマンドを実行します
+あなたの 'parksmap' の名前 * ポッド *。
+
 
 [source]
 ----
@@ -266,6 +426,8 @@ $ oc get pods
 ----
 
 You should see output similar to the following:
+
+次のような出力が表示されます。
 
 [source]
 ----
@@ -275,12 +437,16 @@ parksmap-1-hx0kv   1/1       Running   0          3h
 
 Now you can view the detailed data for your *Pod* with the following command:
 
+今の詳細データを表示することができます、* ポッド * 次のコマンド。
+
 [source]
 ----
 $ oc get pod parksmap-1-hx0kv -o yaml
 ----
 
 Under the `metadata` section you should see the following:
+
+'Metadata' セクションの下で、次を確認します。
 
 [source]
 ----
@@ -296,9 +462,21 @@ labels:
 ** `app=parksmap`
 ** `deployment=parksmap-1`
 
+*、* サービス * を参照する '選択' スタンザには ' deploymentconfig = parksmap'。
+*、* ポッド * は複数 * ラベル *。
+* * ' deploymentconfig = parksmap'
+* * ' アプリ = parksmap'
+* * ' 展開 parksmap 1 を ='
+
+
 *Labels* are just key/value pairs. Any *Pod* in this *Project* that has a *Label* that
 matches the *Selector* will be associated with the *Service*. To see this in
 action, issue the following command:
+
+* ラベル *、キー/値ペアだけです。任意 * このポッド * * プロジェクト * が、* ラベル * を
+一致する、* * セレクターに関連付けられます、* サービス *。確認するには
+アクションは、次のコマンドを発行します。
+
 
 [source]
 ----
@@ -306,6 +484,8 @@ $ oc describe service parksmap
 ----
 
 You should see something like the following output:
+
+次の出力のようなものを参照してくださいする必要があります。
 
 [source]
 ----
@@ -325,3 +505,8 @@ You may be wondering why only one end point is listed. That is because there is
 only one *Pod* currently running.  In the next lab, we will learn how to scale
 an application, at which point you will be able to see multiple endpoints
 associated with the *Service*.
+のみ 1 つの終点を表示する理由を疑問に思うかもしれない。あるためにであります。
+1 つだけ * * 現在実行されているポッド。 次の実習でスケーリングする方法を学習します
+アプリケーションは、その時点で複数のエンドポイントを参照してくださいすることができます。
+関連付けられている、* サービス *。
+

@@ -3,6 +3,8 @@
 ### Application description
 In this lab, we're going to make our application visible to the end users, so they can access it.
 
+この演習では、それにアクセスできるようにアプリケーションをエンド ・ ユーザーに表示されるようにするつもり。
+
 image::roadshow-app-architecture-parksmap-2.png[Application architecture,800,align="center"]
 
 ### Background: Routes
@@ -13,19 +15,40 @@ OpenShift environment, sometimes clients (users, systems, devices, etc.)
 clients are able to access applications running in OpenShift is through the
 OpenShift routing layer. And the data object behind that is a *Route*.
 
+中 * サービス * 内部抽象化を行うし、負荷の分散、
+OpenShift 環境、時々 クライアント (ユーザー、システム、装置、等)
+* * 外 * * OpenShift のアプリケーションにアクセスする必要があります。方法、外部
+クライアントがアクセスできる OpenShift で実行されているアプリケーションは、
+OpenShift ルーティング層。データ オブジェクトの背後にあると、* ルート *。
+
+
 The default OpenShift router (HAProxy) uses the HTTP header of the incoming
 request to determine where to proxy the connection. You can optionally define
 security, such as TLS, for the *Route*. If you want your *Services*, and, by
 extension, your *Pods*,  to be accessible to the outside world, you need to
 create a *Route*.
 
+デフォルトルータ OpenShift (HAProxy) 受信の HTTP ヘッダーを使用して、
+プロキシ接続する場所を決定するを要求します。必要に応じて定義することができます。
+TLS など、セキュリティのため、* ルート *。場合は、* サービス * と、
+拡張、あなた * さや *、外の世界にアクセスできるようにする必要があります
+作成する * ルート *。
+
+
 #### Exercise: Creating a Route
 
 Fortunately, creating a *Route* is a pretty straight-forward process.  You simply
 `expose` the *Service* via the command line. Or, via the web console, just click
+幸いにも、作成する、* ルート * はかなりまっすぐ進むプロセスです。 あなただけ
+
+
 the "Create Route" button associated with the service.
 
+サービスに関連付けられている「ルート作成」ボタン。
+
 First we want to verify that we don't already have any existing routes:
+
+まず、既存のルートがないことを確認します。
 
 [source]
 ----
@@ -34,6 +57,8 @@ No resources found.
 ----
 
 Now we need to get the *Service* name to expose:
+
+取得する必要があります、* サービス * を公開する名前。
 
 [source]
 ----
@@ -45,6 +70,8 @@ parksmap   172.30.169.213   <none>        8080/TCP   5h
 
 Once we know the *Service* name, creating a *Route* is a simple one-command task:
 
+わかれば、* サービス * 名、作成、* ルート * は単純な 1 つのコマンド タスク。
+
 [source]
 ----
 $ oc expose service parksmap
@@ -52,6 +79,8 @@ route "parksmap" exposed
 ----
 
 Verify the *Route* was created with the following command:
+
+確認、* ルート * は次のコマンドで作成されました。
 
 [source]
 ----
@@ -62,9 +91,15 @@ parksmap   parksmap-{{EXPLORE_PROJECT_NAME}}{{USER_SUFFIX}}.{{ROUTER_ADDRESS}}  
 
 You can also verify the *Route* by looking at the project in the OpenShift web console:
 
+確認することができます、* ルート * OpenShift web コンソールでプロジェクトを見ることによって。
+
 image::parksmap-route.png[Route]
 
 Pretty nifty, huh?  This application is now available at the URL shown in the
 web console. Click the link and you will see:
+
+かなり気の利いたでしょ? このアプリケーションに示すように URL で使用可能な今、
+web コンソール。リンクをクリックしてが表示されます。
+
 
 image::parksmap-empty.png[Route]

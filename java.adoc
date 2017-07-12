@@ -9,6 +9,15 @@ coordinates) that is stored in a Mongo database.  This application will also
 provide an external access point, so that the API provided can be directly used
 by the end user.
 
+この演習では、Java で開発、バックエンド サービスを展開するつもり
+ビジュアライザーに 2 主要な REST エンドポイントを公開するプログラミング言語
+アプリケーション (前の演習で配置された 'parksmap' web コンポーネント)。
+アプリケーションは、国立公園の情報を照会 (を含む
+座標) つまり Mongo データベースに格納されます。 このアプリケーションはまた、します。
+提供された API を直接使用することができます、外部のアクセス ポイントを提供します。
+エンド ・ ユーザー。
+
+
 image::roadshow-app-architecture-nationalparks-1.png[Application architecture,800,align="center"]
 
 ### Background: Source-to-Image (S2I)
@@ -17,8 +26,17 @@ In a previous lab, we learned how to deploy a pre-existing Docker-formatted
 image. Now we will expand on that a bit by learning how OpenShift builds a
 Docker images using source code from an existing repository.
 
+前の実習で既存港湾労働者フォーマットを展開する方法を学びました
+イメージ。我々 は、OpenShift をビルドする方法を学ぶことによってビットを展開、今、
+既存のリポジトリからソース コードを使用して港湾労働者のイメージ。
+
+
 https://github.com/openshift/source-to-image[Source-to-Image (S2I)] is another
 open source project sponsored by Red Hat. Its goal:
+
+https://github.com/openshift/source-to-image 【 ソース-に-イメージ (S2I) 】 は別
+オープン ソース プロジェクトは、Red Hat がスポンサーします。その目標:
+
 
 [source]
 ----
@@ -33,15 +51,31 @@ built artifacts, etc.
 OpenShift is S2I-enabled and can use S2I as one of its build mechanisms (in
 addition to building Docker images from Dockerfiles, and "custom" builds).
 
+OpenShift は、S2I-有効になっているし、(そのビルドのメカニズムの一つとして S2I を使用することができます。
+また Dockerfiles、および「カスタム」から港湾労働者のイメージを構築するビルド)。
+
+
 OpenShift runs the S2I process inside a special *Pod*, called a Build
 Pod, and thus builds are subject to quotas, limits, resource scheduling, and
 other aspects of OpenShift.
+
+OpenShift は、特別な内部 S2I プロセスを実行 * ポッド * と呼ばれるビルド
+クォータの制限、リソース スケジュール、予告なくポッド、およびこうしてビルドと
+OpenShift の他の側面。
+
 
 A full discussion of S2I is beyond the scope of this class, but you can find
 more information about it either in the
 https://{{DOCS_URL}}/latest/creating_images/s2i.html[OpenShift S2I documentation]
 or on GitHub (following the link above). The only key concept you need to
 remember about S2I is that it's magic.
+
+S2I の完全な説明は、このクラスの範囲を超えていますが、見つけることができます。
+詳細についてはそれについてのいずれか、
+https://{{DOCS_URL}}/latest/creating_images/s2i.html[OpenShift S2I マニュアル]
+または github では (上記のリンクに続く)。必要があります唯一の重要概念
+S2I について覚えている魔法です。
+
 
 ### Exercise: Creating a Java application
 
@@ -52,10 +86,22 @@ coordinates of all National Parks in the world. That was just a fancy way of
 saying that we are going to deploy a webservice that returns a JSON list of
 places.
 
+我々 はこの運動の一環として展開するバックエンド サービスは
+呼ばれる ' nationalparks'。 これは、2 D を実行する Java 春ブート アプリケーション
+MongoDB データベースを検索し、リターン マップに対する地理空間クエリ
+すべての国立公園の世界の座標。それだけ手の込んだやり方だった
+我々 はの JSON 一覧を返す web サービスを展開するいると言ってください。
+場所。
+
+
 #### Add to Project
 Because the `nationalparks` application is a back-end to serve data that our
 existing front-end will consume, we are going to build it inside the existing
 `{{EXPLORE_PROJECT_NAME}}{{USER_SUFFIX}}` project. And, we will do it from the web console.
+'Nationalparks' アプリケーションがバックエンドにデータを提供、
+既存のフロント エンドを消費するが、既存の内部にそれを構築しています。
+
+
 
 #### Using application code on embedded GitLab
 
@@ -64,8 +110,18 @@ GitLab, or any other server that speaks Git. You can even register webhooks in
 your Git server to initiate OpenShift builds triggered by any update to the
 application code!
 
+OpenShift は、アクセス可能な Git リポジトリを操作できます。GitHub、可能性があります。
+GitLab、または Git を話す他のサーバー。さらに webhooks を登録できます。
+あなたの Git サーバーに何らかの更新によってトリガーされる OpenShift ビルドを開始するため、
+アプリケーション コード!
+
+
 The repository that we are going to use is already cloned in the internal GitLab repository
 and located at the following URL:
+
+私達が使用しようとしているリポジトリが既に内部 GitLab リポジトリに複製します。
+次の URL にあります。
+
 
 [source,role=copypaste]
 ----
@@ -76,9 +132,15 @@ http://{{GITLAB_URL_PREFIX}}.{{ROUTER_ADDRESS}}/{{GITLAB_USER}}/nationalparks/tr
 ====
 Your GitLab credentials are: *{{GITLAB_USER}}/{{GITLAB_PASSWORD}}*
 ====
+GitLab 資格情報です: * {{GITLAB_USER}}/{{GITLAB_PASSWORD}} *
+
 
 Later in the lab, we want you to make a code change and then rebuild your
 application. This is a fairly simple Spring framework Java application.
+
+後の演習では、私たちはコードを変更し、再構築をしてほしい、
+アプリケーション。これは非常に単純なばねフレームワーク Java アプリケーションです。
+
 
 #### Build the Code on OpenShift
 
@@ -86,18 +148,35 @@ Similar to how we used "Add to project" before with a Docker-formatted image, we
 can do the same for specifying a source code repository. Since for this lab you
 have your own GitLab repository, let's use it with a simple Java S2I image.
 
+私たちを使用する「プロジェクトに追加」する前に港湾労働者フォーマットのイメージでは、似たような私たち
+ソース コードのリポジトリを指定する同じを行うことができます。以来、このラボの場合
+GitLab リポジトリは、単純な Java S2I イメージとそれを使ってみましょう。
+
+
 In the OpenShift web console, find your `{{EXPLORE_PROJECT_NAME}}{{USER_SUFFIX}}` project, and then
 click the *"Add to Project"* button. You will see a list of categories of
 runtimes, and other types of components that you can deploy and run on OpenShift.
 
+OpenShift web コンソールでは、'{{EXPLORE_PROJECT_NAME}} {{USER_SUFFIX}}' プロジェクトを見つけるし、
+クリックして、*「プロジェクトに追加」* ボタン。カテゴリの一覧が表示されます。
+ランタイム、および他の種類のコンポーネントを展開し、OpenShift で実行することができます。
+
+
 Type _"jdk"_ into the search box, and then select the item titled
 `redhat-openjdk18-openshift`.
+検索ボックスに「jdk のプロパティ」の _ _ を入力し、選択項目のタイトル
+
 
 image::ocp-runtimes.png[Runtimes]
 
 After you click `redhat-openjdk18-openshift`, on the next screen you will need
 to enter a name and a Git repository URL. For the name, enter `nationalparks`,
 and for the Git repository URL, enter:
+
+' Redhat-openjdk18-openshift' をクリックすると、次の画面でする必要があります。
+名前と Git のリポジトリ URL を入力します。名前は、'nationalparks' を入力してください。
+Git リポジトリの URL を入力してください。
+
 
 [source,role=copypaste]
 ----
@@ -107,6 +186,10 @@ http://{{GITLAB_URL_PREFIX}}.{{ROUTER_ADDRESS}}/{{GITLAB_USER}}/nationalparks.gi
 NOTE: All of these runtimes shown are made available via *Templates* and
 *ImageStreams*, which will be discussed in a later lab.
 
+注: すべて表示されますこれらのランタイムの作られています経由で利用できる * テンプレート * と
+* ImageStreams * は、後の演習で説明します。
+
+
 image::new-national-parks-1.png[Runtimes]
 
 These labs were written against specific points in time for these
@@ -114,6 +197,13 @@ applications. With Git as our version control system (VCS), we are using the
 concept of *Branches/Tags*. Click on *Show advanced routing, build, and deployment
 options*. In the *Git Reference* field enter "*{{NATIONALPARKS_VERSION}}*". This will cause the S2I
 process to grab that specific tag in the code repository.
+
+これらのラボはこれらのための時間の特定のポイントに対して書かれていた
+アプリケーション。Git のバージョン管理システム (VCS) として、我々 が使用している、
+概念 * ブランチ/タグ *。クリックして * 詳細なルーティング、ビルド、および配置
+オプション *。* Git 参照 * フィールドを入力してください"* {{NATIONALPARKS_VERSION}} *"。これにより、S2I をなります
+コード リポジトリにその特定のタグを取得するプロセス。
+
 
 image::nationalparks-tag.png[Runtimes]
 
@@ -124,12 +214,22 @@ that will cache your dependencies as you pull them down. To use it, you need to
 scroll down to *Build Configuration* and add an environment variable named
 *MAVEN_MIRROR_URL* with value
 `http://nexus.workshop-infra.svc.cluster.local:8081/content/groups/public`
+ビルド処理を高速化するには、Sonatype ネクサス サーバー環境で実行しています。
+プルダウンすると、依存関係をキャッシュします。それを使用する必要があります。
+下方向にスクロール * 構成の構築し、環境変数を追加
+* 値と MAVEN_MIRROR_URL *
+
+
 
 image::new-national-parks-2.png[Runtimes]
 {% endif %}
 
 You can then hit the button labeled *"Create"*. Then click *Continue to
 overview*. You will see this in the web console:
+
+ラベルの付いたボタンを打つことができます *「作成」*。クリックして * 続けます
+概要 *。これは、web コンソールに表示されます。
+
 
 [source]
 ----
@@ -142,7 +242,15 @@ Maven as the build and dependency system.  For this reason, the initial build
 will take a few minutes as Maven downloads all of the dependencies needed for
 the application. You can see all of this happening in real time!
 
+先に行くし、クリックして *「ログの表示」*。これは、Java ベースのアプリケーションを使用します。
+ビルド依存関係システムとして maven。 このため、初期のビルド
+Maven のすべての必要な依存関係のダウンロードは数分をかかります
+アプリケーションです。すべてリアルタイムでこれが起こっているを見ることができます!
+
+
 From the command line, you can also see the *Builds*:
+
+コマンド ・ ラインからも見ることができます、* ビルド *。
 
 [source]
 ----
@@ -150,6 +258,8 @@ $ oc get builds
 ----
 
 You'll see output like:
+
+ような出力が表示されます。
 
 [source]
 ----
@@ -159,6 +269,8 @@ nationalparks-1   Source    Git@b052ae6   Running    About a minute ago   1m2s
 
 You can also view the build logs with the following command:
 
+また、次のコマンドでビルド ログを表示できます。
+
 [source]
 ----
 $ oc logs -f builds/nationalparks-1
@@ -166,14 +278,28 @@ $ oc logs -f builds/nationalparks-1
 
 After the build has completed and successfully:
 
+ビルドが完了した後、正常に。
+
 * The S2I process will push the resulting Docker-formatted image to the internal OpenShift registry
 * The *DeploymentConfiguration* (DC) will detect that the image has changed, and this
   will cause a new deployment to happen.
+* S2I プロセスは内部の OpenShift レジストリに結果の港湾労働者でフォーマットされたイメージをプッシュします。
+*、* DeploymentConfiguration * (DC) を検出、イメージが変更されたこと、これ
+
+
 * A *ReplicationController* (RC) will be spawned for this new deployment.
 * The RC will detect no *Pods* are running and will cause one to be deployed, as our default replica count is just 1.
 
+* A * ReplicationController * (RC) 生成されますこの新しい展開。
+* RC は、なしを検出 * さや * を実行しているし、一号に展開する、私たちのデフォルトのレプリカとしてカウントはちょうど 1。
+
+
 In the end, when issuing the `oc get pods` command, you will see that the build Pod
 has finished (exited) and that an application *Pod* is in a ready and running state:
+
+最後に、oc はポッドを得るコマンドを発行するとき、ビルドがポッドが表示されます。
+(終了した) が終わりました、アプリケーション * ポッド * 準備と実行中の状態では。
+
 
 [source]
 ----
@@ -187,12 +313,19 @@ If you look again at the web console, you will notice that, when you create the
 application this way, OpenShift also creates a *Route* for you. You can see the
 URL in the web console, or via the command line:
 
+Web コンソールをもう一度見て場合に、気づくでしょうを作成するとき、
+アプリケーションこの方法で OpenShift が作成されますまた、* ルート * あなたのため。あなたが見ることができる、
+Web コンソールまたはコマンドライン経由での URL:
+
+
 [source]
 ----
 $ oc get routes
 ----
 
 Where you should see something like the following:
+
+次のようなが表示されます。
 
 [source]
 ----
@@ -202,6 +335,8 @@ parksmap        parksmap-{{EXPLORE_PROJECT_NAME}}{{USER_SUFFIX}}.{{ROUTER_ADDRES
 ----
 
 In the above example, the URL is:
+
+上記の例では、URL は。
 
 [source]
 ----
@@ -213,6 +348,12 @@ However, it can still be used with a browser. All back ends that work with the p
 front end are required to implement a `/ws/info/` endpoint. To test, the
 complete URL to enter in your browser is:
 
+これは、バックエンド アプリケーションなので、それは実際に web インターフェイスを持っていません。
+ただし、ブラウザーでまだ使用することができます。公園マップでの作業すべてのバックエンド
+フロント エンドを実装するために必要な '/ws/情報/' エンドポイント。テストするため、
+お使いのブラウザーに入力する完全な URL です。
+
+
 [source,role=copypaste]
 ----
 http://nationalparks-{{EXPLORE_PROJECT_NAME}}{{USER_SUFFIX}}.{{ROUTER_ADDRESS}}/ws/info/
@@ -220,7 +361,11 @@ http://nationalparks-{{EXPLORE_PROJECT_NAME}}{{USER_SUFFIX}}.{{ROUTER_ADDRESS}}/
 
 WARNING: The trailing slash is *required*.
 
+警告: 末尾のスラッシュは * 必要 *。
+
 You will see a simple JSON string:
+
+単純な JSON 文字列が表示されます。
 
 [source]
 ----
@@ -229,6 +374,8 @@ You will see a simple JSON string:
 
 Earlier we said:
 
+以前我々 は言った。
+
 [source]
 ----
 This is a Java Spring Boot application that performs 2D geo-spatial queries
@@ -236,3 +383,5 @@ against a MongoDB database
 ----
 
 But we don't have a database. Yet.
+しかし、我々 はデータベースを持っていません。まだ。
+
