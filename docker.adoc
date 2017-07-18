@@ -54,7 +54,7 @@ image::parksmap-image-options.png[Explore Project]
 
 Hit the blue "Create" button at the bottom of the screen and then click the "Continue to overview" link. Take a moment to look at the various messages that you now see on the overview page.
 
-画面の下部にある青色の "作成" ボタンをクリックし、"Continue to overview" リンクを押します。概要ページに表示されるさまざまなメッセージを見てみましょう。
+画面の下部にある青色の "Create" ボタンをクリックし、"Continue to overview" リンクを押します。概要ページに表示されるさまざまなメッセージを見てみましょう。
 
 WINNING! These few steps are the only ones you need to run to get a "vanilla"
 Docker-formatted image deployed on OpenShift. This should work with any
