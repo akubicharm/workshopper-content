@@ -6,6 +6,7 @@ roadshow:
     - docker
     - scaling
     - routes
+    - permissions
     - java
     - databases
     - templates
