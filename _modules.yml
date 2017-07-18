@@ -71,13 +71,13 @@ config:
       value: -userXY
     - name: GITLAB_URL_PREFIX
       desc: URL of the Gitlab instance to use
-      value: <gitlab>
+      value: gogs-lab0
     - name: GITLAB_USER
       desc: User's Gitlab username
-      value: userXY
+      value: dev
     - name: GITLAB_PASSWORD
       desc: User's Gitlab password
-      value: <password>
+      value: dev
     - name: NATIONALPARKS_VERSION
       desc: Version of nationalparks to use
       value: <version>
