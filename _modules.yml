@@ -39,10 +39,10 @@ config:
     - name: ETHERPAD_URL_PREFIX
       desc: Ethepad's URL prefix (<appname>-<project>)
       value: etherpad-workshop-infra
-    - name: DOWNLOAD_CLIENT_WINDOWS
+    - name: DOWNLOAD_CLIENT_WINDOWSXXX
       desc: URL to download oc client for Windows
       value: "https://github.com/openshift/origin/releases/download/v1.5.1/openshift-origin-client-tools-v1.5.1-7b451fc-windows.zip"
-    - name: DOWNLOAD_CLIENT_MAC
+    - name: DOWNLOAD_CLIENT_MACXXX
       desc: URL to download oc client for macOS
       value: "https://github.com/openshift/origin/releases/download/v1.5.1/openshift-origin-client-tools-v1.5.1-7b451fc-mac.zip"
     - name: DOWNLOAD_CLIENT_LIN32
