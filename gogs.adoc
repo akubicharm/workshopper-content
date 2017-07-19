@@ -16,12 +16,14 @@ wget http://bit.ly/openshift-gogs-template -O openshift-gogs-template.yaml
 ```
 ### テンプレートを使ってデプロイ
 
-1) OpenShiftのWebコンソールへログイン
+1. OpenShiftのWebコンソールへログイン
 
-2) プロジェクトの作成
+2. プロジェクトの作成
++
 Welcome to OpenShift画面の中央の「New Project」ボタンをクリックする。
 
-3) プロジェクト名の入力
+3. プロジェクト名の入力
++
 |===
 |フィールド|値|説明
 |Name(必須)|workshop-infra|プロジェクト名
@@ -29,17 +31,21 @@ Welcome to OpenShift画面の中央の「New Project」ボタンをクリック�
 |Description|(空白)|プロジェクトの説明
 |===
 
-4) デプロイ方法の選択
+4. デプロイ方法の選択
++
 画面上部のタブで「Import YAML/JSON」を選択
 
-5) YAML ファイルの指定
+5. YAML ファイルの指定
++
 「Browse」ボタンをクリックしてファイル選択ダイアログを表示。ダウンロードしておいたopenshift-gogs-template.yaml を選択。
 
-6) テンプレートを処理
+6. テンプレートを処理
++
 画面下部の「Create」ボタンをクリック。
 Add Template ダイアログで、「Process the Template」のチェックボックスにチェック。
 
-7) GOGSのデプロイ
+7. GOGSのデプロイ
++
 パラメータは変更せず、画面下部の「Create」ボタンをクリック。
 
 
@@ -52,14 +58,18 @@ Gogsのデプロイに時間がかかるため、何度かヘルスチェック�
 ### Ggosのユーザー登録
 ラボで利用するためのユーザを追加します。
 
-1) workshop-infra プロジェクトを選択
+1. workshop-infra プロジェクトを選択
 
-2) gogsのURLをクリック
+2. gogsのURLをクリック
++
+http://{{GITLAB_URL_PREFIX}}.{{ROUTER_ADDRESS}}/
 
-3) Gogs のダッシュボードで「Register」をクリック
+3. Gogs のダッシュボードで「Register」をクリック
 
-4) Sign Up情報を登録
+4. Sign Up情報を登録
++
 フィールドに値を入力し「Create New Account」ボタンをクリック
++
 |===
 |Username|dev
 |Email|dev@example.com
@@ -67,8 +77,10 @@ Gogsのデプロイに時間がかかるため、何度かヘルスチェック�
 |Re-Type|dev
 |===
 
-5) Sign In
+5. Sign In
++
 先ほど作成したユーザでログイン
++
 |===
 |Username or email|dev
 |Password|dev
@@ -77,9 +89,12 @@ Gogsのデプロイに時間がかかるため、何度かヘルスチェック�
 
 ### リポジトリ作成
 
-1) リポジトリの作成
+1. リポジトリの作成
++
 GogsのDashboard画面の「My Repositories」横にある「+」をクリック
++
 New Repository画面でフィールドに値を入力し、「Create Repository」ボタンをクリック
++
 |===
 |Owner|dev
 |Repository Name|nationalparks
@@ -88,27 +103,30 @@ New Repository画面でフィールドに値を入力し、「Create Repository�
 
 ### nationalparks のソースコードの登録
 
-1) nationalparksソースコード登録ようのJob定義をダウンロード
+1. nationalparksソースコード登録ようのJob定義をダウンロード
++
 ```
 wget https://raw.githubusercontent.com/akubicharm/workshop-setup/master/gitsetup/openshift/gitsetupjob.yaml
 ```
 
-2) OpenShiftのWebコンソールにログイン
+2. OpenShiftのWebコンソールにログイン
 
-3) workshop-infra プロジェクトを選択
+3. workshop-infra プロジェクトを選択
 
-4) 「Add to Project」ボタンをクリック
+4. 「Add to Project」ボタンをクリック
 
-5) デプロイ方法の選択
+5. デプロイ方法の選択
++
 画面上部のタブで「Import YAML/JSON」を選択
 
-6) YAML ファイルの指定
+6. YAML ファイルの指定
++
 「Browse」ボタンをクリックしてファイル選択ダイアログを表示。
++
 gitsetupjob.yaml を選択
 
-7) デプロイ
+7. デプロイ
++
 画面下部の「Create」ボタンをクリック
-
-
 
 作業が完了したら、Gogsのnationalparksリポジトリにソースコードが登録されていることを確認しましょう。
