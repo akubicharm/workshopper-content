@@ -324,3 +324,5 @@ modules:
       - demos_msa-pr-code-review-without-jbds
   demos_msa-continuous-security:
     name: Continuous Security Compliance for Containers
+  gogs:
+    name: Deploy Git repository

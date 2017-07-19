@@ -3,6 +3,7 @@ roadshow:
   modules:
     - install
     - explore
+    - gogs
     - docker
     - scaling
     - routes
