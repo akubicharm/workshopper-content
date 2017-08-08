@@ -46,7 +46,13 @@ Add Template ダイアログで、「Process the Template」のチェックボ�
 
 7. GOGSのデプロイ
 +
-パラメータは変更せず、画面下部の「Create」ボタンをクリック。
+|===
+|フィールド|値
+|HOSTNAME|gogs-<プロジェクト名>.<app prefix>
+|Skip TLS Verification|true
+|===
++
+その他のパラメータは変更せず、画面下部の「Create」ボタンをクリック。
 
 
 [NOTE]
@@ -130,3 +136,11 @@ gitsetupjob.yaml を選択
 画面下部の「Create」ボタンをクリック
 
 作業が完了したら、Gogsのnationalparksリポジトリにソースコードが登録されていることを確認しましょう。
+
+
+
+[NOTE]
+====
+Webhook がエラーになる場合は、Payloadの内容をファイルに保存し、以下のコマンドを実行
+curl -H "X-GitHub-Event: push" -H "Content-Type: application/json" -k -X POST --data-binary @github_payload_file.json https://<openshift_api_host:port>/oapi/v1/namespaces/<namespace>/buildconfigs/<name>/webhooks/<secret>/github
+====
