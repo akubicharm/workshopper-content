@@ -2,30 +2,33 @@
 
 ### Background: Deployment Configurations and Replication Controllers
 
-While *Services* provide routing and load balancing for *Pods*, which may go in and out of existence, *ReplicationControllers* (RC) are used to specify and then ensure the desired number of *Pods* (replicas) are in existence. For example, if you always want your application server to be scaled to 3 *Pods* (instances), a *ReplicationController* is needed. Without an RC, any *Pods* that are killed or somehow die/exit are not automatically restarted. *ReplicationControllers* are how OpenShift "self heals".
+[silver]#While *Services* provide routing and load balancing for *Pods*, which may go in and out of existence, *ReplicationControllers* (RC) are used to specify and then ensure the desired number of *Pods* (replicas) are in existence. For example, if you always want your application server to be scaled to 3 *Pods* (instances), a *ReplicationController* is needed. Without an RC, any *Pods* that are killed or somehow die/exit are not automatically restarted. *ReplicationControllers* are how OpenShift "self heals".#
 
 *Services* は、*Pods* のためのルーティングと負荷分散を提供しています, これは、存在すると出入りすることがあります, *ReplicationControllers* (RC) 指定して、必要な数を確保するために使用されている *Pods* (レプリカ) 存在している.たとえば、アプリケーションサーバーを常に 3 *Pods* (インスタンス) にスケーリングする場合は、*ReplicationController* が必要になります。RC がなければ、*Pods* kill されたり落ちてしまった場合に自動的に再起動されない。*ReplicationControllers* は OpenShift "自己治癒"の方法です。
 
-A *DeploymentConfiguration* (DC) defines how something in OpenShift should be deployed. From the https://{{DOCS_URL}}/latest/architecture/core_concepts/deployments.html#deployments-and-deployment-configurations[deployments documentation]:
+[silver]#A *DeploymentConfiguration* (DC) defines how something in OpenShift should be deployed. From the https://{{DOCS_URL}}/latest/architecture/core_concepts/deployments.html#deployments-and-deployment-configurations[deployments documentation]:#
 
 *DeploymentConfiguration* (DC)は OpenShift で何かの配置方法を定義します。Https://{{DOCS_URL}}/latest/architecture/core_concepts/deployments.html#deployments-and-deployment-configurations[deployments ドキュメント]: から
 
 [source]
 ----
-Building on replication controllers, OpenShift adds expanded support for the software development and deployment lifecycle with the concept of deployments.  In the simplest case, a deployment just creates a new replication controller and lets it start up pods. However, OpenShift deployments also provide the ability to transition from an existing deployment of an image to a new one and also define hooks to be run before or after creating the replication controller.
+[silver]#Building on replication controllers, OpenShift adds expanded support for the software development and deployment lifecycle with the concept of deployments.  In the simplest case, a deployment just creates a new replication controller and lets it start up pods. However, OpenShift deployments also provide the ability to transition from an existing deployment of an image to a new one and also define hooks to be run before or after creating the replication controller.#
+
+
+OpenShift は、レプリケーションコントローラを構築することにより、展開の概念に基づいて、ソフトウェア開発および展開のライフサイクルに対するサポートが拡張されます。 最も単純なケースでは、デプロイは新しいレプリケーションコントローラを作成するだけで、pod を起動することができます。ただし、OpenShift 展開では、イメージの既存の展開から新しい配置に移行したり、レプリケーションコントローラーを作成する前または後に実行するフックを定義したりすることもできます。
 ----
 
-In almost all cases, you will end up using the *Pod*, *Service*, *ReplicationController* and *DeploymentConfiguration* resources together. And, in almost all of those cases, OpenShift will create all of them for you.
+[silver]#In almost all cases, you will end up using the *Pod*, *Service*, *ReplicationController* and *DeploymentConfiguration* resources together. And, in almost all of those cases, OpenShift will create all of them for you.#
 
 ほぼすべてのケースで、*Pod*、*Service*、 *ReplicationController* と *DeploymentConfiguration* 利用されるリソースです。そして、ほとんどすべてのそれらの場合、OpenShift はあなたのためそれらのすべてが作成されます。
 
-There are some edge cases where you might want some *Pods* and an *RC* without a *DC* or a *Service*, and others, so feel free to ask us about them after the labs.
+[silver]#There are some edge cases where you might want some *Pods* and an *RC* without a *DC* or a *Service*, and others, so feel free to ask us about them after the labs.#
 
 いくつかのエッジ ケースをいくつか場合があります *Pods* と *RC*、*DC* または *Service*、および他ので気軽にお問合せください実習後。
 
 ### Exercise: Exploring Deployment-related Objects
 
-Now that we know the background of what a *ReplicatonController* and *DeploymentConfig* are, we can explore how they work and are related. Take a look at the *DeploymentConfig* (DC) that was created for you when you told OpenShift to stand up the `parksmap` image:
+[silver]#Now that we know the background of what a *ReplicatonController* and *DeploymentConfig* are, we can explore how they work and are related. Take a look at the *DeploymentConfig* (DC) that was created for you when you told OpenShift to stand up the `parksmap` image:#
 
 今、我々は *ReplicatonController* と *DeploymentConfig* が何であるかの背景を知っているので、我々は彼らがどのように動作し、関連している探索することができます。あなたのために作成された *DeploymentConfig* (dc) を見てみましょう OpenShift は、`parksmap` イメージを立ち上がるように言ったとき:
 
@@ -37,11 +40,11 @@ NAME       REVISION   DESIRED   CURRENT   TRIGGERED BY
 parksmap   1          1         1         config,image(parksmap:{{PARKSMAP_VERSION}})
 ----
 
-To get more details, we can look into the *ReplicationController* (*RC*).
+[silver]#To get more details, we can look into the *ReplicationController* (*RC*).#
 
 詳細を取得する我々 は調べることができます、*ReplicationController* (*RC*)。
 
-Take a look at the *ReplicationController* (RC) that was created for you when you told OpenShift to stand up the `parksmap` image:
+[silver]#Take a look at the *ReplicationController* (RC) that was created for you when you told OpenShift to stand up the `parksmap` image:#
 
 `parksmap` イメージ立ち上がるときに作成された *ReplicationController(RC)を見てみましょう。
 
@@ -53,20 +56,21 @@ NAME         DESIRED   CURRENT   READY     AGE
 parksmap-1   1         1         0         4h
 ----
 
-This lets us know that, right now, we expect one *Pod* to be deployed (`Desired`), and we have one *Pod* actually deployed (`Current`). By changing the desired number, we can tell OpenShift that we want more or less *Pods*.
+[silver]#This lets us know that, right now, we expect one *Pod* to be deployed (`Desired`), and we have one *Pod* actually deployed (`Current`). By changing the desired number, we can tell OpenShift that we want more or less *Pods*.#
 
 これは、私たちは、今、我々は 1 *Pod* (`Desired`) を展開することを期待し、1 *Pod* が配備 (`Current`) をされていることを知ることができます。所望の数を変更することにより、我々は多かれ少なかれ *Pod* の数を OpenShift に指示することができる。
 
-OpenShift's *HorizontalPodAutoscaler* effectively monitors the CPU usage of a set of instances and then manipulates the RCs accordingly.
+[silver]#OpenShift's *HorizontalPodAutoscaler* effectively monitors the CPU usage of a set of instances and then manipulates the RCs accordingly.#
 
 OpenShift の *HorizontalPodAutoscaler* 効果的に一連のインスタンスの CPU 使用率を監視し、それに応じて RCs を操作します。
 
-You can learn more about the CPU-based https://{{DOCS_URL}}/latest/dev_guide/pod_autoscaling.html[Horizontal Pod Autoscaler here]
+[silver]#You can learn more about the CPU-based https://{{DOCS_URL}}/latest/dev_guide/pod_autoscaling.html[Horizontal Pod Autoscaler here]#
 
 あなたは、CPU ベース https://{{DOCS_URL}}/latest/dev_guide/pod_autoscaling.html[Horizontal Pod Autoscaler]ついての詳細を学ぶことができます]
+
 ### Exercise: Scaling the Application
 
-Let's scale our parksmap "application" up to 2 instances. We can do this with the `scale` command. You could also do this by clicking the "up" arrow next to the *Pod* in the OpenShift web console on the overview page. It's your choice.
+[silver]#Let's scale our parksmap "application" up to 2 instances. We can do this with the `scale` command. You could also do this by clicking the "up" arrow next to the *Pod* in the OpenShift web console on the overview page. It's your choice.#
 
 私たちの parksmap の「アプリケーション」に 2 つのインスタンスを拡張しましょう。私たちは `scale` コマンドでこれを行うことができます。あなたが横に"up"の矢印をクリックしてこれを行うにも、*Pod* 概要のページに OpenShift web コンソールで。それはあなた次第です。
 
@@ -75,7 +79,7 @@ Let's scale our parksmap "application" up to 2 instances. We can do this with th
 $ oc scale --replicas=2 dc/parksmap
 ----
 
-To verify that we changed the number of replicas, issue the following command:
+[silver]#To verify that we changed the number of replicas, issue the following command:#
 
 レプリカの数を変更したことを確認するには、次のコマンドを発行します。
 
@@ -87,7 +91,7 @@ NAME         DESIRED   CURRENT   READY     AGE
 parksmap-1   2         2         0         4h
 ----
 
-You can see that we now have 2 replicas. Let's verify the number of pods with the `oc get pods` command:
+[silver]#You can see that we now have 2 replicas. Let's verify the number of pods with the `oc get pods` command:#
 
 今 2 のレプリカがあることがわかります。`oc get pods` コマンドでポッドの数を確認してみましょう。
 
@@ -100,7 +104,7 @@ parksmap-1-8g6lb   1/1       Running   0          1m
 parksmap-1-hx0kv   1/1       Running   0          4h
 ----
 
-And lastly, let's verify that the *Service* that we learned about in the previous lab accurately reflects two endpoints:
+[silver]#And lastly, let's verify that the *Service* that we learned about in the previous lab accurately reflects two endpoints:#
 
 最後に、*Service* に 2 つのエンドポイントが反映されます。
 
@@ -109,7 +113,7 @@ And lastly, let's verify that the *Service* that we learned about in the previou
 $ oc describe svc parksmap
 ----
 
-You will see something like the following output:
+[silver]#You will see something like the following output:#
 
 次の出力のようなものが表示されます。
 
@@ -127,7 +131,7 @@ Session Affinity:	None
 No events.
 ----
 
-Another way to look at a *Service*'s endpoints is with the following:
+[silver]#Another way to look at a *Service*'s endpoints is with the following:#
 
 別の方法を見て、*Service* のエンドポイントは次のように。
 
@@ -136,7 +140,7 @@ Another way to look at a *Service*'s endpoints is with the following:
 $ oc get endpoints parksmap
 ----
 
-And you will see something like the following:
+[silver]#And you will see something like the following:#
 
 次のようが表示されます。
 
@@ -146,27 +150,27 @@ NAME       ENDPOINTS                                   AGE
 parksmap   10.1.0.5:8080,10.1.1.5:8080                 4h
 ----
 
-Your IP addresses will likely be different, as each pod receives a unique IP within the OpenShift environment. The endpoint list is a quick way to see how many pods are behind a service.
+[silver]#Your IP addresses will likely be different, as each pod receives a unique IP within the OpenShift environment. The endpoint list is a quick way to see how many pods are behind a service.#
 
 各ポッドは OpenShift 環境内で一意の IP を受信すると、IP アドレスは異なる、でしょう。エンドポイント リスト サービスの背後にあるどのように多くのポッドを確認する簡単な方法です。
 
-You can also see that both *Pods* are running using the web console:
+[silver]#You can also see that both *Pods* are running using the web console:#
 
 web コンソールを使用して。実行中の両方の *Pods* を表示することができます。
 
 image::parksmap-scaled.png[Scaling]
 
-Overall, that's how simple it is to scale an application (*Pods* in a *Service*). Application scaling can happen extremely quickly because OpenShift is just launching new instances of an existing image, especially if that image is already cached on the node.
+[silver]#Overall, that's how simple it is to scale an application (*Pods* in a *Service*). Application scaling can happen extremely quickly because OpenShift is just launching new instances of an existing image, especially if that image is already cached on the node.#
 
 全体的に、アプリケーションの拡張にそれがいかに簡単である (*Service* の配下の *Pod*)。アプリケーションのスケーリングが起きると非常に迅速には OpenShift が既存のイメージの新しいインスタンスを起動する。ちょうどそのイメージはノードに既にキャッシュされている場合は特に。
 
 ### Application "Self Healing"
 
-Because OpenShift's *RCs* are constantly monitoring to see that the desired number of *Pods* actually is running, you might also expect that OpenShift will "fix" the situation if it is ever not right. You would be correct!
+[silver]#Because OpenShift's *RCs* are constantly monitoring to see that the desired number of *Pods* actually is running, you might also expect that OpenShift will "fix" the situation if it is ever not right. You would be correct!#
 
 OpenShift の *RCs* 常に監視していることを確認する必要な数の *Pods* 実際に実行中に、OpenShift が「修正」の状況を期待するかもしれないも右はこれまで。あなたは正しいだろう!
 
-Since we have two *Pods* running right now, let's see what happens if we "accidentally" kill one. Run the `oc get pods` command again, and choose a *Pod* name. Then, do the following:
+[silver]#Since we have two *Pods* running right now, let's see what happens if we "accidentally" kill one. Run the `oc get pods` command again, and choose a *Pod* name. Then, do the following:#
 
 我々 は 2 つを持っているので *Pods* 今、実行して何が起こるか見てみましょう我々 は「偶然」1 つを殺す場合。`oc get pods`コマンドを再度実行し、選択、*Pod* の名前。その後、次の操作を行います。
 
@@ -181,28 +185,28 @@ parksmap-1-q4b4r   0/1       ContainerCreating   0          1s
 parksmap-1-vdkd9   1/1       Running             0          32s
 ----
 
-Did you notice anything? There is a container being terminated (the one we deleted), and there's a new container already being created.
+[silver]#Did you notice anything? There is a container being terminated (the one we deleted), and there's a new container already being created.#
 
 何かに気づきましたか。(削除 1) 終了コンテナーが、既に作成された新しいコンテナーがあります。
 
-Also, the names of the *Pods* are slightly changed.  That's because OpenShift almost immediately detected that the current state (1 *Pod*) didn't match the desired state (2 *Pods*), and it fixed it by scheduling another *Pod*.
+[silver]#Also, the names of the *Pods* are slightly changed.  That's because OpenShift almost immediately detected that the current state (1 *Pod*) didn't match the desired state (2 *Pods*), and it fixed it by scheduling another *Pod*.#
 
 またの名前、*Pods* が少し変更されました。 OpenShift はほとんどすぐに検出するためである現在の状態 (1 *Pod*) 目的の状態を一致していない (2 *Pods*)、それは別のスケジューリングによってそれを固定 *Pod*。
 
-Additionally, OpenShift provides rudimentary capabilities around checking the liveness and/or readiness of application instances. If the basic checks are insufficient, OpenShift also allows you to run a command inside the container in order to perform the check. That command could be a complicated script that uses any installed language.
+[silver]#Additionally, OpenShift provides rudimentary capabilities around checking the liveness and/or readiness of application instances. If the basic checks are insufficient, OpenShift also allows you to run a command inside the container in order to perform the check. That command could be a complicated script that uses any installed language.#
 
 さらに、OpenShift は、アプリケーションインスタンスの liveness / readiness をチェックするための初歩的な機能を提供します。基本チェックが不十分な場合、OpenShift では、チェックを実行するためにコンテナ内でコマンドを実行することもできます。このコマンドは、インストールされている言語を使用する複雑なスクリプトである可能性があります。
 
-Based on these health checks, if OpenShift decided that our `parksmap` application instance wasn't alive, it would kill the instance and then restart it, always ensuring that the desired number of replicas was in place.
+[silver]#Based on these health checks, if OpenShift decided that our `parksmap` application instance wasn't alive, it would kill the instance and then restart it, always ensuring that the desired number of replicas was in place.#
 
 これらのヘルスチェックに基づいて OpenShift が `parksmap` アプリケーション インスタンスが生きていないことを決定した場合、インスタンスを殺すや再起動する、常に確保目的のレプリカ数が適所にあったなります。
 
-More information on probing applications is available in the https://{{DOCS_URL}}/latest/dev_guide/application_health.html[Application Health] section of the documentation.
+[silver]#More information on probing applications is available in the https://{{DOCS_URL}}/latest/dev_guide/application_health.html[Application Health] section of the documentation.#
 
 徹底的なアプリケーションの詳細については https://{{DOCS_URL}}/latest/dev_guide/application_health.html[Application Health] で利用可能なドキュメントのセクション。
 
 ### Exercise: Scale Down
 
-Before we continue, go ahead and scale your application down to a single instance. Feel free to do this using whatever method you like.
+[silver]#Before we continue, go ahead and scale your application down to a single instance. Feel free to do this using whatever method you like.#
 
 我々 は続行する前に、先に行くし、1 つのインスタンスにアプリケーションがスケール アップします。気軽にお好きな方法を使用してこれを行います。
