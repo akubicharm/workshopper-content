@@ -89,7 +89,7 @@ GitLab 資格情報です: *{{GITLAB_USER}}/{{GITLAB_PASSWORD}}*
 [silver]#Later in the lab, we want you to make a code change and then rebuild your application. This is a fairly simple Spring framework Java application.#
 
 後の演習では、私たちはコードを変更し、再構築をしてほしい、
-アプリケーション。これは非常に単純なばねフレームワーク Java アプリケーションです。
+アプリケーション。これは非常に単純な Spring フレームワーク Java アプリケーションです。
 
 
 #### Build the Code on OpenShift
@@ -210,8 +210,8 @@ $ oc logs -f builds/nationalparks-1
 
 [silver]#In the end, when issuing the `oc get pods` command, you will see that the build Pod has finished (exited) and that an application *Pod* is in a ready and running state:#
 
-最後に、oc はポッドを得るコマンドを発行するとき、ビルドがポッドが表示されます。
-(終了した) が終わりました、アプリケーション *Pod* 準備と実行中の状態では。
+
+最後に、`oc get pod` コマンドを発行すると、ビルドポッドが終了し、アプリケーションポッドが ready および実行状態になっていることがわかります。
 
 
 [source]

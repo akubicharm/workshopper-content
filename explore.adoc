@@ -100,7 +100,7 @@ Now using project "{{EXPLORE_PROJECT_NAME}}{{USER_SUFFIX}}" on server "https://{
 {% else %}
 [silver]#The first thing we want to do is switch to the *{{EXPLORE_PROJECT_NAME}}{{USER_SUFFIX}}* project. You can do this with the following command:#
 
-まず最初に、*{{EXPLORE_PROJECT_NAME}}{{USER_SUFFIX}}}* プロジェクトに切り替えます。あなたが次のコマンドでこれを行うことができます:
+まず最初に、*{{EXPLORE_PROJECT_NAME}}{{USER_SUFFIX}}* プロジェクトに切り替えます。あなたが次のコマンドでこれを行うことができます:
 
 [source,role=copypaste]
 ----

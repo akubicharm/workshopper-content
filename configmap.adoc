@@ -7,18 +7,19 @@ configuration files and command line arguments. These configuration artifacts
 should be externalized form the application and the docker image content in
 order to keep the image portable across environments.
 
-In link:databases[previous labs], the `nationalparks` application was configured
-with database credentials using environment variables. While environment
-variables is a useful way to configure applications, it is difficult to manage
-hundreds of environment variables which are scattered across various containers
-in a project. Fortunately, there is a convenient and platform-independent
-mechanism in OpenShift to configure applications, which is called `ConfigMap`.
+ほとんどのアプリケーションでは、環境変数、構成ファイルとコマンドライン引数を使用して構成が必要。これらの構成アーティファクトは、環境間でのイメージの移植性を維持するために、アプリケーションと docker イメージコンテンツを外部形式にする必要があります。
 
-The `ConfigMap` object in OpenShift provides mechanisms to provide configuration
-data to the application container while keeping the application images both
-portable across environments and independent of OpenShift Container Platform. A
-`ConfigMap` can be used to store key-value properties, configuration files, JSON
-blobs and alike.
+In link:databases[previous labs], the `nationalparks` application was configured with database credentials using environment variables. 
+While environment variables is a useful way to configure applications, it is difficult to manage hundreds of environment variables which are scattered across various containers in a project. 
+Fortunately, there is a convenient and platform-independent mechanism in OpenShift to configure applications, which is called `ConfigMap`.
+
+以前のlink:databases[演習]では、`nationalparks` アプリケーションは環境変数を使用してデータベース資格情報で構成されていました。
+環境変数はアプリケーションを構成するのに便利な方法ですが、プロジェクト内のさまざまなコンテナに散在する数百の環境変数を管理することは困難です。
+さいわい、OpenShift には、「ConfigMap」と呼ばれるアプリケーションを構成するための、便利でプラットフォームに依存しないメカニズムがあります。
+
+The `ConfigMap` object in OpenShift provides mechanisms to provide configuration data to the application container while keeping the application images both portable across environments and independent of OpenShift Container Platform. A `ConfigMap` can be used to store key-value properties, configuration files, JSON blobs and alike.
+
+OpenShift の ' ConfigMap ' オブジェクトは、アプリケーションイメージを環境間で移植し、OpenShift コンテナプラットフォームとは無関係に、アプリケーションコンテナに構成データを提供するメカニズムを提供します。' ConfigMap ' は、キーと値のプロパティ、構成ファイル、JSON blob などを格納するために使用できます。
 
 In this lab, you will replace the environment variables provided in the
 link:databases[previous labs] and use a `ConfigMap` instead to configure the

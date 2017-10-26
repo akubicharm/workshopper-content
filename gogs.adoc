@@ -95,48 +95,21 @@ http://{{GITLAB_URL_PREFIX}}.{{ROUTER_ADDRESS}}/
 
 ### リポジトリ作成
 
-1. リポジトリの作成
+1. nationalparks のリポジトリをインポート
 +
 GogsのDashboard画面の「My Repositories」横にある「+」をクリック
 +
-New Repository画面でフィールドに値を入力し、「Create Repository」ボタンをクリック
+「New Migration」をボタンをクリック
 +
 |===
+|Clone Address|https://github.com/akubicharm/nationalparks
 |Owner|dev
 |Repository Name|nationalparks
+|Visibility|チェックしない
+|Migration Type|チェックしない
 |===
-
-
-### nationalparks のソースコードの登録
-
-1. nationalparksソースコード登録ようのJob定義をダウンロード
 +
-```
-wget https://raw.githubusercontent.com/akubicharm/workshop-setup/master/gitsetup/openshift/gitsetupjob.yaml
-```
-
-2. OpenShiftのWebコンソールにログイン
-
-3. workshop-infra プロジェクトを選択
-
-4. 「Add to Project」ボタンをクリック
-
-5. デプロイ方法の選択
-+
-画面上部のタブで「Import YAML/JSON」を選択
-
-6. YAML ファイルの指定
-+
-「Browse」ボタンをクリックしてファイル選択ダイアログを表示。
-+
-gitsetupjob.yaml を選択
-
-7. デプロイ
-+
-画面下部の「Create」ボタンをクリック
-
-作業が完了したら、Gogsのnationalparksリポジトリにソースコードが登録されていることを確認しましょう。
-
+上記を入力後、「Migrate Repository」ボタンをクリック
 
 
 [NOTE]

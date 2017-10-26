@@ -45,9 +45,9 @@ image::roadshow-app-architecture-nationalparks-2.png[Application architecture,80
 
 データベースのイメージは、自動的に (永続的なストレージに存在するデータがないと仮定!) 指定された情報を使用して自分自身を設定するという方法で構築されます。イメージを確認します。
 
--指定した名前のデータベースが存在します
--指定した名前のユーザーが存在する
--指定されたパスワードで指定されたデータベースにアクセスできます
+- 指定した名前のデータベースが存在します
+- 指定した名前のユーザーが存在する
+- 指定されたパスワードで指定されたデータベースにアクセスできます
 
 [silver]#In the web console in your `{{EXPLORE_PROJECT_NAME}}{{USER_SUFFIX}}` project, again click the *"Add to Project"* button. Click the *Data Stores* category.#
 
@@ -72,10 +72,14 @@ image::ocp-mongo-template-deploy.png[MongoDB]
 
 あなたは、フィールドの一部が *"generated if empty"* と言うことがわかります。これは、次のラボでカバーされる OpenShift の *Templates* の機能です。ここでは、それぞれのフィールドに次の値を使用してください。
 
-* `MONGODB_USER` : `mongodb`
-* `MONGODB_PASSWORD` : `mongodb`
-* `MONGODB_DATABASE`: `mongodb`
-* `MONGODB_ADMIN_PASSWORD` : `mongodb`
+
+|===
+| パラメータ名|環境変数名|値
+|MongoDB Connection Username|`MONGODB_USER`|`mongodb`
+|MongoDB Connection Password| `MONGODB_PASSWORD`|`mongodb`
+|MongoDB Database Name| `MONGODB_DATABASE`|`mongodb`
+|MongoDB Admin Password| `MONGODB_ADMIN_PASSWORD`|`mongodb`
+|===
 
 [silver]#You can leave the rest of the values as their defaults, and then click *"Create"*. Then click *Continue to overview*. The MongoDB instance should quickly be deployed.#
 
@@ -135,7 +139,7 @@ $ oc get dc nationalparks -o yaml
 
 [silver]#You should see the following section:#
 
-次のセクションを参照してくださいする必要があります。
+次のセクションが表示されます。
 
 [source]
 ----
@@ -261,7 +265,7 @@ http://parksmap-{{EXPLORE_PROJECT_NAME}}{{USER_SUFFIX}}.{{ROUTER_ADDRESS}}
 ====
 [silver]#You are probably wondering how the database connection magically started working? When deploying applications to OpenShift, it is always best to use environment variables to define connections to dependent systems.  This allows for application portability across different environments.  The source file that performs the connection as well as creates the database schema can be viewed here:#
 
-データベース接続が魔法のように作業を開始する方法あなたはおそらく疑問?OpenShift にアプリケーションを展開すると、常に依存してシステムへの接続を定義する環境変数を使用してお勧めします。 これにより、異なる環境でアプリケーションの移植性のため。 データベース スキーマを作成すると同様に、接続を実行するソース ファイルは、ここで表示できます。
+あなたは、おそらくデータベース接続が魔法のように動作し始めたか疑問に思っている?アプリケーションを OpenShift に配置する場合は、常に環境変数を使用して依存システムへの接続を定義することをお勧めします。これにより、さまざまな環境でアプリケーションの移植性を実現できます。データベーススキーマを作成するだけでなく、接続を実行するソースファイルは、次のように表示されます。
 
 [source,role=copypaste]
 ----
