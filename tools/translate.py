@@ -81,8 +81,8 @@ for row in srcFile:
          root = tree.getroot()
          #print root.text
          dstFile.write(root.text)
-         dstFile.write('\r\n')
-         dstFile.write('\r\n')
+         dstFile.write('\n')
+         dstFile.write('\n')
 
 
 if not inBlock and len(word) > 0:

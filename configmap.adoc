@@ -9,8 +9,8 @@ order to keep the image portable across environments.
 
 ほとんどのアプリケーションでは、環境変数、構成ファイルとコマンドライン引数を使用して構成が必要。これらの構成アーティファクトは、環境間でのイメージの移植性を維持するために、アプリケーションと docker イメージコンテンツを外部形式にする必要があります。
 
-In link:databases[previous labs], the `nationalparks` application was configured with database credentials using environment variables. 
-While environment variables is a useful way to configure applications, it is difficult to manage hundreds of environment variables which are scattered across various containers in a project. 
+In link:databases[previous labs], the `nationalparks` application was configured with database credentials using environment variables.
+While environment variables is a useful way to configure applications, it is difficult to manage hundreds of environment variables which are scattered across various containers in a project.
 Fortunately, there is a convenient and platform-independent mechanism in OpenShift to configure applications, which is called `ConfigMap`.
 
 以前のlink:databases[演習]では、`nationalparks` アプリケーションは環境変数を使用してデータベース資格情報で構成されていました。
@@ -25,21 +25,33 @@ In this lab, you will replace the environment variables provided in the
 link:databases[previous labs] and use a `ConfigMap` instead to configure the
 `nationalparks` application.
 
+この実習では、link:databases[前の演習]で提供されている環境変数を置き換え、`nationalparks` アプリケーションを構成する代わりに ' ConfigMap ' を使用します。
+
 #### Exercise: Create a ConfigMap
 
 You can create a `ConfigMap` by pointing at a file containing the application
 configuration. Download this properties file to your local machine which
-contains the database credentials: 
+contains the database credentials:
+
+アプリケーション構成を含むファイルをポイントして、ConfigMap を作成できます。データベースの資格情報を含むローカルコンピューターにこのプロパティファイルをダウンロードします。
 
 [source,role=copypaste]
 ----
-http://gitlab-ce-workshop-infra.{{ROUTER_ADDRESS}}/{{GITLAB_USER}}/nationalparks/raw/{{NATIONALPARKS_VERSION}}/ose3/application-dev.properties
+http://gogs-workshop-infra.{{ROUTER_ADDRESS}}/{{GITLAB_USER}}/nationalparks/raw/{{NATIONALPARKS_VERSION}}/ose3/application-dev.properties
 ----
 
-NOTE: Verify that the contents of the file are correct. If you have downladed the file with Internet Explorer it might contain
-incorrect chars or different charset. Try to use "Google Chrome", "Firefox" or "curl".
+[NOTE]
+====
+Verify that the contents of the file are correct. If you have downladed the file with Internet Explorer it might contain incorrect chars or different charset. Try to use "Google Chrome", "Firefox" or "curl".
+
+ファイルの内容が正しいことを確認します。Internet Explorer でファイルを downladed している場合は、間違った文字や別の文字セットが含まれている可能性があります。"Google Chrome"、"Firefox" または "curl" を使用してみてください。
+====
+
+
 
 Create a `ConfigMap` using the following command in the `{{EXPLORE_PROJECT_NAME}}{{USER_SUFFIX}}` project:
+
+`{{EXPLORE_PROJECT_NAME}}{{USER_SUFFIX}}` プロジェクトで次のコマンドを使用して、`ConfigMap` を作成します:
 [source]
 ----
 $ oc create configmap nationalparks --from-file=application.properties=./application-dev.properties
@@ -51,8 +63,12 @@ file. In the above command, the content of `application-dev.properties` file
 will be provided to the application container as a properties file called
 `application.properties`
 
-List and verify that the `ConfigMap` is created successfully containing the
-database credentials:
+`--from-file` オプションは、アプリケーションに提供されるファイル名として使用されるキーと、ファイルの内容としての値のキーと値のペアを指定します。
+上記のコマンドでは、 `application-dev.properties` ファイルの内容は、アプリケーションコンテナに 'application.properties` プロパティファイルとして提供されます。
+
+List and verify that the `ConfigMap` is created successfully containing the database credentials:
+
+データベースの資格情報を含む ' ConfigMap ' が正常に作成されたことを確認します:
 
 [source]
 ----
@@ -70,6 +86,8 @@ application.properties:	123 bytes
 
 
 You can review the content of the `ConfigMap` using the `oc get` command:
+
+あなたは `oc get` コマンドを使用して `ConfigMap` の内容を確認することができます:
 
 [source]
 ----
@@ -102,32 +120,37 @@ can be used to:
 * Set command-line arguments in a container
 * Populate configuration files in a volume
 
-The `nationalparks` Spring Boot application can be configured through a
-properties file called `application.properties` which should reside in a specific
-location in the container filesystem. Using the following command to mount the
-`ConfigMap` inside the `nationalparks` pod:
+構成データは、さまざまな方法で pod で使用できます。`ConfigMap` は次のように使用できます。
+
+* 環境変数の値を設定する
+* コンテナ内のコマンドライン引数を設定する
+* ボリューム内の設定ファイルを設定する
+
+The `nationalparks` Spring Boot application can be configured through a properties file called `application.properties` which should reside in a specific location in the container filesystem. Using the following command to mount the `ConfigMap` inside the `nationalparks` pod:
+
+`nationalparks` Spring Boot アプリケーションは、コンテナファイルシステム内の特定の場所に存在する必要があります `application.properties` という名前のプロパティを使用して設定できます。次のコマンドを使用して、`nationalparks` ポッド内の `ConfigMap` をマウントします。
 
 [source]
 ----
 $ oc set volumes dc/nationalparks --add -m /deployments/config --configmap-name=nationalparks
 ----
 
-The above command makes the content of the configmap `ConfigMap`, which you
-created from a file, called `application.properties`, available in the
-`/opt/openshift/config` directory. The `nationalparks` *DeploymentConfiguration*
-detects the configuration change, and automatically deploys the *Pod* with
-the new configuration.
+The above command makes the content of the configmap `ConfigMap`, which you created from a file, called `application.properties`, available in the `/opt/openshift/config` directory. The `nationalparks` *DeploymentConfiguration* detects the configuration change, and automatically deploys the *Pod* with the new configuration.
 
-Also, as we have configured `nationalparks` through `ConfigMap`, you can remove
-the database environment variables set in the link:databases[previous labs]:
+上記のコマンドは、`/opt/openshift/config` ディレクトリで利用できる`application.properties`, と呼ばれるファイルから作成したコンフィグレーション定義 `ConfigMap`の内容を作ります。`nationalparks` の *DeploymentConfiguration* は設定変更を検出し、自動的に *Pod* を新しい設定にデプロイします。
+
+Also, as we have configured `nationalparks` through `ConfigMap`, you can remove the database environment variables set in the link:databases[previous labs]:
+
+また、`ConfigMap` を通じて `nationalparks` を設定しているので、link:databases[前のラボ]で設定されたデータベース環境変数を削除できます。
 
 [source]
 ----
 $ oc env dc/nationalparks MONGODB_USER- MONGODB_PASSWORD- MONGODB_DATABASE- MONGODB_SERVER_HOST-
 ----
 
-You have now externalized `nationalparks` configuration. Visit the `nationalparks` web
-service to very the database connection is working correctly.:
+You have now externalized `nationalparks` configuration. Visit the `nationalparks` web service to very the database connection is working correctly.:
+
+あなたは今、外部のプロパティファイルで定義された `nationalparks` の構成を持っている。データベース接続が正常に動作している場合は、`nationalparks` web サービスを参照してください。:
 
 [source]
 ----
@@ -135,3 +158,6 @@ http://nationalparks-{{EXPLORE_PROJECT_NAME}}{{USER_SUFFIX}}.{{ROUTER_ADDRESS}}/
 ----
 
 If you check the new *Pod's* logs once it comes up, you should see no errors.
+
+Japanese  English
+新しい *Pod's*の ログを確認する場合は、エラーがないことが確認できます。

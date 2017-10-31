@@ -1,14 +1,7 @@
-#!bin/sh
+#!/bin/sh
 
 TARGET=" \
-install \
-explore \
-docker \
-scaling \
-routes \
-java \
-databases \
-templates \
+application-health \
 "
 
 for f in $TARGET; do
