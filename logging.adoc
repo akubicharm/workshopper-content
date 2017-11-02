@@ -23,6 +23,7 @@ NOTE:
 
 
 #### Exercise: Examining Logs
+
 [silver]#Since we already deployed our application, we can take some time to examine its
 logs. In the web console, find your way back to the *Pod* details page (Applications -> Pods -> specific pod) and then click on the "Logs" tab. You should see a nice view of the *Pod*'s logs:#
 
