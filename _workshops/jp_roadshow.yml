@@ -44,6 +44,7 @@ modules:
   - docker
   - scaling
   - routes
+  - logging
   - permissions
   - java
   - databases

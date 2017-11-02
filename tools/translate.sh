@@ -1,7 +1,11 @@
 #!/bin/sh
+#pipelines \
+#codechanges \
+#clustering \
+#further-resources \
 
 TARGET=" \
-application-health \
+templates \
 "
 
 for f in $TARGET; do

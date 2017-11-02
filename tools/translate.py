@@ -70,7 +70,7 @@ for row in srcFile:
                 'appid': 'Bearer '+ token,
                 'to':'ja',
                 'text': word,
-                'category': 'general'
+                'category': 'generalnn'
              }
          ).text
          fout.write(response)
@@ -94,7 +94,7 @@ if not inBlock and len(word) > 0:
          'appid': 'Bearer '+ token,
          'to':'ja',
          'text': word,
-         'category': 'general'
+         'category': 'generalnn'
       }
    ).text
    fout.write(response)
