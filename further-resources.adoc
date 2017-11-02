@@ -4,19 +4,30 @@ The exercices in this workshop has shown you how OpenShift can be used not only 
 stateless web applications, but also applications which require persistent
 file system storage.
 
+このワークショップの exercices では、ステートレス web アプリケーションのデプロイだけでなく、永続的なファイル・システム・ストレージを必要とするアプリケーションに OpenShift を使用する方法についても説明しました。
+
 This flexibility makes OpenShift an ideal platform for deploying both web
 applications and databases.
+
+この柔軟性により、OpenShift は web アプリケーションとデータベースの両方をデプロイするための理想的なプラットフォームとなります。
 
 If you have finished this workshop early and want to experiment some more,
 we have additional exercises you can try out using our online interactive
 learning environment.
 
+場合は、このワークショップを早く終了し、いくつかのより多くの実験をしたい場合は、我々のオンラインインタラクティブ学習環境を使用して試すことができます追加の演習があります。
+
 * *link:https://learn.openshift.com/[OpenShift Interactive Learning
 Portal]* - An online interactive learning environment where you can run
 through various scenarios related to using OpenShift.
 
+*link:https://learn.openshift.com/[OpenShift Interactive Learning
+Portal]の使用に関連するさまざまなシナリオを実行できるオンラインの対話型学習環境。
+
 The online interactive learning environment is always available so you
 can continue to work on those exercises even after the workshop is over.
+
+オンラインでインタラクティブな学習環境は、常に利用可能なので、ワークショップが終わった後も、これらの演習で作業を続けることができます。
 
 Below you will find further resources for learning about OpenShift and
 running OpenShift on your own computer, as well as details about OpenShift
@@ -44,8 +55,25 @@ supported for you by Red Hat.
 Hat supported OpenShift product for installation on premise or in hosted
 cloud environments.
 
+
+以下に、あなた自身のコンピュータ上で OpenShift と実行 OpenShift について学習するためのさらなるリソースを見つける, だけでなく、OpenShift オンラインまたは他の OpenShift 関連製品やサービスについての詳細.
+
+
+* *link:https://www.openshift.org/[OpenShift Origin]* - Upstream の OSSプロジェクト
+
+* *link:https://www.openshift.org/minishift/[Minishift]*　- 仮想マシンで実行されているローカル OpenShift クラスタを、自分のコンピュータにインストールするために使用します。
+
+* *link:https://manage.openshift.com/[OpenShift Online]* - OpenShift を使用してアプリケーションを実行するためのホスティング環境。
+
+* *link:https://openshift.io/[OpenShift.io]* - OpenShift を使用してハイブリッドクラウドサービスを計画、作成、および展開するための環境。
+
+* *link:https://www.openshift.com/dedicated[OpenShift Dedicated]* - アプリケーションを実行するための専用ホスティング環境で、Red Hat によって管理およびサポートされています。
+
+* *link:https://www.openshift.com/[OpenShift Container Platform]* - オンプレミスまたはホステッドクラウド環境でのインストールに OpenShift 製品をサポートしています。
+
 The following free online eBooks are also available for download related to
 OpenShift.
+次の無料オンライン電子ブックは、OpenShift に関連するダウンロードもご利用いただけます。
 
 * *link:https://www.openshift.com/promotions/for-developers.html[OpenShift
 for Developers]*

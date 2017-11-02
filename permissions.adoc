@@ -2,25 +2,34 @@
 
 ### Background
 
-[silver]#Almost every interaction with an OpenShift environment that you can think of requires going through the master's API. All API interactions are both authenticated (AuthN - who are you?) and authorized (AuthZ - are you allowed to do what you are asking?).#
+[silver]
+====
+Almost every interaction with an OpenShift environment that you can think of requires going through the master's API. All API interactions are both authenticated (AuthN - who are you?) and authorized (AuthZ - are you allowed to do what you are asking?).
 
-OpenShift 環境できるほぼすべての対話的な操作は、マスターの API を通じて行う必要があります。API のすべての対話は、認証(AuthN - あなたはですか?) および認可 (AuthZ - 実行することが許可されているか?)。
-
+OpenShift 環境できるほぼすべての対話的な操作は、マスターの API を通じて行う必要があります。API のすべての対話は、認証(AuthN - あなたはですか?) および認可 (AuthZ - 実行することが許可されているか?)の両方です。
+====
 
 {% if modules.logging %}[silver]#In the log aggregation lab we saw that there was an error in reference to a *Service Account*.{% endif %}Just like a user has permissions (AuthZ), sometimes we may wish for non-users to be able to perform actions against the API. These "non-users" are referred to as service accounts.#
 
-{% if modules.logging %}ログ収集ラボでは、*Service Account*を参照しているときにエラーが発生しました。{%endif %}ユーザーがアクセス許可 (authz) を持っているのと同じように、非ユーザーが API に対してアクションを実行できるようにすることもあります。これらの "非ユーザー" は、サービスアカウントと呼ばれます。
+{% if modules.logging %}[silver]#ログ収集ラボでは、*Service Account*を参照しているときにエラーが発生しました。{%endif %}ユーザーがアクセス許可 (authz) を持っているのと同じように、非ユーザーが API に対してアクションを実行できるようにすることもあります。これらの "非ユーザー" は、サービスアカウントと呼ばれます。
 
 
-[silver]#OpenShift automatically creates a few special service accounts in every project.  The **default** service account has its credentials automatically injected into every pod that is launched. By changing the permissions for that service account, we can do interesting things.#
+[silver]
+====
+OpenShift automatically creates a few special service accounts in every project.  The **default** service account has its credentials automatically injected into every pod that is launched. By changing the permissions for that service account, we can do interesting things.
 
 OpenShift は、すべてのプロジェクトに、いくつかの特別なサービスアカウントを自動的に作成します。 **default**サービスアカウントは、自動的に起動されるすべてのポッドにその資格情報を注入しています。 そのサービスアカウントのアクセス許可を変更することで、興味深いことができます。
+====
+
 
 ### Exercise: Grant Service Account View Permissions
-[silver]#The parksmap application wants to talk to the OpenShift API to learn about other *Pods*, *Services*, and resources within the *Project*. You'll learn why soon!#
+[silver]
+====
+The parksmap application wants to talk to the OpenShift API to learn about other *Pods*, *Services*, and resources within the *Project*. You'll learn why soon!
 
 parksmap アプリケーションは、*Project* 内の他の *Pods*、*Services*、およびリソースについて学習するために、OpenShift API と話したいと考えています。
 なぜすぐに学ぶことができます!
+====
 
 
 [source,role=copypaste]
@@ -28,18 +37,26 @@ parksmap アプリケーションは、*Project* 内の他の *Pods*、*Services
 $ oc project {{EXPLORE_PROJECT_NAME}}{{USER_SUFFIX}}
 ----
 
-[silver]#Then:#
+[silver]
+====
+Then:
 
 そうしたら：
+====
+
 
 [source]
 ----
 $ oc policy add-role-to-user view -z default
 ----
 
-[silver]#The `oc policy` command above is giving a defined _role_ (`view`) to a user. But we are using a special flag, `-z`. What does this flag do? From the `-h` output:#
+[silver]
+====
+The `oc policy` command above is giving a defined _role_ (`view`) to a user. But we are using a special flag, `-z`. What does this flag do? From the `-h` output:
 
 上記の`oc policy`コマンドは、ユーザーに定義された _role_ (`view`) を与えています。 しかし、我々は特別なフラグを、`-z` を使用しています。 このフラグは何をしますか?  `-h` 出力から:
+====
+
 
 
 [source]
@@ -47,10 +64,13 @@ $ oc policy add-role-to-user view -z default
 -z, --serviceaccount=[]: service account in the current namespace to use as a user
 ----
 
-[silver]#The `-z` syntax is a special one that saves us from having to type out the entire string, which, in this case, is `system:serviceaccount:{{EXPLORE_PROJECT_NAME}}{{USER_SUFFIX}}:default`. It's a nifty shortcut.#
+[silver]
+====
+The `-z` syntax is a special one that saves us from having to type out the entire string, which, in this case, is `system:serviceaccount:{{EXPLORE_PROJECT_NAME}}{{USER_SUFFIX}}:default`. It's a nifty shortcut.
 
 
 `-z` の構文は、文字列全体を入力することから私たちを救う特別なものです, この場合には, `system:serviceaccount:{{EXPLORE_PROJECT_NAME}}{{USER_SUFFIX}}:default`。 気の利いたショートカットです。
+====
 
 
 [NOTE]
@@ -62,18 +82,26 @@ $ oc policy add-role-to-user view -z default
 ====
 
 
-[silver]#Now that the default *Service Account* has **view** access, it can query the API to see what resources are within the *Project*.  This also has the added benefit of supressing the error message! Although, in reality, we fixed the application.#
+
+
+[silver]
+====
+Now that the default *Service Account* has **view** access, it can query the API to see what resources are within the *Project*.  This also has the added benefit of supressing the error message! Although, in reality, we fixed the application.
 
 これで、デフォルトの *Service Account* が**view** アクセス権限を持っている。
 これでAPI を照会して、*Project* 内にあるリソースを確認することができます。
 これはまた、エラーメッセージを抑制の追加の利点があります!しかしながら、 実際には、アプリケーションを修正しました。
+====
 
 ### Exercise: Grant User View Permissions
-[silver]#If you create a project, you are that project's administrator. This means that you can grant access to other users, too. If you like, give your neighbor view access to your `explore` project using the following command:#
+[silver]
+====
+If you create a project, you are that project's administrator. This means that you can grant access to other users, too. If you like, give your neighbor view access to your `explore` project using the following command:
 
 
 プロジェクトを作成する場合、あなたはプロジェクトの管理者です。これは、他のユーザーにアクセスを許可できることを意味します。
 ご希望の場合は、次のコマンドを使用して、`explore`プロジェクトへのアクセス権を表示します:
+====
 
 
 [source,role=copypaste]
@@ -81,38 +109,53 @@ $ oc policy add-role-to-user view -z default
 $ oc policy add-role-to-user view user{{SUFFIX}}
 ----
 
-[silver]#Have them go to the project view by clicking the *Projects* button and verify that they can see your project and its resources.  This type of arrangement (view but not edit) might be ideal for a developer getting visibility into a production application's project.#
+[silver]
+====
+Have them go to the project view by clicking the *Projects* button and verify that they can see your project and its resources.  This type of arrangement (view but not edit) might be ideal for a developer getting visibility into a production application's project.
 
 *Projects* ボタンをクリックしてプロジェクトビューに移動し、プロジェクトとそのリソースが表示されることを確認します。
 この種類の配置 (ビューは編集できません) は、開発者が運用アプリケーションのプロジェクトの可視性を取得するのに最適な場合があります。
+====
 
 ### Exercise: Redeploy Application
-[silver]#One more step is required. We need to re-deploy the application because it's given up trying to query the API.#
+[silver]
+====
+One more step is required. We need to re-deploy the application because it's given up trying to query the API.
 
 1 つ以上のステップが必要です。我々 は API を検索しようとして、それがあるために、アプリケーションを再デプロイする必要があります。
+====
 
-
-[silver]#This time we'll use the web console. Find your `{{EXPLORE_PROJECT_NAME}}{{USER_SUFFIX}}` project, and then click "Applications" and then "Deployments".  You'll see your only application, `parksmap`, listed. Click that.#
+[silver]
+====
+This time we'll use the web console. Find your `{{EXPLORE_PROJECT_NAME}}{{USER_SUFFIX}}` project, and then click "Applications" and then "Deployments".  You'll see your only application, `parksmap`, listed. Click that.
 
 今回は、web コンソールを使用します。`{{EXPLORE_PROJECT_NAME}}{{USER_SUFFIX}}` プロジェクトを検索し、"Applications" をクリックして、"Deployments" を選択します。
 あなたの唯一のアプリケーション、'parksmap'、リストが表示されます。クリックします。
+====
 
-[silver]#The deployment screen tells you a lot about how the application will be deployed.  At the top right, there is a button labeled "Deploy".  This button will cause a new deployment (which you know creates a new *ReplicationController*, right?).#
+
+[silver]
+====
+The deployment screen tells you a lot about how the application will be deployed.  At the top right, there is a button labeled "Deploy".  This button will cause a new deployment (which you know creates a new *ReplicationController*, right?).
 
 展開画面には、アプリケーションの展開方法について多くの情報が表示されます。
 右上には、*Deploy*というラベルの付いたボタンがあります。
 このボタンをクリックすると、新しいデプロイメント (新しい *ReplicationController* を作成することがわかります) が発生します。
+====
 
 Click it.
 
-それをクリックします。
+クリックします。
 
 image::new-parksmap-deploy.png[Deploy Button]
 
-[silver]#You'll see that a new deployment is immediately started.  Return to the overview page and watch it happen.  You might not be fast enough!  If you look at the logs for the application now, you should see no errors.  That's great.#
+[silver]
+====
+You'll see that a new deployment is immediately started.  Return to the overview page and watch it happen.  You might not be fast enough!  If you look at the logs for the application now, you should see no errors.  That's great.
 
 新しい展開がすぐに開始されることがわかります。
 概要ページに戻って、それが起こるのを見てください。
 十分に速くないかもしれない!
 今すぐアプリケーションのログを見ると、エラーが表示されないはずです。
 素晴らしい。
+====
