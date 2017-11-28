@@ -55,6 +55,10 @@ config:
       desc: Expected oc version when `oc version` is executed
       value: "oc v1.5.1+7b451fc\nkubernetes v1.5.2+43a9be4"
 
+    - name: DOWNLOAD_CLIENT_MULTIVERSION
+      desc: Switching parameter
+      value: "true"
+
     - name: DOWNLOAD_CLIENT_URL
       desc: URL to download oc client
       value: "https://mirror.openshift.com/pub/openshift-v3/clients/"

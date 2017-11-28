@@ -19,26 +19,26 @@ openshift は、機能豊富な web コンソールだけでなく、コマン�
 
 我々がしたい最初のものは、以下のリンクとして、オペレーティングシステムの正しい実行可能ファイルをダウンロードすることです:
 
+{% if DOWNLOAD_CLIENT_MULTIVERSION? %}
 - OpenShift 3.4
--- {{DOWNLOAD_CLIENT_URL}}{{DOWNLOAD_CLIENT_DIR_3.4}}{{DOWNLOAD_CLIENT_FILE_WINDOWS}}[Microsoft Windows]
--- {{DOWNLOAD_CLIENT_URL}}{{DOWNLOAD_CLIENT_DIR_3.4}}{{DOWNLOAD_CLIENT_FILE_MAC}}[Apple OS X]
--- {{DOWNLOAD_CLIENT_URL}}{{DOWNLOAD_CLIENT_DIR_3.4}}{{DOWNLOAD_CLIENT_FILE_LINUX}}[Linux 64]
-
+ - {{DOWNLOAD_CLIENT_URL}}{{DOWNLOAD_CLIENT_DIR_3.4}}{{DOWNLOAD_CLIENT_FILE_WINDOWS}}[Microsoft Windows]
+ - {{DOWNLOAD_CLIENT_URL}}{{DOWNLOAD_CLIENT_DIR_3.4}}{{DOWNLOAD_CLIENT_FILE_MAC}}[Apple OS X]
+ - {{DOWNLOAD_CLIENT_URL}}{{DOWNLOAD_CLIENT_DIR_3.4}}{{DOWNLOAD_CLIENT_FILE_LINUX}}[Linux 64]
 - OpenShift 3.5
--- {{DOWNLOAD_CLIENT_URL}}{{DOWNLOAD_CLIENT_DIR_3.5}}{{DOWNLOAD_CLIENT_FILE_WINDOWS}}[Microsoft Windows]
--- {{DOWNLOAD_CLIENT_URL}}{{DOWNLOAD_CLIENT_DIR_3.5}}{{DOWNLOAD_CLIENT_FILE_MAC}}[Apple OS X]
--- {{DOWNLOAD_CLIENT_URL}}{{DOWNLOAD_CLIENT_DIR_3.5}}{{DOWNLOAD_CLIENT_FILE_LINUX}}[Linux 64]
-
+ - {{DOWNLOAD_CLIENT_URL}}{{DOWNLOAD_CLIENT_DIR_3.5}}{{DOWNLOAD_CLIENT_FILE_WINDOWS}}[Microsoft Windows]
+ - {{DOWNLOAD_CLIENT_URL}}{{DOWNLOAD_CLIENT_DIR_3.5}}{{DOWNLOAD_CLIENT_FILE_MAC}}[Apple OS X]
+ - {{DOWNLOAD_CLIENT_URL}}{{DOWNLOAD_CLIENT_DIR_3.5}}{{DOWNLOAD_CLIENT_FILE_LINUX}}[Linux 64]
 - OpenShift 3.6
--- {{DOWNLOAD_CLIENT_URL}}{{DOWNLOAD_CLIENT_DIR_3.6}}{{DOWNLOAD_CLIENT_FILE_WINDOWS}}[Microsoft Windows]
--- {{DOWNLOAD_CLIENT_URL}}{{DOWNLOAD_CLIENT_DIR_3.6}}{{DOWNLOAD_CLIENT_FILE_MAC}}[Apple OS X]
--- {{DOWNLOAD_CLIENT_URL}}{{DOWNLOAD_CLIENT_DIR_3.6}}{{DOWNLOAD_CLIENT_FILE_LINUX}}[Linux 64]
-
+ - {{DOWNLOAD_CLIENT_URL}}{{DOWNLOAD_CLIENT_DIR_3.6}}{{DOWNLOAD_CLIENT_FILE_WINDOWS}}[Microsoft Windows]
+ - {{DOWNLOAD_CLIENT_URL}}{{DOWNLOAD_CLIENT_DIR_3.6}}{{DOWNLOAD_CLIENT_FILE_MAC}}[Apple OS X]
+ - {{DOWNLOAD_CLIENT_URL}}{{DOWNLOAD_CLIENT_DIR_3.6}}{{DOWNLOAD_CLIENT_FILE_LINUX}}[Linux 64]
+{% else %}
 - {{DOWNLOAD_CLIENT_WINDOWS}}[Microsoft Windows]
 - {{DOWNLOAD_CLIENT_MAC}}[Apple OS X]
 - {{DOWNLOAD_CLIENT_LIN64}}[Linux 64]
 {% if DOWNLOAD_CLIENT_LIN32.empty? %}
 - {{DOWNLOAD_CLIENT_LIN32}}[Linux 32]
+{% endif %}
 {% endif %}
 
 [silver]#Once the file has been downloaded, you will need to extract the contents as it is a compressed archive.  I would suggest saving this file to the following directories:#
