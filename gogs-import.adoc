@@ -1,0 +1,28 @@
+## Lab: Git リポジトリの準備
+
+### 背景
+
+ハンズオンで利用する*nationalparks*アプリケーションのソースコードを確認する。
+
+### Ggosのリポジトリの確認
+ラボで利用するためのユーザでリポジトリにログインします。
+
+1. gogsのURLにアクセス
++
+http://{{GITLAB_URL_OPENTLC}}/
+
+2. Sign In
++
+画面右上の「Sign In」ボタンをクリックしてログイン
++
+|===
+|Username or email|{{GITLAB_USER}}
+|Password|{{GITLAB_PASSWORD}}
+|===
+
+
+[NOTE]
+====
+Webhook がエラーになる場合は、Payloadの内容をファイルに保存し、以下のコマンドを実行
+curl -H "X-GitHub-Event: push" -H "Content-Type: application/json" -k -X POST --data-binary @github_payload_file.json https://<openshift_api_host:port>/oapi/v1/namespaces/<namespace>/buildconfigs/<name>/webhooks/<secret>/github
+====
