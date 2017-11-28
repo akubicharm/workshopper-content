@@ -70,13 +70,13 @@ config:
       value: "3.6.173.0.78/"
 
     - name: DOWNLOAD_CLIENT_FILE_LINUX
-      desc Filename for linux
+      desc: Filename for linux
       value: "linux/oc.tar.gz"
     - name: DOWNLOAD_CLIENT_FILE_MAC
-      desc Filename for Mac
+      desc: Filename for Mac
       value: "macos/oc.tar.gz"
     - name: DOWNLOAD_CLIENT_FILE_WINDOWS
-      desc Filename for Windows
+      desc: Filename for Windows
       value: "windows/oc.zip"
 
     - name: OC_VERSION_1.4
