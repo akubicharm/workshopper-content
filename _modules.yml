@@ -63,13 +63,13 @@ config:
       desc: URL to download oc client
       value: "https://mirror.openshift.com/pub/openshift-v3/clients/"
 
-    - name: DOWNLOAD_CLIENT_DIR_3.4
+    - name: DOWNLOAD_CLIENT_DIR_34
       desc: Directory of download specified version
       value: "3.4.1.44.37/"
-    - name: DOWNLOAD_CLIENT_DIR_3.5
+    - name: DOWNLOAD_CLIENT_DIR_35
       desc: Directory of download specified version
       value: "3.5.5.31.47/"
-    - name: DOWNLOAD_CLIENT_DIR_3.6
+    - name: DOWNLOAD_CLIENT_DIR_36
       desc: Directory of download specified version
       value: "3.6.173.0.78/"
 
