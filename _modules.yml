@@ -78,7 +78,7 @@ config:
       value: "linux/oc.tar.gz"
     - name: DOWNLOAD_CLIENT_FILE_MAC
       desc: Filename for Mac
-      value: "macos/oc.tar.gz"
+      value: "macosx/oc.tar.gz"
     - name: DOWNLOAD_CLIENT_FILE_WINDOWS
       desc: Filename for Windows
       value: "windows/oc.zip"
