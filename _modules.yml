@@ -54,6 +54,41 @@ config:
     - name: OC_VERSION
       desc: Expected oc version when `oc version` is executed
       value: "oc v1.5.1+7b451fc\nkubernetes v1.5.2+43a9be4"
+
+    - name: DOWNLOAD_CLIENT_URL
+      desc: URL to download oc client
+      value: "https://mirror.openshift.com/pub/openshift-v3/clients/"
+
+    - name: DOWNLOAD_CLIENT_DIR_3.4
+      desc: Directory of download specified version
+      value: "3.4.1.44.37/"
+    - name: DOWNLOAD_CLIENT_DIR_3.5
+      desc: Directory of download specified version
+      value: "3.5.5.31.47/"
+    - name: DOWNLOAD_CLIENT_DIR_3.6
+      desc: Directory of download specified version
+      value: "3.6.173.0.78/"
+
+    - name: DOWNLOAD_CLIENT_FILE_LINUX
+      desc Filename for linux
+      value: "linux/oc.tar.gz"
+    - name: DOWNLOAD_CLIENT_FILE_MAC
+      desc Filename for Mac
+      value: "macos/oc.tar.gz"
+    - name: DOWNLOAD_CLIENT_FILE_WINDOWS
+      desc Filename for Windows
+      value: "windows/oc.zip"
+
+    - name: OC_VERSION_1.4
+      desc: Expected oc version when `oc version` is executed
+      value: "oc v1.5.1+7b451fc\nkubernetes v1.5.2+43a9be4"
+    - name: OC_VERSION_1.5
+      desc: Expected oc version when `oc version` is executed
+      value: "oc v1.5.1+7b451fc\nkubernetes v1.5.2+43a9be4"
+    - name: OC_VERSION_1.6
+      desc: Expected oc version when `oc version` is executed
+      value: "oc v1.5.1+7b451fc\nkubernetes v1.5.2+43a9be4"
+
     - name: DOCS_URL
       desc: URL prefix to access docs (https://docs.openshift.org/latest)
       value: <url>
