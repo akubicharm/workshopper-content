@@ -57,7 +57,7 @@ config:
 
     - name: DOWNLOAD_CLIENT_MULTIVERSION
       desc: Switching parameter
-      value: "true"
+      value: true
 
     - name: DOWNLOAD_CLIENT_URL
       desc: URL to download oc client

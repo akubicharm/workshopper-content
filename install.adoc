@@ -19,7 +19,7 @@ openshift は、機能豊富な web コンソールだけでなく、コマン�
 
 我々がしたい最初のものは、以下のリンクとして、オペレーティングシステムの正しい実行可能ファイルをダウンロードすることです:
 
-{% if DOWNLOAD_CLIENT_MULTIVERSION? %}
+{% if DOWNLOAD_CLIENT_MULTIVERSION %}
 - OpenShift 3.4
  - {{DOWNLOAD_CLIENT_URL}}{{DOWNLOAD_CLIENT_DIR_3.4}}{{DOWNLOAD_CLIENT_FILE_WINDOWS}}[Microsoft Windows]
  - {{DOWNLOAD_CLIENT_URL}}{{DOWNLOAD_CLIENT_DIR_3.4}}{{DOWNLOAD_CLIENT_FILE_MAC}}[Apple OS X]
