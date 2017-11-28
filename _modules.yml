@@ -111,12 +111,16 @@ config:
     - name: GITLAB_URL_PREFIX
       desc: URL of the Gitlab instance to use
       value: <gitlab>
+    - name: GITLAB_URL_OPENTLC
+      desc: URL of the Gitlab instance to use
+      value: "http://gogs-workshop-infra.apps.na1.openshift.opentlc.com/"
     - name: GITLAB_USER
       desc: User's Gitlab username
-      value: userXY
+      value: devXY
     - name: GITLAB_PASSWORD
       desc: User's Gitlab password
-      value: <password>
+      value: devXY
+#      value: <password>
     - name: NATIONALPARKS_VERSION
       desc: Version of nationalparks to use
       value: <version>
