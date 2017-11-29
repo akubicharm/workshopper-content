@@ -2,7 +2,7 @@
 
 ### Background: Web Hooks
 
-Most Git repository servers support the concept of web hooks -- calling to an external source via HTTP(S) when a change in the code repository happens.  OpenShift provides an API endpoint that supports receiving hooks from remote systems in order to trigger builds. By pointing the code repository's hook at the OpenShift API, automated code/build/deploy pipelines can be achieved.
+[silver]#Most Git repository servers support the concept of web hooks -- calling to an external source via HTTP(S) when a change in the code repository happens.  OpenShift provides an API endpoint that supports receiving hooks from remote systems in order to trigger builds. By pointing the code repository's hook at the OpenShift API, automated code/build/deploy pipelines can be achieved.#
 
 ほとんどの Git リポジトリサーバーは web フックの概念をサポートしています--コードリポジトリの変更が発生したときに HTTP を介して外部ソースに呼び出します。 OpenShift は、ビルドをトリガーするためにリモートシステムからフックを受け取ることをサポートする API エンドポイントを提供します。OpenShift API でコード・リポジトリーのフックをポイントすることで、自動化されたcode/build/deploy パイプラインを実現できます。
 
@@ -10,18 +10,18 @@ Most Git repository servers support the concept of web hooks -- calling to an ex
 {% if GIT_HOST == "github" %}
 #### Getting the webhook URL
 
-Go to **Builds** -> **Builds** -> **Configuration** and there in the **Triggers** section there is **Github webhook URL** copy the URL to be used for configuring the webhook at Github.
+[silver]#Go to **Builds** -> **Builds** -> **Configuration** and there in the **Triggers** section there is **Github webhook URL** copy the URL to be used for configuring the webhook at Github.#
 
 **Builds** -> **Builds** -> **Configuration**  に移動すると **Triggers** セクションがあります。そこに表示されている **Github webhook URL** をコピーして、Github の Webhook に設定します。
 
 #### Setting up the webhook
 
-Open the **Github** repository page and go to the **Settings** tab and then to **Webhooks** in the left menu. Click **Add webhook** and fill the form.
+[silver]#Open the **Github** repository page and go to the **Settings** tab and then to **Webhooks** in the left menu. Click **Add webhook** and fill the form.#
 
-* **Payload URL** is the URL copied from OpenShift
-* **Content type** has to be *application/json*
-* **Secret** should be empty
-* **Disable SSL verification** as the cluster does not have valid SSL
+* [silver]#**Payload URL** is the URL copied from OpenShift#
+* [silver]#**Content type** has to be *application/json*#
+* [silver]#**Secret** should be empty#
+* [silver]#**Disable SSL verification** as the cluster does not have valid SSL#
 certificates
 
 
@@ -34,22 +34,22 @@ certificates
 
 
 
-And click the **Add webhook** button.
+[silver]#And click the **Add webhook** button.#
 
 **Add webhook**をクリックします。
 
 #### Making a code change
 
-Go back to the **Code** tab in the same repository and open the **wsgi.py** file. Click the pen icon in the top right corner to edit the file.
+[silver]#Go back to the **Code** tab in the same repository and open the **wsgi.py** file. Click the pen icon in the top right corner to edit the file.#
 
 同じリポジトリ内の **Code** タブに戻り、**wsgi.py** ファイルを開きます。右上隅のペンアイコンをクリックして、ファイルを編集します。
 
 
-Go to the line `35` and change the **displayName**.
+[silver]#Go to the line `35` and change the **displayName**.#
 
 `35` 行めに移動し、**displayName**を変更します。
 
-Scroll down to the bottom of the page and click **Commit changes**.
+[silver]#Scroll down to the bottom of the page and click **Commit changes**.#
 
 ページの一番下までスクロールし、**Commit changes** をクリックします。
 
@@ -60,23 +60,23 @@ Scroll down to the bottom of the page and click **Commit changes**.
 #### Exercise: Configuring GitLab Web Hooks
 
 {% if modules.pipelines %}
-In previous labs, you created a CI/CD Pipeline to automate build, test and deployment of the `nationalparks` application. In this lab you can use the pipline webhook to trigger a pipeline execution every time there is a change in the `nationalparks` GitLab repository. In the OpenShift web console, navigate to your `{{EXPLORE_PROJECT_NAME}}{{USER_SUFFIX}}` *Project*, and then mouse-over *Browse* and then *Pipelines*. Click the `nationalparks-pipeline` and then *Configuration* tab.
+[silver]#In previous labs, you created a CI/CD Pipeline to automate build, test and deployment of the `nationalparks` application. In this lab you can use the pipline webhook to trigger a pipeline execution every time there is a change in the `nationalparks` GitLab repository. In the OpenShift web console, navigate to your `{{EXPLORE_PROJECT_NAME}}{{USER_SUFFIX}}` *Project*, and then mouse-over *Browse* and then *Pipelines*. Click the `nationalparks-pipeline` and then *Configuration* tab.#
 
 以前のラボでは、CI/CD パイプラインを作成して、`nationalparks` アプリケーションのビルド、テスト、および展開を自動化しました。この演習では、pipline webhook を使用して、`nationalparks` GitLab リポジトリに変更があるたびにパイプライン実行をトリガすることができます。OpenShift web コンソールで、`{{EXPLORE_PROJECT_NAME}}{{USER_SUFFIX}}` *Project* に移動し、マウスの上にある *Browse* および *Pipelines* をクリックします。`nationalparks-pipeline` をクリックし、*Configuration* タブを選択します。
 
 
-On this screen you will see the option to copy the *generic* webhook URL as shown in the following image:
+[silver]#On this screen you will see the option to copy the *generic* webhook URL as shown in the following image:#
 
 この画面では、次の図に示すように、*generic* web URL をコピーするオプションが表示されます。
 
 image::ocp-webhook1-pipeline.png[Webhook]
 {% else %}
-In the OpenShift web console, navigate to your `{{EXPLORE_PROJECT_NAME}}{{USER_SUFFIX}}` *Project*, and then mouse-over *Browse* and then *Builds*. Click the `nationalparks` build.
+[silver]#In the OpenShift web console, navigate to your `{{EXPLORE_PROJECT_NAME}}{{USER_SUFFIX}}` *Project*, and then mouse-over *Browse* and then *Builds*. Click the `nationalparks` build.#
 
 OpenShift web コンソールで、`{{EXPLORE_PROJECT_NAME}}{{USER_SUFFIX}}` *Project* に移動し、マウスの上にある *Browse* をクリックしてから *Builds* します。`nationalparks`ビルドをクリックします。
 
 
-On this screen you will see the option to copy the *generic* webhook URL as shown in the following image:
+[silver]#On this screen you will see the option to copy the *generic* webhook URL as shown in the following image:#
 
 この画面では、次の図に示すように、*generic* web URL をコピーするオプションが表示されます。
 
@@ -84,7 +84,7 @@ image::ocp-webhook1.png[Webhook]
 {% endif %}
 
 
-Once you have the URL copied to your clipboard, navigate to the code repository that you have on your local GitLab:
+[silver]#Once you have the URL copied to your clipboard, navigate to the code repository that you have on your local GitLab:#
 
 URL をクリップボードにコピーしたら、ローカルの GitLab にあるコードリポジトリに移動します。
 
@@ -99,7 +99,7 @@ http://{{GITLAB_URL_PREFIX}}.{{ROUTER_ADDRESS}}/{{GITLAB_USER}}/nationalparks
 
 [NOTE]
 ====
-The credentials for this GitLab instance are:
+[silver]#The credentials for this GitLab instance are:#
 
 この GitLab インスタンスの資格情報は次のとおりです。
 

@@ -2,10 +2,7 @@
 
 ### JBoss EAP Clustering
 
-Clustering in JBoss EAP is achieved using the Kubernetes discovery mechanism for
-finding other JBoss EAP containers and forming a cluster. This is done by
-configuring the JGroups protocol stack in `standalone-openshift.xml` with
-`<openshift.KUBE_PING/>` elements.
+[silver]#Clustering in JBoss EAP is achieved using the Kubernetes discovery mechanism for finding other JBoss EAP containers and forming a cluster. This is done by configuring the JGroups protocol stack in `standalone-openshift.xml` with `<openshift.KUBE_PING/>` elements.#
 
 JBoss EAP のクラスタリングは、Kubernetes 検出メカニズムを使用して実現されます。
 他の JBoss EAP コンテナを検索し、クラスタを形成する。これは
@@ -13,15 +10,10 @@ JBoss EAP のクラスタリングは、Kubernetes 検出メカニズムを使�
 `<openshift.KUBE_PING/>` 要素。
 
 
-For `KUBE_PING` to work, the following steps must be taken:
-. The `OPENSHIFT_KUBE_PING_NAMESPACE` environment variable must be set. If not
-  set, the server will act as if it is a single-node cluster (a "cluster of
-  one").
-. The `OPENSHIFT_KUBE_PING_LABELS` environment variables should be set. If not
-  set, pods outside of your application (albeit in your namespace) will try to
-  join.
-. Authorization must be granted to the service account the pod is running under
-  to be allowed to access Kubernetes' REST api.
+[silver]#For `KUBE_PING` to work, the following steps must be taken:#
+. [silver]#The `OPENSHIFT_KUBE_PING_NAMESPACE` environment variable must be set. If not set, the server will act as if it is a single-node cluster (a "cluster of one").#
+. [silver]#The `OPENSHIFT_KUBE_PING_LABELS` environment variables should be set. If not set, pods outside of your application (albeit in your namespace) will try to join.
+. [silver]#Authorization must be granted to the service account the pod is running under to be allowed to access Kubernetes' REST api.#
 
 `KUBE_PING` を動作させるには、次の手順を実行する必要があります。
 
@@ -32,10 +24,7 @@ For `KUBE_PING` to work, the following steps must be taken:
 参加しようとする
 .ポッドが実行されているサービスアカウントにKubernetes ' REST api へのアクセスを許可する承認を付与する必要があります
 
-You have already configured the default service account to have access to
-Kubernetes' REST api during previous labs. Now you can scale up the *mlbparks*
-pod to two by clicking on the upper arrows on the console. Alternatively, you
-can use the command line to scale up the pods and form a two-member cluster.
+[silver]#You have already configured the default service account to have access to Kubernetes' REST api during previous labs. Now you can scale up the *mlbparks* pod to two by clicking on the upper arrows on the console. Alternatively, you can use the command line to scale up the pods and form a two-member cluster.#
 
 にアクセスできるように、既定のサービスアカウントが既に構成されている
 前のラボで Kubernetes ' REST api。これで、*mlbparks* をスケールアップすることができます
@@ -48,12 +37,7 @@ can use the command line to scale up the pods and form a two-member cluster.
 $ oc scale dc/mlbparks --replicas=2
 ----
 
-For pods based on Java images, the web console also exposes access to a
-hawt.io-based JVM console for viewing and managing any relevant Java components.
-A link is displayed in the pod's details on the *Applications* &rarr; *Pods* page,
-provided the container has a port named jolokia. On the console, click on
-mlbparks pods, then on any of the two pods deployed. On the *Details* tab, click
-on *Open Java Console*.
+[silver]#For pods based on Java images, the web console also exposes access to a hawt.io-based JVM console for viewing and managing any relevant Java components.  A link is displayed in the pod's details on the *Applications* &rarr; *Pods* page, provided the container has a port named jolokia. On the console, click on mlbparks pods, then on any of the two pods deployed. On the *Details* tab, click on *Open Java Console*.#
 
 Java イメージに基づく pod の場合、web コンソールは、
 関連する Java コンポーネントを表示および管理するための hawt.io ベースの JVM コンソール。
@@ -64,16 +48,12 @@ Java イメージに基づく pod の場合、web コンソールは、
 
 image::clustering-details.png[Java Console Link,880,align="center"]
 
-In the Java Console, use the *JMX* browser and click on *jgroups &rarr; channel
-&rarr; ee*. The right pane shows the list of clustering JMX attributes including
+[silver]#In the Java Console, use the *JMX* browser and click on *jgroups &rarr; channel &rarr; ee*. The right pane shows the list of clustering JMX attributes including#
 
 Java コンソールでは、*JMX* ブラウザを使用して、*jgroups &rarr; channel
 &rarr; ee*をクリックします。
 
-*view* which is the current state of the cluster. This attribute shows the name
-of two pods which are currently members of the cluster. When *mlbparks* pod gets
-scaled up or down, JBoss EAP gets notified by calling Kubernetes' REST API and
-updates the cluster status based on the number of pods available.
+[silver]#*view* which is the current state of the cluster. This attribute shows the name of two pods which are currently members of the cluster. When *mlbparks* pod gets scaled up or down, JBoss EAP gets notified by calling Kubernetes' REST API and updates the cluster status based on the number of pods available.#
 
 *view*は、クラスタの現在の状態です。この属性は、名前
 現在クラスタのメンバーである2つのポッドの。*mlbparks* ポッドが

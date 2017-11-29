@@ -11,7 +11,7 @@ image::roadshow-app-architecture-parksmap-1.png[Application architecture,800,ali
 
 [silver]#Let's start by doing the simplest thing possible - get a plain old Docker-formatted image to run on OpenShift. This is incredibly simple to do.  With {{OPENSHIFT_NAME}} {{OPENSHIFT_VERSION}} it can be done directly from the web console.#
 
-できるだけ簡単なことを行うことから始めましょう-docker 形式のイメージを取得してOpenShiftで実行します。これは非常に簡単です。 {{OPENSHIFT_NAME}} {{OPENSHIFT_VERSION}} を使用すると、web コンソールから直接実行できます。
+できるだけ簡単なことを行うことから始めましょうdocker 形式のイメージを取得してOpenShiftで実行します。これは非常に簡単です。 {{OPENSHIFT_NAME}} {{OPENSHIFT_VERSION}} を使用すると、web コンソールから直接実行できます。
 
 [silver]#Return to the web console:#
 
@@ -40,7 +40,7 @@ image::parksmap-image.png[Explore Project]
 
 [silver]#Either press *enter* or click on the magnifying glass. OpenShift will then go out to the Docker registry specified and interrogate the image. You then are presented with some options to add things like environment variables, labels, and etc. -- which we will learn about later.#
 
-いずれかを押して *enter* または虫眼鏡をクリックします。openshift は、指定された Docker レジストリに出て、イメージを取得します。その後、環境変数、ラベルなどのを追加するいくつかのオプションが表示されます -後に学習します。
+いずれかを押して *enter* または虫眼鏡をクリックします。openshift は、指定された Docker レジストリに出て、イメージを取得します。その後、環境変数、ラベルなどのを追加するいくつかのオプションが表示されます。 これらについて後に学習します。
 
 {% if PARKSMAP_PY %}
 
@@ -66,7 +66,7 @@ WINNING!これらのいくつかの手順は、openshift に展開された "バ
 
 [silver]#Before we start digging in we need to understand how containers and *Pods* are related. Given the morning sessions where we discussed the OpenShift platform and how it uses containers and *Pods*, we will not be covering the background on these technologies in this lab.  Instead, we will dive right in and start using them.#
 
-我々は、コンテナと *Pod* がどのように関連しているかを理解する必要が掘り始める前に openshift プラットフォームについて説明した午前中のセッションと、コンテナと *Pod* を使用する方法を考えると、このラボではこれらのテクノロジの背景をカバーすることはありません。 代わりに、我々は飛び込み、それらを使用して起動します。
+掘り下げる前に、我々は、コンテナと *Pod* がどのように関連しているかを理解する必要があります。 openshift プラットフォームについて説明した午前中のセッションと、コンテナと *Pod* を使用する方法を考えると、このラボではこれらのテクノロジの背景をカバーすることはありません。 代わりに、我々は飛び込み、それらを使用して起動します。
 
 
 [silver]#In OpenShift, the smallest deployable unit is a *Pod*. A *Pod* is a group of one or more Docker containers deployed together and guaranteed to be on the same host.  From the doc:#
@@ -75,15 +75,14 @@ OpenShift では、デプロイ可能な最小単位は *Pod* です。*Pod* は
 
 [source]
 ----
-Each pod has its own IP address, therefore owning its entire port space, and
-containers within pods can share storage. Pods can be "tagged" with one or
-more labels, which are then used to select and manage groups of pods in a
-single operation.
+[silver]#Each pod has its own IP address, therefore owning its entire port space, and containers within pods can share storage. Pods can be "tagged" with one or more labels, which are then used to select and manage groups of pods in a single operation.#
+
+各ポッドには独自の IP アドレスがあるため、ポート空間全体が所有され、pod 内のコンテナはストレージを共有できます。pod は1つまたは複数のラベルで "タグ付け" することができ、1つの操作でポッドのグループを選択して管理するために使用されます。
 ----
 
 [silver]#*Pods* can contain multiple Docker instances. The general idea is for a Pod to contain a "server" and any auxiliary services you want to run along with that server. Examples of containers you might put in a *Pod* are, an Apache HTTPD server, a log analyzer, and a file service to help manage uploaded files.#
 
-*Pods* には複数の docker インスタンスを含めることができます。一般的なアイデアは、ポッドの "サーバー" と、そのサーバーと一緒に実行する任意の補助サービスを含むようにしています。*Pod* に入れられるコンテナの例としては、apache httpd サーバ、ログアナライザ、アップロードしたファイルの管理に役立つファイルサービスなどがあります。
+*Pods* には複数の docker インスタンスを含めることができます。一般的なアイデアは、Podの "サーバー" と、そのサーバーと一緒に実行する任意の補助サービスを含むようにしています。*Pod* に入れられるコンテナの例としては、apache httpd サーバ、ログアナライザ、アップロードしたファイルの管理に役立つファイルサービスなどがあります。
 
 
 ### Exercise: Examining the Pod
@@ -119,9 +118,12 @@ parksmap-1-hx0kv   1/1       Running   0          2m
 上記の出力には、*Pods* の名前、状態、再起動、稼働時間など、現在の *Project* 内のすべての *Pods* が一覧表示されます。 *Pod* の名前がわかれば、あなたは "oc get" コマンド を使用して *Pod* についての詳細情報を得ることができます。 出力を読みやすくするために、次の構文を使用して出力の種類を *YAML* に変更することをお勧めします。
 
 
-NOTE: [silver]#Make sure you use the correct *Pod* name from your output.#
+[NOTE]
+====
+[silver]#Make sure you use the correct *Pod* name from your output.#
 
-NOTE: *Pod*名が正しいことを確認してください。
+*Pod*名が正しいことを確認してください。
+====
 
 
 [source,role=copypaste]
@@ -281,7 +283,7 @@ status:
 
 [silver]#Take note of the `selector` stanza. Remember it.#
 
-`selector` を覚えていてください。
+`selector` の記述を覚えていてください。
 
 
 [silver]#It is also of interest to view the JSON of the *Pod* to understand how OpenShift wires components together.  For example, run the following command to get the name of your `parksmap` *Pod*:#
@@ -332,7 +334,7 @@ labels:
 ** [silver]#`app=parksmap`#
 ** [silver]#`deployment=parksmap-1`#
 
-* *Service* を参照する `selector` スタンザには ' deploymentconfig = parksmap'。
+* *Service* を参照する `selector` の記述には ' deploymentconfig = parksmap'。
 * *Pod* は複数 *Labels*。
 ** `deploymentconfig=parksmap`
 ** `app=parksmap`
@@ -368,4 +370,4 @@ No events.
 
 [silver]#You may be wondering why only one end point is listed. That is because there is only one *Pod* currently running.  In the next lab, we will learn how to scale an application, at which point you will be able to see multiple endpoints associated with the *Service*.#
 
-なぜ1つだけのエンドポイントが記載されて疑問に思うことがあります。これは1つだけ *Pod* 現在実行しているためです。 次の実習では、アプリケーションをスケーリングする方法を学習し、その時点で、*Service* に関連付けられた複数のエンドポイントを表示できるようにします。
+なぜ1つだけのエンドポイントが記載されているのか疑問に思うことがあります。これは1つだけ *Pod* 現在実行しているためです。 次の実習では、アプリケーションをスケーリングする方法を学習し、その時点で、*Service* に関連付けられた複数のエンドポイントを表示できるようにします。

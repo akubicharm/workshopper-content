@@ -87,10 +87,11 @@ image::ocp-mongo-template-deploy.png[MongoDB]
 
 image::mongo-group-db-1.png[Service Groups]
 
-[silver]#You can group services in OpenShift Console in order to display related services together in one panel. Click on the chain icon on the right-top corner of the `nationalparks` service, choose `mongodb` from the drop-down list in the *Group Service to nationalparks* dialog and click on *OK*. The `nationalparks` and `mongodb` services are groups and displayed together. #
+
+[silver]#You can group services in OpenShift Console in order to display related services together in one panel. Click on the chain icon on the right-top corner of the `nationalparks` service, choose `mongodb` from the drop-down list in the *Group Service to nationalparks* dialog and click on *OK*. The `nationalparks` and `mongodb` services are groups and displayed together.#
 
 
-OpenShift Console のサービスをグループ化して、関連するサービスを1つのパネルにまとめて表示することができます。`nationalparks` サービスの右上隅にあるチェーンアイコンをクリックし、*Group Service to nationalparks * ダイアログのドロップダウンリストから`mongodb`を選択し、*OK* をクリックします。`nationalparks` および `mongodb` サービスはグループであり、一緒に表示されます。
+OpenShift Console のサービスをグループ化して、関連するサービスを1つのパネルにまとめて表示することができます。`nationalparks` サービスの右上隅にあるチェーンアイコンをクリックし、 *Group Service to nationalparks* ダイアログのドロップダウンリストから `mongodb` を選択し、 *OK* をクリックします。 `nationalparks` および `mongodb` サービスはグループであり、一緒に表示されます。
 
 image::mongo-group-db-2.png[Service Groups]
 
@@ -246,10 +247,12 @@ Items inserted in database: 2740
 
 あなたが戻って '/ws/data/all ' に行く場合は、現在の json データのトンが表示されます。 素晴らしい。私たちの公園のマップは、最終的に動作するはず!
 
-NOTE: [silver]#There's some errors reported with browsers like firefox 54 that don't properly parse the resulting JSON. It's a browser problem, and the application is working properly. #
+[NOTE]
+====
+[silver]#There's some errors reported with browsers like firefox 54 that don't properly parse the resulting JSON. It's a browser problem, and the application is working properly.#
 
-NOTE: 結果の json を正しく解析しない firefox 54 のようなブラウザで報告されたいくつかのエラーがあります。それは
-ブラウザの問題、およびアプリケーションが正常に動作している。
+結果の json を正しく解析しない firefox 54 のようなブラウザで報告されたいくつかのエラーがあります。それはブラウザの問題、およびアプリケーションが正常に動作している。
+====
 
 [source]
 ----
@@ -276,18 +279,16 @@ http://{{GITLAB_URL_PREFIX}}.{{ROUTER_ADDRESS}}/{{GITLAB_USER}}/nationalparks/bl
 {% endif %}
 ----
 
-[silver]#In short summary: By referring to environment variables to connect to services (like databases), it can be trivial to promote applications throughout different lifecycle environments on OpenShift without having to modify application code.  #
-
-要約すると、(データベースのような) サービスに接続するための環境変数を参照することで、アプリケーションコードを変更することなく、openshift 上のさまざまなライフサイクル環境全体でアプリケーションを促進することは簡単です。
-
+[silver]#In short summary: By referring to environment variables to connect to services (like databases), it can be trivial to promote applications throughout different lifecycle environments on OpenShift without having to modify application code.#
 [silver]#You can learn more about environment variables in the https://{{DOCS_URL}}/latest/dev_guide/environment_variables.html[environment variables] section of the Developer Guide.#
 
-環境変数の詳細については、「開発者ガイド」の「https://{{DOCS_URL}}/最新/dev_guide/environment_variables の html [環境変数]」セクションを参照してください。
+要約すると、(データベースのような) サービスに接続するための環境変数を参照することで、アプリケーションコードを変更することなく、openshift 上のさまざまなライフサイクル環境全体でアプリケーションを促進することは簡単です。
+環境変数の詳細については、「開発者ガイド」の https://{{DOCS_URL}}/latest/dev_guide/environment_variables.html [環境変数]セクションを参照してください。
 ====
 
 #### Exercise: Working With Labels
 
-[silver]#We explored how a *Label* is just a key=value pair earlier when looking at *Services* and *Routes* and *Selectors*. In general, a *Label* is simply an arbitrary key=value pair. It could be anything.  #
+[silver]#We explored how a *Label* is just a key=value pair earlier when looking at *Services* and *Routes* and *Selectors*. In general, a *Label* is simply an arbitrary key=value pair. It could be anything.#
 
 我々は、*Label* は、*Services* と *Route* と *Selectors* を見ているときに、以前の key=value のペアだけである方法を検討した。一般的に、*Label* は単に任意の key=value のペアです。それは何でもよい。
 
@@ -302,7 +303,7 @@ http://{{GITLAB_URL_PREFIX}}.{{ROUTER_ADDRESS}}/{{GITLAB_USER}}/nationalparks/bl
 {% if PARKSMAP_PY %}
 [silver]#You can see the code that does this link:https://github.com/openshift-roadshow/parksmap-web-py/blob/1.0.0/app.py#L97[here].#
 
-あなたはこのリンクを行うコードを見ることができます: https://github.com/openshift-roadshow/parksmap-web-py/blob/1.0.0/app.py#L97 [ここ]。
+あなたはこのリンクを行うコードを見ることができますlink:https://github.com/openshift-roadshow/parksmap-web-py/blob/1.0.0/app.py#L97[ここ]。
 {% else %}
 
 [silver]#You can see the code that does this#

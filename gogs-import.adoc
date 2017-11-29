@@ -16,8 +16,8 @@ http://{{GITLAB_URL_OPENTLC}}/
 画面右上の「Sign In」ボタンをクリックしてログイン
 +
 |===
-|Username or email|{{GITLAB_USER}}
-|Password|{{GITLAB_PASSWORD}}
+|Username or email|devXX
+|Password|devXX
 |===
 
 

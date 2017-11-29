@@ -1,51 +1,56 @@
 ## Lab: Application Health
 
 ### Background: Readiness and Liveness Probes
-As we have seen before in the UI via warnings, there is a concept of application
-health checks in OpenShift. These come in two flavors:
+
+[silver]#As we have seen before in the UI via warnings, there is a concept of application health checks in OpenShift. These come in two flavors:#
+
+我々は警告を介して UI で前に見てきたように、OpenShift のアプリケーションの健康チェックの概念があります。これらの2つのフレーバーになる:
 
 * Readiness probe
 * Liveness probe
 
-From the
-https://{{DOCS_URL}}/latest/dev_guide/application_health.html[Application
-Health] section of the documentation, we see the definitions:
+
+[silver]#From the https://{{DOCS_URL}}/latest/dev_guide/application_health.html[Application Health] section of the documentation, we see the definitions:#
+
+https://{{DOCS_URL}}/latest/dev_guide/application_health.html[アプリケーションの正常性] セクションでは、次の定義を参照してください。
 
 [glossary]
 Liveness Probe::
-  A liveness probe checks if the container in which it is configured is still
-  running. If the liveness probe fails, the kubelet kills the container, which
-  will be subjected to its restart policy. Set a liveness check by configuring
-  the `template.spec.containers.livenessprobe` stanza of a pod configuration.
-Readiness Probe::
-  A readiness probe determines if a container is ready to service requests. If
-  the readiness probe fails a container, the endpoints controller ensures the
-  container has its IP address removed from the endpoints of all services. A
-  readiness probe can be used to signal to the endpoints controller that even
-  though a container is running, it should not receive any traffic from a proxy.
-  Set a readiness check by configuring the
-  `template.spec.containers.readinessprobe` stanza of a pod configuration.
+[silver]#A liveness probe checks if the container in which it is configured is still running. If the liveness probe fails, the kubelet kills the container, which will be subjected to its restart policy. Set a liveness check by configuring the `template.spec.containers.livenessprobe` stanza of a pod configuration.#
 
-It sounds complicated, but it really isn't. We will use the web console to add
-these probes to our `nationalparks` application.
+Liveness Probe は、構成されているコンテナがまだ実行されているかどうかをチェックします。Liveness Probe に障害が発生した場合、kubelet はコンテナを強制終了し、再起動ポリシーが実行されます。ポッド構成の `template.spec.containers.livenessprobe` を設定して、活性チェックをセットします。
+
+
+Readiness Probe::
+[silver]#A readiness probe determines if a container is ready to service requests. If the readiness probe fails a container, the endpoints controller ensures the container has its IP address removed from the endpoints of all services. A readiness probe can be used to signal to the endpoints controller that even though a container is running, it should not receive any traffic from a proxy.  Set a readiness check by configuring the `template.spec.containers.readinessprobe` stanza of a pod configuration.#
+
+Readiness Probe は、コンテナーが要求をサービスする準備ができているかどうかを判断します。Readiness Probe がコンテナに障害が発生した場合、エンドポイントコントローラは、すべてのサービスのエンドポイントからその IP アドレスが削除されていることを確認します。準備プローブは、コンテナが実行されているにもかかわらず、プロキシからのトラフィックを受信しないことをエンドポイントコントローラに通知するために使用できます。 ポッド構成の `template.spec.containers.readinessprobe` を設定して、準備チェックをセットします。
+
+
+[silver]#It sounds complicated, but it really isn't. We will use the web console to add these probes to our `nationalparks` application.#
+
+それは複雑に聞こえるが、それは本当にありません。web コンソールを使用して、これらのプローブを `nationalparks` アプリケーションに追加します。
+
 
 ### Exercise: Add Health Checks
-As we are going to be implementing a realistic CI/CD pipeline, we will be doing
-some testing of the "development" version of the application. However, in order
-to test the app, it must be ready. This is where OpenShift's application health
-features come in very handy.
+[silver]#As we are going to be implementing a realistic CI/CD pipeline, we will be doing some testing of the "development" version of the application. However, in order to test the app, it must be ready. This is where OpenShift's application health features come in very handy.#
 
-We are going to add both a readiness and liveness probe to the existing
-`nationalparks` deployment. This will ensure that OpenShift does not add any
-instances to the service until they pass the readiness checks, and will ensure
-that unhealthy instances are restarted (if they fail the liveness checks).
+我々は現実的な CI/CD のパイプラインを実装する予定ですので、我々は、アプリケーションの "開発" バージョンのいくつかのテストを行うことになります。ただし、アプリをテストするためには、準備ができている必要があります。これは、OpenShift のアプリケーションの健康機能が非常に便利になる場所です。
 
-Click *Applications* &rarr; *Deployments* on the left-side bar. Click
-`nationalparks`. You will see the warning about health checks, with a link to
-click in order to add them. Click *Add health checks* now.
 
-You will want to click both *Add Readiness Probe* and *Add Liveness Probe* and
-then fill them out as follows:
+[silver]#We are going to add both a readiness and liveness probe to the existing `nationalparks` deployment. This will ensure that OpenShift does not add any instances to the service until they pass the readiness checks, and will ensure that unhealthy instances are restarted (if they fail the liveness checks).#
+
+我々は、既存の `nationalparks` 配備に準備と活性プローブの両方を追加するつもりです。これにより、OpenShift は、準備チェックに合格するまでサービスにインスタンスを追加せず、異常なインスタンスが再起動されることを保証します (活性チェックが失敗した場合)。
+
+
+[silver]#Click *Applications* &rarr; *Deployments* on the left-side bar. Click `nationalparks`. You will see the warning about health checks, with a link to click in order to add them. Click *Add health checks* now.#
+
+左側のバーにある *Applications* &rarr; *Deployments* をクリックします。`nationalparks`をクリックします。ヘルスチェックに関する警告が表示され、それらを追加するためのリンクがクリックされます。 *Add health checks* をクリックします。
+
+
+[silver]#You will want to click both *Add Readiness Probe* and *Add Liveness Probe* and then fill them out as follows:#
+
+あなたは両方をクリックしてください *Add Readiness Probe* と *Add Liveness Probe* し、次のようにそれらを埋める:
 
 _Readiness Probe_
 
@@ -63,12 +68,14 @@ _Liveness Probe_
 
 image::pipeline-liveness.png[Liveness Probe]
 
-Click *Save* and then click the *Overview* button in the left navigation. You
-will notice that these changes caused a new deployment -- they counted as a
-configuration change.
+[silver]#Click *Save* and then click the *Overview* button in the left navigation. You will notice that these changes caused a new deployment -- they counted as a configuration change.#
 
-You will also notice that the circle around the new deployment stays light blue
-for a while. This is a sign that the pod(s) have not yet passed their readiness
-checks -- it's working!
+*Save* をクリックし、左側のナビゲーションの *Overview* ボタンをクリックします。これらの変更によって新しい展開が発生したことがわかります (構成の変更としてカウントされます)。
+
+
+[silver]#You will also notice that the circle around the new deployment stays light blue for a while. This is a sign that the pod(s) have not yet passed their readiness checks -- it's working!#
+
+また、新しい展開の周りの円はしばらくの間、水色のままであることに気づくでしょう。これは、Pod(s) はまだ彼らの準備のチェックを通過していないというサインです-それは働いている!
+
 
 image::apphealth-status.png[Application Health]

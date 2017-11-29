@@ -1,37 +1,27 @@
 ## Further Resources
 
-The exercices in this workshop has shown you how OpenShift can be used not only for deploying
-stateless web applications, but also applications which require persistent
-file system storage.
+[silver]#The exercices in this workshop has shown you how OpenShift can be used not only for deploying stateless web applications, but also applications which require persistent file system storage.#
 
 このワークショップの exercices では、ステートレス web アプリケーションのデプロイだけでなく、永続的なファイル・システム・ストレージを必要とするアプリケーションに OpenShift を使用する方法についても説明しました。
 
-This flexibility makes OpenShift an ideal platform for deploying both web
-applications and databases.
+[silver]#This flexibility makes OpenShift an ideal platform for deploying both web applications and databases.#
 
 この柔軟性により、OpenShift は web アプリケーションとデータベースの両方をデプロイするための理想的なプラットフォームとなります。
 
-If you have finished this workshop early and want to experiment some more,
-we have additional exercises you can try out using our online interactive
-learning environment.
+[silver]#If you have finished this workshop early and want to experiment some more, we have additional exercises you can try out using our online interactive learning environment.#
 
 場合は、このワークショップを早く終了し、いくつかのより多くの実験をしたい場合は、我々のオンラインインタラクティブ学習環境を使用して試すことができます追加の演習があります。
 
-* *link:https://learn.openshift.com/[OpenShift Interactive Learning
-Portal]* - An online interactive learning environment where you can run
-through various scenarios related to using OpenShift.
+* [silver]#*link:https://learn.openshift.com/[OpenShift Interactive Learning Portal]* - An online interactive learning environment where you can run through various scenarios related to using OpenShift.#
 
 *link:https://learn.openshift.com/[OpenShift Interactive Learning
 Portal]の使用に関連するさまざまなシナリオを実行できるオンラインの対話型学習環境。
 
-The online interactive learning environment is always available so you
-can continue to work on those exercises even after the workshop is over.
+[silver]#The online interactive learning environment is always available so you can continue to work on those exercises even after the workshop is over.#
 
 オンラインでインタラクティブな学習環境は、常に利用可能なので、ワークショップが終わった後も、これらの演習で作業を続けることができます。
 
-Below you will find further resources for learning about OpenShift and
-running OpenShift on your own computer, as well as details about OpenShift
-Online or other OpenShift related products and services.
+[silver]#Below you will find further resources for learning about OpenShift and running OpenShift on your own computer, as well as details about OpenShift Online or other OpenShift related products and services.#
 
 * *link:https://www.openshift.org/[OpenShift Origin]* - The upstream Open
 Source community project that powers OpenShift.

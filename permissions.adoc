@@ -10,7 +10,7 @@ OpenShift 環境できるほぼすべての対話的な操作は、マスター�
 [silver]#In the log aggregation lab we saw that there was an error in reference to a *Service Account*.#{% endif %}
 [silver]#Just like a user has permissions (AuthZ), sometimes we may wish for non-users to be able to perform actions against the API. These "non-users" are referred to as service accounts.#
 
-{% if modules.logging %}ログ収集ラボでは、*Service Account*を参照しているときにエラーが発生しました。{%endif %}ユーザーがアクセス許可 (authz) を持っているのと同じように、非ユーザーが API に対してアクションを実行できるようにすることもあります。これらの "非ユーザー" は、サービスアカウントと呼ばれます。
+{% if modules.logging %}ログ収集ラボでは、*Service Account* を参照しているときにエラーが発生しました。{%endif %}ユーザーがアクセス許可 (authz) を持っているのと同じように、非ユーザーが API に対してアクションを実行できるようにすることもあります。これらの "非ユーザー" は、サービスアカウントと呼ばれます。
 
 
 [silver]#OpenShift automatically creates a few special service accounts in every project.  The **default** service account has its credentials automatically injected into every pod that is launched. By changing the permissions for that service account, we can do interesting things.#
@@ -114,7 +114,7 @@ $ oc policy add-role-to-user view user{{SUFFIX}}
 [silver]#The deployment screen tells you a lot about how the application will be deployed.  At the top right, there is a button labeled "Deploy".  This button will cause a new deployment (which you know creates a new *ReplicationController*, right?).#
 
 展開画面には、アプリケーションの展開方法について多くの情報が表示されます。
-右上には、*Deploy*というラベルの付いたボタンがあります。
+右上には、 *Deploy* というラベルの付いたボタンがあります。
 このボタンをクリックすると、新しいデプロイメント (新しい *ReplicationController* を作成することがわかります) が発生します。
 
 

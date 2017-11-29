@@ -8,7 +8,7 @@
 
 [silver]#A *DeploymentConfiguration* (DC) defines how something in OpenShift should be deployed. From the https://{{DOCS_URL}}/latest/architecture/core_concepts/deployments.html#deployments-and-deployment-configurations[deployments documentation]:#
 
-*DeploymentConfiguration* (DC)は OpenShift で何かの配置方法を定義します。Https://{{DOCS_URL}}/latest/architecture/core_concepts/deployments.html#deployments-and-deployment-configurations[deployments ドキュメント]: から
+*DeploymentConfiguration* (DC)は OpenShift で何かの配置方法を定義します。https://{{DOCS_URL}}/latest/architecture/core_concepts/deployments.html#deployments-and-deployment-configurations[deployments ドキュメント]: から
 
 [source]
 ----
@@ -172,7 +172,7 @@ OpenShift の *RCs* 常に監視していることを確認する必要な数の
 
 [silver]#Since we have two *Pods* running right now, let's see what happens if we "accidentally" kill one. Run the `oc get pods` command again, and choose a *Pod* name. Then, do the following:#
 
-我々 は 2 つを持っているので *Pods* 今、実行して何が起こるか見てみましょう我々 は「偶然」1 つを殺す場合。`oc get pods`コマンドを再度実行し、選択、*Pod* の名前。その後、次の操作を行います。
+私たちは2つの *Pods* を今実行しているので、我々は "誤って" 1 つを殺す場合、何が起こるか見てみましょう。`oc get pod` コマンドを再度実行し、*Pod* 名を選択します。次に、以下の操作を行います。
 
 [source]
 ----
@@ -187,7 +187,7 @@ parksmap-1-vdkd9   1/1       Running             0          32s
 
 [silver]#Did you notice anything? There is a container being terminated (the one we deleted), and there's a new container already being created.#
 
-何かに気づきましたか。(削除 1) 終了コンテナーが、既に作成された新しいコンテナーがあります。
+何かに気づきましたか。(我々が削除したPod) 終了コンテナーが終了し、既に作成された新しいコンテナーがあります。
 
 [silver]#Also, the names of the *Pods* are slightly changed.  That's because OpenShift almost immediately detected that the current state (1 *Pod*) didn't match the desired state (2 *Pods*), and it fixed it by scheduling another *Pod*.#
 
