@@ -52,7 +52,7 @@ $ oc create configmap nationalparks --from-file=application.properties=./applica
 [silver]#The `--from-file` option specifies a key-value pair with the key used as the file name that is provided to the application and value as the content of the file. In the above command, the content of `application-dev.properties` file will be provided to the application container as a properties file called `application.properties`#
 
 `--from-file` オプションは、アプリケーションに提供されるファイル名として使用されるキーと、ファイルの内容としての値のキーと値のペアを指定します。
-上記のコマンドでは、 `application-dev.properties` ファイルの内容は、アプリケーションコンテナに 'application.properties` プロパティファイルとして提供されます。
+上記のコマンドでは、 `application-dev.properties` ファイルの内容は、アプリケーションコンテナに `application.properties` プロパティファイルとして提供されます。
 
 [silver]#List and verify that the `ConfigMap` is created successfully containing the database credentials:#
 

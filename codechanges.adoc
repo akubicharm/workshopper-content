@@ -179,7 +179,7 @@ image::ocp-webhook5-py.png[Webhook]
 
 [silver]#Click "Project" at the top of the GitLab page, and then "Files" towards the middle of the page. This is GitLab's repository view. Make sure that the drop-down menu at the upper right is set for the `{{NATIONALPARKS_VERSION}}` branch. Navigate to the following path:#
 
-GitLab ページの上部にある"プロジェクト"をクリックし、ページの中央にあるファイルを確認します。これは GitLab のリポジトリビューです。右上のドロップダウンメニューが ' {{NATIONALPARKS_VERSION}} ' 分岐に設定されていることを確認します。次のパスに移動します。
+GitLab ページの上部にある"プロジェクト"をクリックし、ページの中央にあるファイルを確認します。これは GitLab のリポジトリビューです。右上のドロップダウンメニューが `{{NATIONALPARKS_VERSION}}` 分岐に設定されていることを確認します。次のパスに移動します。
 
 
 [source]
