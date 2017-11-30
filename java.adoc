@@ -14,7 +14,7 @@ image::roadshow-app-architecture-nationalparks-1.png[Application architecture,80
 前の実習では、既存のDockerでフォーマットされたイメージを展開する方法を学びました。ここから拡張していきます。OpenShift が既存のソースコードリポジトリからソース コードを使用してDockerのイメージをビルドする方法を学ぶことによって。
 
 
-[silver]# https://github.com/openshift/source-to-image[Source-to-Image (S2I)] is another open source project sponsored by Red Hat. Its goal:#
+[silver]#https://github.com/openshift/source-to-image[Source-to-Image (S2I)] is another open source project sponsored by Red Hat. Its goal:#
 
 
 https://github.com/openshift/source-to-image[Source-to-Image (S2I)] は、Red Hat がスポンサー別のオープン ソース プロジェクトです。その目標:
@@ -75,7 +75,7 @@ OpenShift は、アクセス可能な Git リポジトリを操作できます�
 
 [source,role=copypaste]
 ----
-http://{{GITLAB_URL_PREFIX}}.{{ROUTER_ADDRESS}}/{{GITLAB_USER}}/nationalparks/tree/{{NATIONALPARKS_VERSION}}
+http://{{GITLAB_URL_OPENTLC}}/{{GITLAB_USER}}/nationalparks/tree/{{NATIONALPARKS_VERSION}}
 ----
 
 [NOTE]
@@ -119,7 +119,7 @@ Git リポジトリの URL を入力してください。
 
 [source,role=copypaste]
 ----
-http://{{GITLAB_URL_PREFIX}}.{{ROUTER_ADDRESS}}/{{GITLAB_USER}}/nationalparks.git
+http://{{GITLAB_URL_OPENTLC}}/{{GITLAB_USER}}/nationalparks.git
 ----
 
 [NOTE]

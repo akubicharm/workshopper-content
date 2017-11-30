@@ -14,7 +14,7 @@
 
 [silver]#The `ConfigMap` object in OpenShift provides mechanisms to provide configuration data to the application container while keeping the application images both portable across environments and independent of OpenShift Container Platform. A `ConfigMap` can be used to store key-value properties, configuration files, JSON blobs and alike.#
 
-OpenShift の ' ConfigMap ' オブジェクトは、アプリケーションイメージを環境間で移植し、OpenShift コンテナプラットフォームとは無関係に、アプリケーションコンテナに構成データを提供するメカニズムを提供します。' ConfigMap ' は、キーと値のプロパティ、構成ファイル、JSON blob などを格納するために使用できます。
+OpenShift の `ConfigMap` オブジェクトは、アプリケーションイメージを環境間で移植し、OpenShift コンテナプラットフォームとは無関係に、アプリケーションコンテナに構成データを提供するメカニズムを提供します。`ConfigMap` は、キーと値のプロパティ、構成ファイル、JSON blob などを格納するために使用できます。
 
 [silver]#In this lab, you will replace the environment variables provided in the link:databases[previous labs] and use a `ConfigMap` instead to configure the `nationalparks` application.#
 
@@ -56,7 +56,7 @@ $ oc create configmap nationalparks --from-file=application.properties=./applica
 
 [silver]#List and verify that the `ConfigMap` is created successfully containing the database credentials:#
 
-データベースの資格情報を含む ' ConfigMap ' が正常に作成されたことを確認します:
+データベースの資格情報を含む `ConfigMap` が正常に作成されたことを確認します:
 
 [source]
 ----
@@ -124,7 +124,7 @@ $ oc set volumes dc/nationalparks --add -m /deployments/config --configmap-name=
 
 [silver]#The above command makes the content of the configmap `ConfigMap`, which you created from a file, called `application.properties`, available in the `/opt/openshift/config` directory. The `nationalparks` *DeploymentConfiguration* detects the configuration change, and automatically deploys the *Pod* with the new configuration.#
 
-上記のコマンドは、`/opt/openshift/config` ディレクトリで利用できる`application.properties`, と呼ばれるファイルから作成したコンフィグレーション定義 `ConfigMap`の内容を作ります。`nationalparks` の *DeploymentConfiguration* は設定変更を検出し、自動的に *Pod* を新しい設定にデプロイします。
+上記のコマンドは、`/opt/openshift/config` ディレクトリで利用できる `application.properties` , と呼ばれるファイルから作成したコンフィグレーション定義 `ConfigMap` の内容を作ります。 `nationalparks` の *DeploymentConfiguration* は設定変更を検出し、自動的に *Pod* を新しい設定にデプロイします。
 
 [silver]#Also, as we have configured `nationalparks` through `ConfigMap`, you can remove the database environment variables set in the link:databases[previous labs]:#
 
@@ -146,4 +146,4 @@ http://nationalparks-{{EXPLORE_PROJECT_NAME}}{{USER_SUFFIX}}.{{ROUTER_ADDRESS}}/
 
 [silver]#If you check the new *Pod's* logs once it comes up, you should see no errors.#
 
-新しい *Pod's*の ログを確認する場合は、エラーがないことが確認できます。
+新しい *Pod's* のログを確認する場合は、エラーがないことが確認できます。

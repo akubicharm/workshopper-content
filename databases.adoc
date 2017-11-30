@@ -283,7 +283,7 @@ http://{{GITLAB_URL_PREFIX}}.{{ROUTER_ADDRESS}}/{{GITLAB_USER}}/nationalparks/bl
 [silver]#You can learn more about environment variables in the https://{{DOCS_URL}}/latest/dev_guide/environment_variables.html[environment variables] section of the Developer Guide.#
 
 要約すると、(データベースのような) サービスに接続するための環境変数を参照することで、アプリケーションコードを変更することなく、openshift 上のさまざまなライフサイクル環境全体でアプリケーションを促進することは簡単です。
-環境変数の詳細については、「開発者ガイド」の https://{{DOCS_URL}}/latest/dev_guide/environment_variables.html [環境変数]セクションを参照してください。
+環境変数の詳細については、「開発者ガイド」の https://{{DOCS_URL}}/latest/dev_guide/environment_variables.html[environment variables] セクションを参照してください。
 ====
 
 #### Exercise: Working With Labels
@@ -307,16 +307,17 @@ http://{{GITLAB_URL_PREFIX}}.{{ROUTER_ADDRESS}}/{{GITLAB_USER}}/nationalparks/bl
 {% else %}
 
 [silver]#You can see the code that does this#
+[silver]#link:https://github.com/openshift-roadshow/parksmap-web/blob/{{PARKSMAP_VERSION}}/src/main/java/com/openshift/evg/roadshow/rest/RouteWatcher.java#L20[here].#
 
 これを行うコードを見ることができます。
 
-link:https://github.com/openshift-roadshow/parksmap-web/blob/{{PARKSMAP_VERSION}}/src/main/java/com/openshift/evg/roadshow/rest/RouteWatcher.java#L20[here].
+link:https://github.com/openshift-roadshow/parksmap-web/blob/{{PARKSMAP_VERSION}}/src/main/java/com/openshift/evg/roadshow/rest/RouteWatcher.java#L20[ここ].
 {% endif %}
 
 
 [silver]#Fortunately, the command line provides a convenient way for us to manipulate labels. `describe` the `nationalparks` service:#
 
-幸いなことに、コマンド ・ ラインは、私たちのラベルを操作するための便利な方法を提供します。'describe` `nationalparks` サービスを説明します。
+幸いなことに、コマンド ・ ラインは、私たちのラベルを操作するための便利な方法を提供します。`describe` `nationalparks` サービスを説明します。
 
 [source]
 ----
@@ -350,7 +351,7 @@ $ oc label route nationalparks type=parksmap-backend
 
 [silver]#You will see something like:#
 
-ようなものが表示されます。
+このようなものが表示されます。
 
 [source]
 ----

@@ -27,7 +27,7 @@ OpenShift は、コンテナがすべての情報を `STDOUT` に記録するこ
 [silver]#Since we already deployed our application, we can take some time to examine its
 logs. In the web console, find your way back to the *Pod* details page (Applications -> Pods -> specific pod) and then click on the "Logs" tab. You should see a nice view of the *Pod*'s logs:#
 
-既にアプリケーションを展開しているため、ログの確認に時間がかかることがあります。web コンソールで、*Pod* 詳細ページ (Applications -> Pods -> suecific pod) に戻る方法を見つけて、"Logs"タブをクリックします。あなたは、*Pod* のログの素敵なビューが表示されます:
+既にアプリケーションを展開しているため、ログの確認に時間がかかることがあります。web コンソールで、*Pod* 詳細ページ (Applications -> Pods -> specific pod) に戻る方法を見つけて、"Logs"タブをクリックします。あなたは、*Pod* のログの素敵なビューが表示されます:
 
 image::parksmap-console-logs.png[Application Logs]
 

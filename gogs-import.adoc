@@ -9,7 +9,7 @@
 
 1. gogsのURLにアクセス
 +
-http://{{GITLAB_URL_OPENTLC}}/
+{{GITLAB_URL_OPENTLC}}
 
 2. Sign In
 +

@@ -45,7 +45,7 @@ Readiness Probe は、コンテナーが要求をサービスする準備がで�
 
 [silver]#Click *Applications* &rarr; *Deployments* on the left-side bar. Click `nationalparks`. You will see the warning about health checks, with a link to click in order to add them. Click *Add health checks* now.#
 
-左側のバーにある *Applications* &rarr; *Deployments* をクリックします。`nationalparks`をクリックします。ヘルスチェックに関する警告が表示され、それらを追加するためのリンクがクリックされます。 *Add health checks* をクリックします。
+左側のバーにある *Applications* &rarr; *Deployments* をクリックします。`nationalparks` をクリックします。ヘルスチェックに関する警告が表示され、それらを追加するためのリンクがクリックされます。 *Add health checks* をクリックします。
 
 
 [silver]#You will want to click both *Add Readiness Probe* and *Add Liveness Probe* and then fill them out as follows:#

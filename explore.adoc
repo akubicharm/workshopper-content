@@ -163,7 +163,7 @@ image::explore-webconsole2.png[Explore Project]
 [silver]#Lastly, the web console will show you an error: _An error occurred getting metrics._  We need to accept another self-signed certificate for OpenShift's metrics aggregation. If we don't, then the metrics will not display in the OpenShift UI.#
 
 
-最後に、web コンソールにエラーが表示されます: _エラーが発生しましたメトリックを取得します。_  我々は OpenShift のメトリックの集計のための別の自己署名証明書を受け入れる必要があります。そうしないと、メトリックは OpenShift UI に表示されません。
+最後に、web コンソールにエラーが表示されます: _An error occurred getting metrics._ 我々は OpenShift のメトリックの集計のための別の自己署名証明書を受け入れる必要があります。そうしないと、メトリックは OpenShift UI に表示されません。
 
 [silver]#Click the link that says *Open metrics URL*, and accept the certificate.#
 

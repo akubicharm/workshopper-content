@@ -59,7 +59,7 @@ image::parksmap-image-options.png[Explore Project]
 [silver]#WINNING! These few steps are the only ones you need to run to get a "vanilla" Docker-formatted image deployed on OpenShift. This should work with any
 Docker-formatted image that follows best practices, such as defining an EXPOSE port, not needing to run specifically as the *root user* or other user name, and a single non-exiting CMD to execute on start.#
 
-WINNING!これらのいくつかの手順は、openshift に展開された "バニラ" docker 形式のイメージを取得するために実行する必要がある唯一のものです。これは、すべての docker では、公開ポートの定義、*root user* または他のユーザー名として実行する必要がなく、開始後に実行される1つの非終了 CMD など、ベストプラクティスに従ったイメージがフォーマットされています。
+WINNING!これらのいくつかの手順は、作成済みのDocker形式のイメージを取得してOpenShiftに展開するための手順です。これは、すべての docker では、公開ポートの定義、*root user* または他のユーザー名として実行する必要がなく、開始後に実行される1つの非終了 CMD など、ベストプラクティスに従ったイメージがフォーマットされています。
 
 
 ### Background: Containers and Pods
@@ -86,6 +86,8 @@ OpenShift では、デプロイ可能な最小単位は *Pod* です。*Pod* は
 
 
 ### Exercise: Examining the Pod
+
+image::docker-PodServiceRoute.png[Pod Service Route]
 
 [silver]#In the web console's overview page you will see that there is a single *Pod* that was created by your actions. This *Pod* contains a single container, which happens to be the parks map application - a simple Spring Boot/Java application.#
 
@@ -179,8 +181,8 @@ OpenShift がイメージを実行するためにノードの docker デーモ�
 
 [silver]#There are a number of ways to customize this behavior. They are documented in https://{{DOCS_URL}}/latest/dev_guide/application_lifecycle/new_app.html#specifying-an-image[specifying an image] as well as https://{{DOCS_URL}}/latest/dev_guide/managing_images.html#image-pull-policy[image pullpolicy].#
 
-この動作をカスタマイズする方法の数があります。彼らに記載されています
-https://{{DOCS_URL}}/latest/dev_guide/application_lifecycle/new_app.html#specifying-an-image[specifying 画像]
+この動作をカスタマイズする方法の数があります。それらは記載されています
+https://{{DOCS_URL}}/latest/dev_guide/application_lifecycle/new_app.html#specifying-an-image[specifying an image]
 同様に
 https://{{DOCS_URL}}/latest/dev_guide/managing_images.html#image-pull-policy[image pullpolicy]。
 

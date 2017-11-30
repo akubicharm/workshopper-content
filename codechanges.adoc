@@ -109,30 +109,30 @@ Password: {{GITLAB_PASSWORD}}
 ====
 
 
-Click the Settings link on the top right of the screen, and then click "Integrations":
+[silver]#Click the Settings link on the top right of the screen, and then click "Integrations":#
 
 画面右上の Settingsリンクをクリックし、"Integrations"をクリックします。
 
 image::ocp-webhook2.png[Webhook]
 
-In the next screen, paste your link into the "URL" field. You can leave the secret token field blank -- the secret is already in the URL and does not need to be in the payload.
+[silver]#In the next screen, paste your link into the "URL" field. You can leave the secret token field blank -- the secret is already in the URL and does not need to be in the payload.#
 
 次の画面で、"URL" フィールドにリンクを貼り付けます。secret toke フィールドは空白のままにしておくことができます--シークレットは既に URL にあり、ペイロード内にある必要はありません。
 
 
 image::ocp-webhook3.png[Webhook]
 
-Scroll to the bottom of the page. Make sure you *un-check* the SSL verification box. Remember that OpenShift's API is not presenting an SSL certificate signed by a known/trusted authority. Without *un-checking* the verification box, the webhook will fail.
+[silver]#Scroll to the bottom of the page. Make sure you *un-check* the SSL verification box. Remember that OpenShift's API is not presenting an SSL certificate signed by a known/trusted authority. Without *un-checking* the verification box, the webhook will fail.#
 
 ページの一番下までスクロールします。SSL 確認チェックボックスをオフにしてください。OpenShift の API は、既知/信頼された機関によって署名した SSL 証明書を提示していないことに注意してください。チェックを外し忘れるとwebhook は失敗します。
 
-Finally, click on "Add webhook".
+[silver]#Finally, click on "Add webhook".#
 
 最後に、"Add webhook" をクリックしてください。
 
 image::ocp-webhook4.png[Webhook]
 
-Boom! From now on, every time you commit new source code to your GitLab repository, a new build and deploy will occur inside of OpenShift.  Let's try this out.
+[silver]#Boom! From now on, every time you commit new source code to your GitLab repository, a new build and deploy will occur inside of OpenShift.  Let's try this out.#
 
 ブーム!これからは、新しいソースコードを GitLab リポジトリにコミットするたびに、OpenShift の内部で新しいビルドとデプロイが行われます。 これを試してみましょう。
 
@@ -140,24 +140,24 @@ Boom! From now on, every time you commit new source code to your GitLab reposito
 #### Exercise: Using GitLab Web Hooks
 
 {% if PARKSMAP_PY %}
-Be sure you return to the proper tag in the git repository:
+[silver]#Be sure you return to the proper tag in the git repository:#
 
 git リポジトリの適切なタグに戻るようにしてください。
 
 *link:http://{{GITLAB_URL_PREFIX}}.{{ROUTER_ADDRESS}}/{{GITLAB_USER}}/nationalparks-py/tree/{{NATIONALPARKS_VERSION}}[]*
 
-Click "Project" at the top of the GitLab page, and then "Files" towards the middle of the page. This is GitLab's repository view. Make sure that the drop-down menu at the upper right is set for the `1.0.0` branch. Navigate to the root path and click on the `wsgi.py` file.
+[silver]#Click "Project" at the top of the GitLab page, and then "Files" towards the middle of the page. This is GitLab's repository view. Make sure that the drop-down menu at the upper right is set for the `1.0.0` branch. Navigate to the root path and click on the `wsgi.py` file.#
 
 GitLab ページの上部にある"プロジェクト"をクリックし、ページの中央の"ファイル"を確認します。これは GitLab のリポジトリビューです。右上のドロップダウンメニューが `1.0.0` ブランチに設定されていることを確認します。ルートパスに移動し、`wsgi.py` ファイルをクリックします。
 
 
-Once you have the file on the screen, click the edit button in the top right hand corner as shown here:
+[silver]#Once you have the file on the screen, click the edit button in the top right hand corner as shown here:#
 
 画面にファイルが表示されたら、次のように右上隅の編集ボタンをクリックします。
 
 image::ocp-webhook5-py.png[Webhook]
 
-Change line number 35:
+[silver]#Change line number 35:#
 
 変更行番号 35:
 
@@ -166,7 +166,7 @@ Change line number 35:
 'displayName': 'National Parks (PY)'
 ----
 
-To
+[silver]#To#
 
 宛先
 
@@ -177,7 +177,7 @@ To
 
 {% else %}
 
-Click "Project" at the top of the GitLab page, and then "Files" towards the middle of the page. This is GitLab's repository view. Make sure that the drop-down menu at the upper right is set for the `{{NATIONALPARKS_VERSION}}` branch. Navigate to the following path:
+[silver]#Click "Project" at the top of the GitLab page, and then "Files" towards the middle of the page. This is GitLab's repository view. Make sure that the drop-down menu at the upper right is set for the `{{NATIONALPARKS_VERSION}}` branch. Navigate to the following path:#
 
 GitLab ページの上部にある"プロジェクト"をクリックし、ページの中央にあるファイルを確認します。これは GitLab のリポジトリビューです。右上のドロップダウンメニューが ' {{NATIONALPARKS_VERSION}} ' 分岐に設定されていることを確認します。次のパスに移動します。
 
@@ -187,17 +187,17 @@ GitLab ページの上部にある"プロジェクト"をクリックし、ペ�
 src/main/java/com/openshift/evg/roadshow/parks/rest/
 ----
 
-Then click on the `BackendController.java` file.
+[silver]#Then click on the `BackendController.java` file.#
 
 `BackendController.java`　ファイルをクリックします。
 
-Once you have the file on the screen, click the edit button in the top right hand corner as shown here:
+[silver]#Once you have the file on the screen, click the edit button in the top right hand corner as shown here:#
 
 画面にファイルが表示されたら、次のように右上隅の 編集ボタンをクリックします。
 
 image::ocp-webhook5.png[Webhook]
 
-Change line number 20:
+[silver]#Change line number 20:#
 
 行番号20を変更します。
 
@@ -206,7 +206,7 @@ Change line number 20:
 return new Backend("nationalparks","National Parks", new Coordinates("47.039304", "14.505178"), 4);
 ----
 
-To
+[silver]#To#
 
 宛先
 
@@ -217,7 +217,7 @@ return new Backend("nationalparks","OpenShift National Parks", new Coordinates("
 
 {% endif %}
 
-Click on Commit changes at the bottom of the screen. Feel free to enter a commit message.
+[silver]#Click on Commit changes at the bottom of the screen. Feel free to enter a commit message.#
 
 画面の下部にある"変更をコミット"をクリックします。お気軽にコミットメッセージを入力してください。
 
@@ -226,26 +226,26 @@ Click on Commit changes at the bottom of the screen. Feel free to enter a commit
 
 {% if modules.pipelines %}
 
-Once you have committed your changes, the `nationalparks-pipeline` should almost instantaneously be triggered in OpenShift. Look at the *Builds* &rarr; *Pipelines* page in OpenShift Console to verify the pipeline is running:
+[silver]#Once you have committed your changes, the `nationalparks-pipeline` should almost instantaneously be triggered in OpenShift. Look at the *Builds* &rarr; *Pipelines* page in OpenShift Console to verify the pipeline is running:#
 
 あなたの変更をコミットしたら、`nationalparks-pipeline` は、ほぼ瞬時に OpenShift でトリガされる必要があります。パイプラインが実行されていることを確認するには、OpenShift コンソールの *Builds* &rarr; *Pipelines* ページを参照してください。
 
 
 image::ocp-webhook6-pipeline.png[Pipeline Running]
 
-After the test stage, pipeline waits for manual approval in order to deploy to the *Live* container. Click on *Input Required* link which takes you to the Jenkins Console for approving the deployment and then *Proceed* button.
+[silver]#After the test stage, pipeline waits for manual approval in order to deploy to the *Live* container. Click on *Input Required* link which takes you to the Jenkins Console for approving the deployment and then *Proceed* button.#
 
 テスト段階の後、パイプラインは、*Live* コンテナに展開するために手動承認を待機します。*Input Required* リンクをクリックしてください。そのリンクは展開を承認するために Jenkins のコンソールが開くので、*Proceed* ボタンをクリックしてください。
 
 
 image::pipeline-jenkins-input.png[Pipline Manual Approval,1000,align=center]
 
-Once the pipeline execution is finished, verify your new Docker image was automatically deployed by viewing the application in your browser:
+[silver]#Once the pipeline execution is finished, verify your new Docker image was automatically deployed by viewing the application in your browser:#
 
 パイプラインの実行が完了したら、ブラウザでアプリケーションを表示して、新しい Docker イメージが自動的に展開されたことを確認します。
 
 {% else %}
-Once you have committed your changes, a *Build* should almost instantaneously be triggered in OpenShift. Look at the *Builds* page in the web console, or run the following command to verify:
+[silver]#Once you have committed your changes, a *Build* should almost instantaneously be triggered in OpenShift. Look at the *Builds* page in the web console, or run the following command to verify:#
 
 あなたの変更をコミットしたら、*Build* は、ほぼ瞬時に OpenShift でトリガされる必要があります。web コンソールの *Build* ページを参照するか、次のコマンドを実行して確認します。
 
@@ -255,7 +255,7 @@ Once you have committed your changes, a *Build* should almost instantaneously be
 $ oc get builds
 ----
 
-You should see that a new build is running:
+[silver]#You should see that a new build is running:#
 
 新しいビルドが実行されていることがわかります。
 
@@ -266,9 +266,10 @@ nationalparks-1   Source    Git@b052ae6   Complete   18 hours ago     36s
 nationalparks-2   Source    Git@3b26e1a   Running    43 seconds ago
 ----
 
-Once the build and deploy has finished, verify your new Docker image was automatically deployed by viewing the application in your browser:
-{% endif %}
+[silver]#Once the build and deploy has finished, verify your new Docker image was automatically deployed by viewing the application in your browser:#
+
 ビルドと展開が完了したら、ブラウザーでアプリケーションを表示して、新しい Docker イメージが自動的に展開されたことを確認します。
+{% endif %}
 
 
 [source,role=copypaste]
@@ -276,13 +277,13 @@ Once the build and deploy has finished, verify your new Docker image was automat
 http://nationalparks{% if modules.pipelines %}-live{% endif %}-{{EXPLORE_PROJECT_NAME}}{{USER_SUFFIX}}.{{ROUTER_ADDRESS}}/ws/info/
 ----
 
-You should now see the new name you have set in the JSON string returned.
+[silver]#You should now see the new name you have set in the JSON string returned.#
 
 これで、返された JSON 文字列に設定した新しい名前が表示されます。
 
 [NOTE]
 ====
-To see this in the map's legend itself, you will need to scale down your parksmap to 0, then back up to 1 to force the app to refresh its cache.
+[silver]#To see this in the map's legend itself, you will need to scale down your parksmap to 0, then back up to 1 to force the app to refresh its cache.#
 
 マップの凡例自体でこれを表示するには、parksmap を0に縮小してから1にバックアップし、アプリがキャッシュを更新するように強制する必要があります。
 ====
@@ -290,12 +291,12 @@ To see this in the map's legend itself, you will need to scale down your parksma
 
 #### Exercise: Rollback
 
-OpenShift allows you to move between different versions of an application without the need to rebuild each time. Every version (past builds) of the application exists as a Docker-formatted image in the OpenShift registry. Using the `oc rollback` and `oc deploy` commands you can move back- or forward between various versions of applications.
+[silver]#OpenShift allows you to move between different versions of an application without the need to rebuild each time. Every version (past builds) of the application exists as a Docker-formatted image in the OpenShift registry. Using the `oc rollback` and `oc deploy` commands you can move back- or forward between various versions of applications.#
 
 OpenShift を使用すると、毎回再構築する必要なく、アプリケーションの異なるバージョン間を移動できます。アプリケーションのすべてのバージョン (過去のビルド) は、OpenShift レジストリに Docker 形式のイメージとして存在します。`oc rollback`と`oc deploy`コマンドを使用すると、さまざまなバージョンのアプリケーション間を移動または転送することができます。
 
 
-In order to perform a rollback, you need to know the name of the *Deployment Config* which has deployed the application:
+[silver]#In order to perform a rollback, you need to know the name of the *Deployment Config* which has deployed the application:#
 
 ロールバックを実行するには、アプリケーションをデプロイした *Deployment Config* の名前を知っておく必要があります。
 
@@ -306,7 +307,7 @@ $ oc get dc
 
 // TODO: Need non-pipeline version
 
-The output will be similar to the following:
+[silver]#The output will be similar to the following:#
 
 出力は次のようになります。
 
@@ -322,7 +323,7 @@ mongodb-live         1          1         1         config,image(mongodb:3.2)
 nationalparks-live   4          1         1         config,image(nationalparks:live)
 {% endif %}
 ----
-Now run the following command to rollback the latest code change:
+[silver]#Now run the following command to rollback the latest code change:#
 
 次のコマンドを実行して、最新のコード変更をロールバックします。
 
@@ -331,7 +332,7 @@ Now run the following command to rollback the latest code change:
 $ oc rollback nationalparks{% if modules.pipelines %}-live{% endif %}
 ----
 
-You will see output like the following:
+[silver]#You will see output like the following:#
 
 次のような出力が表示されます。
 
@@ -342,7 +343,7 @@ Warning: the following images triggers were disabled: nationalparks:live
   You can re-enable them with: oc set triggers dc/nationalparks{% if modules.pipelines %}-live{% endif %} --auto
 ----
 
-Once the deploy is complete, verify that the page header is reverted to the original header by viewing the application in your browser.
+[silver]#Once the deploy is complete, verify that the page header is reverted to the original header by viewing the application in your browser.#
 
 デプロイが完了したら、ブラウザでアプリケーションを表示して、ページヘッダーが元のヘッダーに戻されることを確認します。
 
@@ -353,7 +354,7 @@ http://nationalparks{% if modules.pipelines %}-live{% endif %}-{{EXPLORE_PROJECT
 
 [NOTE]
 ====
-Automatic deployment of new images is disabled as part of the rollback to prevent unwanted deployments soon after the rollback is complete. To re-enable the automatic deployments run this:
+[silver]#Automatic deployment of new images is disabled as part of the rollback to prevent unwanted deployments soon after the rollback is complete. To re-enable the automatic deployments run this:#
 
 ロールバックの一部として新しいイメージの自動展開は無効になり、rollback の完了後すぐに不要な展開を防ぐことができます。自動展開を再度有効にするには、次のように実行します。
 ====
@@ -369,33 +370,28 @@ $ oc set triggers dc/nationalparks{% if modules.pipelines %}-live{% endif %} --a
 
 // TODO: Fix deployment numbers
 
-Just like you performed a rollback, you can also perform a roll-forward using the same command. You'll notice above that when you requested a *rollback*, it caused a new deployment (#3). In essence, we always move forwards in OpenShift, even if we are going "back".
+[silver]#Just like you performed a rollback, you can also perform a roll-forward using the same command. You'll notice above that when you requested a *rollback*, it caused a new deployment (#3). In essence, we always move forwards in OpenShift, even if we are going "back".#
+
+{% if modules.pipelines %}
+* [silver]#We know that the first deployment (#1) was the initial definition.#
+* [silver]#We know that the second deployment (#2) was due to our configmap addition.#
+* [silver]#We know that the third deployment (#3) was our first run of the pipeline.#
+* [silver]#We know that the fourth deployment (#4) was our change to "OpenShift National Parks".#
+* [silver]#We know that the fifth deployment (#5) was our rollback to "National Parks".#
+{% endif %}
 
 ロールバックを実行した場合と同じように、同じコマンドを使用してロールフォワードを実行することもできます。あなたは、*ロールバック* を要求したときに、それは新しい展開 (#3) を引き起こしたことに気づくでしょう。本質的には、我々は常に転送 OpenShift でも、我々は "戻る" つもりで移動します。
 
-
 {% if modules.pipelines %}
-* We know that the first deployment (#1) was the initial definition.
-* We know that the second deployment (#2) was due to our configmap addition.
-* We know that the third deployment (#3) was our first run of the pipeline.
-* We know that the fourth deployment (#4) was our change to "OpenShift National
-  Parks".
-
-
 * 最初のデプロイメント (#1) が初期定義であることがわかっています。
 * 我々は、2番目の展開 (#2) 私たちの configmap の追加によるものであることを知っている。
 * 我々は、3番目の展開 (#3) は、パイプラインの我々の最初の実行されたことを知っている。
 * 我々は、4番目の展開 (#4) 私たちの変更されたことを知っている "OpenShift 国立
-
-
-* We know that the fifth deployment (#5) was our rollback to "National Parks".
-
 * 5 番目の展開 (#5) は「国立公園」へのロールバックだったことを知っています。
-
 {% endif %}
 
 
-So, if we want to return to the "new code" version, that is deployment #4.
+[silver]#So, if we want to return to the "new code" version, that is deployment #4.#
 
 したがって、"新しいコード" バージョンに戻りたい場合は、配置 #4 ます。
 
@@ -404,7 +400,7 @@ So, if we want to return to the "new code" version, that is deployment #4.
 $ oc rollback nationalparks{% if modules.pipelines %}-live{% endif %}-4
 ----
 
-And you will see the following:
+[silver]#And you will see the following:#
 
 次のように表示されます。
 
@@ -415,6 +411,6 @@ Warning: the following images triggers were disabled: nationalparks:live
   You can re-enable them with: oc set triggers dc/nationalparks{% if modules.pipelines %}-live{% endif %} --auto
 ----
 
-Cool! Once the *rollback* is complete, verify you again see "OpenShift National Parks".
+[silver]#Cool! Once the *rollback* is complete, verify you again see "OpenShift National Parks".#
 
 クール! *ロールバック* が完了したら、あなたは再び "OpenShift National Parks" を参照してください確認してください。

@@ -16,7 +16,7 @@ OpenShift は、人気のある https://jenkins.io/doc/book/pipeline/overview/[J
 [silver]#In this lab, you will create a more complex workflow by creating a pipeline that extends the S2I functionality by adding more steps to the build and deploy process.#
 [silver]#The following diagram shows the pipeline you will create in this lab.#
 
-前の実習では、https://{{DOCS_URL}}/latest/architecture/core_concepts/builds_and_image_streams.html#source-build[Source-to-Image (S2I)] を使用して `nationalparks` アプリケーションを配備しました。 html # ソース-ビルド [ソースツーイメージ (S2I)] メカニズム。
+前の実習では、https://{{DOCS_URL}}/latest/architecture/core_concepts/builds_and_image_streams.html#source-build[Source-to-Image (S2I)] を使用して `nationalparks` アプリケーションを配備しました。
 S2I は、ソースコードが変更されたとき、または基になるイメージの変更時にビルドを自動的に実行することで、ビルド自動化を提供します
 デプロイメントは S2I によって自動化され、変更に基づいてイメージがトリガされます。
 この実習では、ビルドおよび配置プロセスにさらにステップを追加することにより、S2I 機能を拡張するパイプラインを作成することにより、より複雑なワークフローを作成します。
@@ -193,8 +193,7 @@ image::pipeline-live-image.png[National Parks Image Stream]
 [silver]#The default behavior for OpenShift has every
 https://{{DOCS_URL}}/latest/architecture/core_concepts/builds_and_image_streams.html[S2I build] creating a new Docker image that is pushed into the internal registry, identified with the `latest` tag. Since we do not want to immediately run or deploy the *Live* version of `nationalparks` when the image changes, we want the ability for the *Dev* and *Live* deployments to run different versions of the `nationalparks` image simultaneously. This will allow developers to continue changing and deploying *Dev* without affecting the *Live* environment. In order to achieve that, you will create a new Docker image tag using the CLI.  This new tag will be what the *Live* deployment will look for changes to:#
 
-OpenShift のデフォルトの動作は、すべての
-https://{{DOCS_URL}}/latest/architecture/core_concepts/builds_and_image_streams.html[S2I build] 内部レジストリにプッシュされる新しい Docker イメージを作成し、`latest`のタグで識別します。イメージが変更されたときに`nationalparks`の *Live* バージョンをすぐに実行したり展開したりしたくないので、*Dev* および *Live* デプロイメントでは、`nationalparks` イメージの異なるバージョンを同時に実行するための機能が必要になります。これにより、開発者は *Live* 環境に影響を与えることなく、*Dev* の変更と展開を継続できます。そのためには、CLI を使用して新しい Docker イメージタグを作成します。 この新しいタグは、*Live* の展開が変更を検索するものになります:
+OpenShift のデフォルトの動作は、すべての https://{{DOCS_URL}}/latest/architecture/core_concepts/builds_and_image_streams.html[S2I build] 内部レジストリにプッシュされる新しい Docker イメージを作成し、`latest` のタグで識別します。イメージが変更されたときに `nationalparks` の *Live* バージョンをすぐに実行したり展開したりしたくないので、*Dev* および *Live* デプロイメントでは、 `nationalparks` イメージの異なるバージョンを同時に実行するための機能が必要になります。これにより、開発者は *Live* 環境に影響を与えることなく、 *Dev* の変更と展開を継続できます。そのためには、CLI を使用して新しい Docker イメージタグを作成します。 この新しいタグは、*Live* の展開が変更を検索するものになります:
 
 
 [source]
@@ -208,12 +207,12 @@ $ oc tag nationalparks:latest nationalparks:live
 
 [silver]#This command says "please use the existing image that the tag `nationalparks:latest` points to and also point it at `nationalparks:live`." Or, in other words "create a new tag (`live`) that points to whatever `latest` points to.#
 
-このコマンドは「既存のタグ `nationalparks:latest` を指し示すイメージと同じイメージを `nationalparks:live` で指し示してください。」または、「`latest`と同じイメージを指し示す新しいタグ(`live`)を作ってください。」という意味です。
+このコマンドは「既存のタグ `nationalparks:latest` を指し示すイメージと同じイメージを `nationalparks:live` で指し示してください。」または、「 `latest` と同じイメージを指し示す新しいタグ( `live` )を作ってください。」という意味です。
 
 
 [silver]#While _new_ builds will update the `latest` tag, only a manual command (or an automated workflow, like we will implement with Jenkins) will update the `live` tag. The `live` tag keeps referring to the pervious Docker image and therefore leaves the *Live* environment intact.#
 
-_新しい_ ビルドは `latest`タグを更新しますが、`live` タグの更新は、手動コマンドのみです (または自動化されたワークフロー, 我々はJenkinsで実装します)。`live` タグは性 Docker イメージを参照し続けているため、*Live* 環境はそのまま残されます。
+_新しい_ ビルドは `latest` タグを更新しますが、 `live` タグの更新は、手動コマンドのみです (または自動化されたワークフロー, 我々はJenkinsで実装します)。 `live` タグは性 Docker イメージを参照し続けているため、*Live* 環境はそのまま残されます。
 
 
 [silver]#After creating the tag, you are ready to deploy the *Live* `nationalparks` based on the `nationalparks:live` image tag. In the web console in your `{{EXPLORE_PROJECT_NAME}}{{USER_SUFFIX}}` project,  click the *Add to Project* button, and then *Deploy Image* tab. Choose the *Image Stream Tag* radio button and use following values in each respective field:#
@@ -365,7 +364,7 @@ image::pipeline-template.png[Pipeline Template]
 
 [silver]#In order to start the pipeline that you created in a previous step, Go to *Builds* &rarr; *Pipelines* on the left side-bar. Click `nationalparks-pipeline` and click on *Start Build* to start the execution.  You can click on *View Log* to take a look at the build logs as they progress through the pipeline or on *Build #N* to see the details of this specific pipeline execution as well as the pipeline definition using the https://jenkins.io/doc/book/pipeline/overview/[Jenkins DSL].#
 
-前の手順で作成したパイプラインを開始するには、左側のバーにある *Builds* &rarr; *Pipeline* に移動します。`nationalparks-pipeline` をクリックし、*Start Build* をクリックして実行を開始します。 *View Log* をクリックすると、パイプラインまたは *Build #N* で進行中のビルドログを見て、この特定のパイプライン実行の詳細と https://jenkins.io/doc/book/pipeline/overview/を使用したパイプライン定義を確認できます [Jenkins DSL]。
+前の手順で作成したパイプラインを開始するには、左側のバーにある *Builds* &rarr; *Pipeline* に移動します。`nationalparks-pipeline` をクリックし、*Start Build* をクリックして実行を開始します。 *View Log* をクリックすると、パイプラインまたは *Build #N* で進行中のビルドログを見て、この特定のパイプライン実行の詳細と https://jenkins.io/doc/book/pipeline/overview/[JEnkins DSL] を使用したパイプライン定義を確認できます。
 
 
 image::pipeline-details.png[Pipeline Details]
@@ -428,4 +427,4 @@ image::pipeline-history.png[OpenShift History]
 
 [silver]#Congratulations! Now you have a CI/CD Pipeline for the `nationalparks` application. If you visit the parks map again, you should see the map points!#
 
-おめでとう!今、あなたは、`nationalparks`アプリケーションのための CI/CD パイプラインを持っています。再度公園の地図を訪問すれば、地図ポイントを見るべきである!
+おめでとう!今、あなたは、`nationalparks` アプリケーションのための CI/CD パイプラインを持っています。再度公園の地図を訪問すれば、地図ポイントを見るべきである!
