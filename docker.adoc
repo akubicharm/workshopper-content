@@ -84,10 +84,10 @@ OpenShift では、デプロイ可能な最小単位は *Pod* です。*Pod* は
 
 *Pods* には複数の docker インスタンスを含めることができます。一般的なアイデアは、Podの "サーバー" と、そのサーバーと一緒に実行する任意の補助サービスを含むようにしています。*Pod* に入れられるコンテナの例としては、apache httpd サーバ、ログアナライザ、アップロードしたファイルの管理に役立つファイルサービスなどがあります。
 
+image::docker-PodServiceRoute.png[Pod Service Route]
 
 ### Exercise: Examining the Pod
 
-image::docker-PodServiceRoute.png[Pod Service Route]
 
 [silver]#In the web console's overview page you will see that there is a single *Pod* that was created by your actions. This *Pod* contains a single container, which happens to be the parks map application - a simple Spring Boot/Java application.#
 
