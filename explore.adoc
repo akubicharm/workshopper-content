@@ -73,7 +73,7 @@ oc new-project {{EXPLORE_PROJECT_NAME}}{{USER_SUFFIX}}
 [silver]#Congratulations, you are now authenticated to the OpenShift server. The OpenShift master includes a built-in OAuth server. Developers and administrators obtain OAuth access tokens to authenticate themselves to the API. By default your authorization token will last for 24 hours. There is more information about the login command and its configuration in the https://{{DOCS_URL}}/cli_reference/get_started_cli.html#basic-setup-and-login[OpenShift Documentation].#
 
 
-おめでとう、あなたは今 OpenShift サーバーに認証されています。OpenShift マスターには、組み込みの OAuth サーバーが含まれています。開発者および管理者は、OAuth アクセストークンを取得して API を認証します。既定では、承認トークンは24時間持続します。ログインコマンドとその構成の詳細については、https://{DOCS_URL}}/cli_reference/get_started_cli.html#basic-setup-and-login[OpenShift ドキュメント] を参照してください。
+おめでとう、あなたは今 OpenShift サーバーに認証されています。OpenShift マスターには、組み込みの OAuth サーバーが含まれています。開発者および管理者は、OAuth アクセストークンを取得して API を認証します。既定では、承認トークンは24時間持続します。ログインコマンドとその構成の詳細については、 https://{DOCS_URL}}/cli_reference/get_started_cli.html#basic-setup-and-login[OpenShift Documentation] を参照してください。
 
 ### Using a project
 
