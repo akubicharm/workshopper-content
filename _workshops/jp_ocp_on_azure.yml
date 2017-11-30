@@ -38,13 +38,13 @@ vars:
 
 modules:
   activate:
+  - preface
   - install
   - explore
-  - gogs
+  - gogs-import
   - docker
   - scaling
   - routes
   - permissions
   - java
   - databases
-  - templates
