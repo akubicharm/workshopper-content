@@ -75,8 +75,9 @@ OpenShift は、アクセス可能な Git リポジトリを操作できます�
 
 [source,role=copypaste]
 ----
-{{GITLAB_URL_OPENTLC}}/{{GITLAB_USER}}/nationalparks/tree/{{NATIONALPARKS_VERSION}}
+{{GITLAB_URL_OPENTLC}}/{{GITLAB_USER}}/nationalparks/
 ----
+Advanced Optionで1.2.0を指定。
 
 [NOTE]
 ====
