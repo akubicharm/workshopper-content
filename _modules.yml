@@ -2,7 +2,7 @@ config:
   vars:
     - name: CONSOLE_ADDRESS
       desc: Address to access the OpenShift console
-      value: opnshmdns7d7mtn3y.centralus.cloudapp.azure.com:8443
+      value: komizo36ha.japaneast.cloudapp.azure.com:8443
     - name: ROUTER_ADDRESS
       desc: Router DNS suffix (https://appname-project.<suffix>)
       value: "52.173.240.219.xip.io"
@@ -113,7 +113,7 @@ config:
       value: <gitlab>
     - name: GITLAB_URL_OPENTLC
       desc: URL of the Gitlab instance to use
-      value: "http://gogs-workshop-infra.apps.na1.openshift.opentlc.com/"
+      value: "http://gogs-workshop-infra.apps.na1.openshift.opentlc.com"
     - name: GITLAB_USER
       desc: User's Gitlab username
       value: devXY
