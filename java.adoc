@@ -225,6 +225,40 @@ nationalparks-1-build   0/1       Completed   0          3m
 parksmap-1-4hbtk        1/1       Running     0          2h
 ----
 
+
+
+[source]
+----
+apiVersion: v1
+kind: Service
+metadata:
+  name: nationalparks
+  labels:
+    app: nationalparks
+spec:
+  ports:
+    - name: 8080-tcp
+      protocol: TCP
+      port: 8080
+      targetPort: 8080
+    - name: 8443-tcp
+      protocol: TCP
+      port: 8443
+      targetPort: 8443
+    - name: 8778-tcp
+      protocol: TCP
+      port: 8778
+      targetPort: 8778
+  selector:
+    deploymentconfig: nationalparks
+  type: ClusterIP
+  sessionAffinity: None
+----
+
+上記をコピーし「Add to Project」のプルダウンメニューで Import YAML/JSON を選択します。
+テキストエリアにペーストし、「Create」ボタンをクリックします。
+サービスができあがったことを確認して、「Create Route」のリンクをクリックします。
+
 [silver]#If you look again at the web console, you will notice that, when you create the application this way, OpenShift also creates a *Route* for you. You can see the URL in the web console, or via the command line:#
 
 web コンソールをもう一度見ると、この方法でアプリケーションを作成すると、OpenShift が *Route* も作成することがわかります。URL は、web コンソール、またはコマンドラインから参照できます。
