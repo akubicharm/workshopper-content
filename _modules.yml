@@ -8,10 +8,10 @@ config:
       value: "52.173.240.219.xip.io"
     - name: USER_NAME
       desc: Username to login into console and oc
-      value: "testdrive"
+      value: "devXX"
     - name: USER_PASSWORD
       desc: Password to login
-      value: "password"
+      value: "devXX"
     - name: MASTERS
       desc: Number of master nodes in the cluster
       value: 1
@@ -113,7 +113,7 @@ config:
       value: <gitlab>
     - name: GITLAB_URL_OPENTLC
       desc: URL of the Gitlab instance to use
-      value: "http://gogs-workshop-infra.apps.na1.openshift.opentlc.com"
+      value: "http://gogs-workshop.6923.rh-us-east-1.openshiftapps.com/"
     - name: GITLAB_USER
       desc: User's Gitlab username
       value: devXY
