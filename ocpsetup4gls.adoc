@@ -1,0 +1,73 @@
+## Lab: OpenShift環境の設定
+
+### 背景
+
+GLSのラボ環境では、参照可能な Docker Registoryなどが制限されています。
+アプリケーション開発ハンズオンラボを実施するにあたり、事前に設定を変更します。
+
+
+### 参照可能な Docker Registry の変更
+* 作業対象サーバ
+** Master
+** Node
+* 作業ユーザ
+** root
+
+以下の作業をMaster、Nodeで実行します。
+
+1. `/etc/sysconfig/docker`の編集
++
+`/etc/sysconfig/docker` の46行目あたりの「BLOCK_REGISTRY」の記述をコメントアウト
+
+2. docker デーモンの再起動
++
+```
+systemctl restart docker
+```
+
+### Image Stream の登録
+* 作業対象
+** workstation
+* OpenShiftユーザ
+** admin
+
+以下の手順で、ImageStreamを設定します。　
+
+1. ImageStreamの定義ファイルダウンロード
++
+```
+wget https://raw.githubusercontent.com/akubicharm/workshop-setup/master/openshift/redhat-openjdk18-openshift.yaml
+```
+
+2. ImageStreamの登録
++
+```
+oc create -f redhat-openjdk18-openshift.yaml -n openshift
+```
+
+### ImageStreamの更新
+1. ImageStreamの定義ファイルダウンロード
++
+```
+wget https://raw.githubusercontent.com/akubicharm/workshop-setup/master/openshift/image-streams-rhel7.json
+```
+
+2. 更新
++
+```
+oc replace -f image-streams-rhel7.json -n openshift
+```
+
+### OpenShift のユーザ追加
+* 作業対象
+** master
+* 作業ユーザ
+** root
+
+以下の手順で、OpenShiftのユーザを追加します。
+
+1. ユーザ追加
++
+```
+htpasswd -b /etc/origin/openshift-passwd manager openshift
+```
