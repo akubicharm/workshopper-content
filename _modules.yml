@@ -2,7 +2,7 @@ config:
   vars:
     - name: CONSOLE_ADDRESS
       desc: Address to access the OpenShift console
-      value: komizo36ha.japaneast.cloudapp.azure.com:8443
+      value: master.example.com:8443
     - name: ROUTER_ADDRESS
       desc: Router DNS suffix (https://appname-project.<suffix>)
       value: "52.173.240.219.xip.io"
@@ -369,6 +369,8 @@ modules:
       - demos_msa-pr-code-review-without-jbds
   demos_msa-continuous-security:
     name: Continuous Security Compliance for Containers
+  ocpsetup4gls:
+    name: Additional Setup for OpenShift Environment
   gogs-import:
     name: Cofirm Git repository
   gogs:
