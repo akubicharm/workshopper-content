@@ -113,7 +113,7 @@ config:
       value: <gitlab>
     - name: GITLAB_URL_OPENTLC
       desc: URL of the Gitlab instance to use
-      value: "http://gogs-workshop.6923.rh-us-east-1.openshiftapps.com/"
+      value: "http://gogs-komizows.6923.rh-us-east-1.openshiftapps.com/"
     - name: GITLAB_USER
       desc: User's Gitlab username
       value: devXY

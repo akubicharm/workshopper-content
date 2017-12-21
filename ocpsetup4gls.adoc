@@ -15,7 +15,7 @@ GLSのラボ環境では、参照可能な Docker Registoryなどが制限され
 
 以下の作業をMaster、Nodeで実行します。
 
-1. `/etc/sysconfig/docker`の編集
+1. `/etc/sysconfig/docker` の編集
 +
 `/etc/sysconfig/docker` の46行目あたりの「BLOCK_REGISTRY」の記述をコメントアウト
 
