@@ -169,7 +169,7 @@ modules:
       ETHERPAD_URL_PREFIX:
   preface:
     name: Preface
-  preface_adv:
+  preface-adv:
     name: Preface
   install:
     name: Installing the *oc* client tool
