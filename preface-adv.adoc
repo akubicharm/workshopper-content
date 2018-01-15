@@ -1,6 +1,7 @@
 ## OpenShift Advanced ワークショプ
 
 ### Agenda
+. アジェンダ説明
 . CLIのインストール
 . CLI とWeb Consoleの利用
 . サンプルアプリケーションのデプロイ
