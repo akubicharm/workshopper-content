@@ -4,10 +4,8 @@
 
 [silver]#Clustering in JBoss EAP is achieved using the Kubernetes discovery mechanism for finding other JBoss EAP containers and forming a cluster. This is done by configuring the JGroups protocol stack in `standalone-openshift.xml` with `<openshift.KUBE_PING/>` elements.#
 
-JBoss EAP のクラスタリングは、Kubernetes 検出メカニズムを使用して実現されます。
-他の JBoss EAP コンテナを検索し、クラスタを形成する。これは
-`standalone-openshift.xml` での JGroups プロトコルスタックの設定
-`<openshift.KUBE_PING/>` 要素。
+JBoss EAP のクラスタリングは、他の jboss eap コンテナを検索し、クラスタを形成するための Kubernetes 検出メカニズムを使用して実現されます。これは、'standalone-openshift.xml' で JGroups プロトコルスタックを '<openshift KUBE_PING/>' 要素で構成することによって行われます。
+
 
 
 [silver]#For `KUBE_PING` to work, the following steps must be taken:#
@@ -17,48 +15,45 @@ JBoss EAP のクラスタリングは、Kubernetes 検出メカニズムを使�
 
 `KUBE_PING` を動作させるには、次の手順を実行する必要があります。
 
-.`OPENSHIFT_KUBE_PING_NAMESPACE` 環境変数を設定する必要があります。そうでなければ
-設定すると、サーバは単一ノードのクラスタ ("一つのクラスタ")。
-.`OPENSHIFT_KUBE_PING_NAMESPACE` 環境変数を設定する必要があります。そうでなければ
-設定すると、アプリケーションの外部にある pod (ただし、名前空間にある) は
-参加しようとする
-.ポッドが実行されているサービスアカウントにKubernetes ' REST api へのアクセスを許可する承認を付与する必要があります
+. 'OPENSHIFT_KUBE_PING_NAMESPACE' 環境変数を設定する必要があります。設定されていない場合、サーバーは単一ノードのクラスタ ("1 つのクラスタ") として動作します。
+.' OPENSHIFT_KUBE_PING_LABELS ' 環境変数を設定する必要があります。設定されていない場合、アプリケーションの外部の pod (ただし、名前空間にある) は参加しようとします。
+. Kubernetes' REST api へのアクセスを許可するには、ポッドが実行されているサービスアカウントに権限を付与する必要があります。
 
-[silver]#You have already configured the default service account to have access to Kubernetes' REST api during previous labs. Now you can scale up the *mlbparks* pod to two by clicking on the upper arrows on the console. Alternatively, you can use the command line to scale up the pods and form a two-member cluster.#
 
-にアクセスできるように、既定のサービスアカウントが既に構成されている
-前のラボで Kubernetes ' REST api。これで、*mlbparks* をスケールアップすることができます
-ポッドを2つにするには、コンソール上の上矢印をクリックします。または、
-コマンドラインを使用してポッドをスケールアップし、2つのメンバクラスタを形成できます。
 
+ラボ環境は、Kubernetes ' REST api にアクセスできるように、既定のサービスアカウントが既に構成されています。
+これで、コンソール上の上矢印をクリックして、*JBoss EAP  * ポッドを2つにスケールアップすることができます。
+または、コマンドラインを使用してポッドをスケールアップし、2つのメンバクラスタを形成することもできます。
 
 [source]
 ----
-$ oc scale dc/mlbparks --replicas=2
+$ oc scale dc/eap-app --replicas=2
 ----
 
 [silver]#For pods based on Java images, the web console also exposes access to a hawt.io-based JVM console for viewing and managing any relevant Java components.  A link is displayed in the pod's details on the *Applications* &rarr; *Pods* page, provided the container has a port named jolokia. On the console, click on mlbparks pods, then on any of the two pods deployed. On the *Details* tab, click on *Open Java Console*.#
 
-Java イメージに基づく pod の場合、web コンソールは、
+JBoss のPod の場合、web コンソールは、
 関連する Java コンポーネントを表示および管理するための hawt.io ベースの JVM コンソール。
 リンクは、ポッドの詳細に表示されます *Applications* &rarr; *Pods* ページで、
 コンテナーにjolokiaという名前のポートが指定されています。コンソールで、mlbparks ポッド, その後、デプロイされた2つのポッドのいずれかで.*Details*　タブで、
 *Open Java Console*。
 
+JBoss の pod の場合、web コンソールは、関連する java コンポーネントを表示および管理するための hawt.io ベースの JVM コンソールへのアクセスも公開します。
+コンテナに `jolokia` という名前のポートがある場合、リンクはポッドの詳細 (* アプリケーション * &rarr; * pod * ページ) に表示されます。
+コンソール上で、eap-app ポッドをクリックし、デプロイされた2つのポッドのいずれかにします。
+[詳細] タブで、[Java コンソールを開く *] をクリックします。
+
 
 image::clustering-details.png[Java Console Link,880,align="center"]
 
-[silver]#In the Java Console, use the *JMX* browser and click on *jgroups &rarr; channel &rarr; ee*. The right pane shows the list of clustering JMX attributes including#
+Java コンソールでは、* JMX * ブラウザを使用し、* jgroups &rarr; チャンネル &rarr; ee * をクリックします。右ペインには、JMX 属性のクラスタリングのリストが表示されます。
 
-Java コンソールでは、*JMX* ブラウザを使用して、*jgroups &rarr; channel
-&rarr; ee*をクリックします。
 
 [silver]#*view* which is the current state of the cluster. This attribute shows the name of two pods which are currently members of the cluster. When *mlbparks* pod gets scaled up or down, JBoss EAP gets notified by calling Kubernetes' REST API and updates the cluster status based on the number of pods available.#
 
-*view*は、クラスタの現在の状態です。この属性は、名前
-現在クラスタのメンバーである2つのポッドの。*mlbparks* ポッドが
-スケールアップまたはダウンするとき、JBoss EAP は Kubernetes' REST API を呼び出して通知を取得し、
-利用可能な pod の数に基づいて、クラスターの状態を更新します。
+JMX の *view* 属性は、クラスタの現在の状態です。
+この属性は、現在クラスタのメンバである2つの pod の名前を示します。
+*eap-app* ポッドが拡大または縮小されると、JBoss EAP は Kubernetes' REST API を呼び出して通知を受け取り、利用可能な pod の数に基づいてクラスターの状態を更新します。
 
 
 image::clustering-hawtio.png[Java Console - Clustering,1000,align="center"]
