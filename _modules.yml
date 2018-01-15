@@ -169,6 +169,8 @@ modules:
       ETHERPAD_URL_PREFIX:
   preface:
     name: Preface
+  preface_adv:
+    name: Preface_adv
   install:
     name: Installing the *oc* client tool
     vars:
