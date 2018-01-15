@@ -170,7 +170,7 @@ modules:
   preface:
     name: Preface
   preface_adv:
-    name: Preface_adv
+    name: Preface
   install:
     name: Installing the *oc* client tool
     vars:
