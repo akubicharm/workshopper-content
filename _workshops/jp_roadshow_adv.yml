@@ -1,6 +1,6 @@
 ---
-id: roadshow
-name: Roadshow
+id: roadshow-adv
+name: Roadshow Advanced
 
 vars:
   ENVIRONMENT: "Amazon Web Services"
