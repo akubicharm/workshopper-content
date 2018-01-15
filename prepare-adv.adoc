@@ -1,0 +1,31 @@
+## Lab: サンプルアプリケーションのデプロイ
+
+### サンプルアプリケーションの構成
+
+
+image::prepare-application-architecture1.png[Application Architecture]
+image::parksmap-new-parks.png[Parksmap Web]
+
+|===
+|アプリケーション名|デプロイ方式|説明
+|parksmap|Docker Build|地図を表示するアプリケーション
+|nationalparks|s2i ビルド|国立公園の座標を返すサービス
+|mongodb|Docker Image指定|国立公園の座標を保持するデータストア
+|===
+
+image::prepare-application-architecture1.png[Application Architecture]
+
+
+. テンプレートをダウンロードします
++
+`{{GITLAB_URL_PREFIX}}.{{ROUTER_ADDRESS}}/ocp37/application-complete-template.yaml` をダウンロードします
+. 自分のプロジェクトに移動します
++
+```
+oc project [YOUR_PROJECT]
+```
+. テンプレートを利用してアプリケーションをデプロイします
++
+```
+oc process -f appication-complete-template.yaml | oc create -f -
+```
