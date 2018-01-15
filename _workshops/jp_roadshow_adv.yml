@@ -41,6 +41,7 @@ modules:
   - preface-adv
   - install
   - explore
+  - prepare-adv
   - pipelines
   - codechanges
   - templates
