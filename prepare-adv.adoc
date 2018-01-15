@@ -27,5 +27,5 @@ oc project [YOUR_PROJECT]
 . テンプレートを利用してアプリケーションをデプロイします
 +
 ```
-oc process -f appication-complete-template.yaml | oc create -f -
+oc process -f appication-dev-template.yaml | oc create -f -
 ```

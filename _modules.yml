@@ -53,7 +53,7 @@ config:
       value: "https://github.com/openshift/origin/releases/download/v1.5.1/openshift-origin-client-tools-v1.5.1-7b451fc-linux-64bit.tar.gz"
     - name: OC_VERSION
       desc: Expected oc version when `oc version` is executed
-      value: "oc v1.5.1+7b451fc\nkubernetes v1.5.2+43a9be4"
+      value: "oc v3.7.23\nkubernetes v1.7.6+a08f5eeb62"
 
     - name: DOWNLOAD_CLIENT_MULTIVERSION
       desc: Switching parameter
@@ -72,6 +72,9 @@ config:
     - name: DOWNLOAD_CLIENT_DIR_36
       desc: Directory of download specified version
       value: "3.6.173.0.78/"
+    - name: DOWNLOAD_CLIENT_DIR_37
+      desc: Directory of download specified version
+      value: "3.7.23/"
 
     - name: DOWNLOAD_CLIENT_FILE_LINUX
       desc: Filename for linux
@@ -92,6 +95,9 @@ config:
     - name: OC_VERSION_1.6
       desc: Expected oc version when `oc version` is executed
       value: "oc v1.5.1+7b451fc\nkubernetes v1.5.2+43a9be4"
+    - name: OC_VERSION_1.7
+      desc: Expected oc version when `oc version` is executed
+      value: "oc v3.7.23\nkubernetes v1.7.6+a08f5eeb62"
 
     - name: DOCS_URL
       desc: URL prefix to access docs (https://docs.openshift.org/latest)

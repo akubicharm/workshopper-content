@@ -7,7 +7,7 @@
 OpenShift は、人気のある https://jenkins.io/doc/book/pipeline/overview/[Jenkins pipelines] をプラットフォームに統合して CI/CD パイプラインをサポートし、OpenShift 内で直接複雑なワークフローを定義することができます。
 
 
-前の実習（または、演習の事前準備）では、https://{{DOCS_URL}}/latest/architecture/core_concepts/builds_and_image_streams.html#source-build[Source-to-Image (S2I)] を使用して `nationalparks` アプリケーションを配備しました。
+前の実習（または、演習の事前準備）では、 https://{{DOCS_URL}}/latest/architecture/core_concepts/builds_and_image_streams.html#source-build[Source-to-Image (S2I)] を使用して `nationalparks` アプリケーションを配備しました。
 S2I は、ソースコードが変更されたとき、または基になるイメージの変更時にビルドを自動的に実行することで、ビルド自動化を提供します
 デプロイメントは S2I によって自動化され、イメージの変更に基づいてトリガされます。
 この実習では、ビルドおよびデプロイプロセスにさらにステップを追加することにより、S2I 機能を拡張するパイプラインを作成することにより、より複雑なワークフローを作成します。
@@ -93,7 +93,9 @@ $ oc policy add-role-to-user edit -z jenkins
 
 [source]
 ----
-$ oc label route nationalparks type-
+$ oc get route
+$ oc describe route nationalparks-dev
+$ oc label route nationalparks-dev type-
 ----
 
 ### Exercise: Create Live Environment
@@ -103,17 +105,27 @@ $ oc label route nationalparks type-
 
 #### Live MongoDB
 
-まず、*Live* 環境用の新しい MongoDB 展開を作成する必要があります。web コンソールの `{{EXPLORE_PROJECT_NAME}}{{USER_SUFFIX}}` プロジェクトで、*Add to Project* ボタンをクリックし、`mongodb-ephemeral` テンプレートを見つけてクリックします。 それぞれのフィールドで次の値を使用します。
+まず、*Live* 環境用の新しい MongoDB 展開を作成する必要があります。web コンソールの `{{EXPLORE_PROJECT_NAME}}{{USER_SUFFIX}}` プロジェクトで、*Add to Project* ボタンをクリックし、プルダウンメニューから *Browse Catalog* を選択します。*Databases* タブから `mongodb-ephemeral` テンプレートを見つけてクリックします。 それぞれのフィールドで次の値を使用します。
 
+image::pipeline-mongodblive-addtoproject.png[Add to Project]
+image::pipeline-mongodblive-catalog.png[Catalog]
+
+
+ウィザード画面  Configuration 
+以下の値を入力する。
 
 |===
 | パラメータ名|環境変数名|値
+|Add to Project||explore-XX
 |Database Service Name||`mongodb-live`
 |MongoDB Connection Username|`MONGODB_USER`|`mongodb`
 |MongoDB Connection Password| `MONGODB_PASSWORD`|`mongodb`
 |MongoDB Database Name| `MONGODB_DATABASE`|`mongodb`
 |MongoDB Admin Password| `MONGODB_ADMIN_PASSWORD`|`mongodb`
 |===
+
+ウィザード画面 Bindings
+*Do not bind at this time* を選択する。
 
 
 残りの値はデフォルトとして残すことができ、*Create* をクリックします。次に *Containue* をクリックして概要に進みます。MongoDB インスタンスはすぐに配備される必要があります。あなたが興味を持っている場合は、それが起動したときに何をするかを確認するために Mongo のログを見てみましょう。
@@ -144,13 +156,18 @@ $ oc create configmap nationalparks-live --from-file=application.properties=./ap
 
 #### Live Deployment
 
-これで、link:java[前の演習] で作成したのと同じ `nationalparks` Docker イメージに基づいて、*Live* デプロイメントを作成できます。をクリックして *Build* &rarr; *Images* とし、`nationalparks` *ImageStream* を検査する。
+
+image:: pipeline-imagestream.png 
+イメージストリームは、OpenShift 内/外にある Docker Image へのポインタです。
+
+
+`nationalparks` Docker イメージを利用して、*Live* デプロイメントを作成できます。画面左側のメユーで *Build* &rarr; *Images* を選択し `nationalparks` *ImageStream* を確認します。
 
 
 image::pipeline-live-image.png[National Parks Image Stream]
 
 
-OpenShift のデフォルトの動作は、すべての https://{{DOCS_URL}}/latest/architecture/core_concepts/builds_and_image_streams.html[S2I build] 内部レジストリにプッシュされる新しい Docker イメージを作成し、`latest` のタグで識別します。イメージが変更されたときに `nationalparks` の *Live* バージョンをすぐに実行したり展開したりしたくないので、*Dev* および *Live* デプロイメントでは、 `nationalparks` イメージの異なるバージョンを同時に実行するための機能が必要になります。これにより、開発者は *Live* 環境に影響を与えることなく、 *Dev* の変更と展開を継続できます。そのためには、CLI を使用して新しい Docker イメージタグを作成します。 この新しいタグは、*Live* の展開が変更を検索するものになります:
+OpenShift https://{{DOCS_URL}}/latest/architecture/core_concepts/builds_and_image_streams.html[S2I build] では、内部レジストリにプッシュされる新しい Docker イメージを作成し、`latest` のタグで識別します。イメージが変更されたときに `nationalparks` の *Live* バージョンをすぐに実行したり展開したりしたくないので、*Dev* および *Live* デプロイメントでは、 `nationalparks` イメージの異なるバージョンを同時に実行するための機能が必要になります。これにより、開発者は *Live* 環境に影響を与えることなく、 *Dev* の変更と展開を継続できます。そのためには、CLI を使用して新しい Docker イメージタグを作成します。 この新しいタグは、*Live* の展開が変更を検索するものになります:
 
 
 [source]
@@ -159,7 +176,7 @@ $ oc tag nationalparks:latest nationalparks:live
 ----
 
 
-あなたは、UI で *ImageStream* ページで変化を見たはずです。
+あなたは、UI で *ImageStream* 一覧の表示が変わったことが確認できます。
 
 
 このコマンドは「既存のタグ `nationalparks:latest` を指し示すイメージと同じイメージを `nationalparks:live` で指し示してください。」または、「 `latest` と同じイメージを指し示す新しいタグ( `live` )を作ってください。」という意味です。
@@ -168,19 +185,21 @@ $ oc tag nationalparks:latest nationalparks:live
 _新しい_ ビルドは `latest` タグを更新しますが、 `live` タグの更新は、手動コマンドのみです (または自動化されたワークフロー, 我々はJenkinsで実装します)。 `live` タグは性 Docker イメージを参照し続けているため、*Live* 環境はそのまま残されます。
 
 
-タグを作成した後、`nationalparks:live` イメージタグに基づいて、*Live* `nationalparks` を展開する準備が整いました。web コンソールの `{{EXPLORE_PROJECT_NAME}}{{USER_SUFFIX}}` プロジェクトで、*Add to Project* ボタンをクリックし、*Deploy Image* タブを選択します。 *Image Stream Tag* ラジオボタンを選び、それぞれのフィールドで次の値を使用します。
+タグを作成した後、`nationalparks:live` イメージタグに基づいて、*Live* `nationalparks` を展開する準備が整いました。web コンソールの `{{EXPLORE_PROJECT_NAME}}{{USER_SUFFIX}}` プロジェクトで、*Add to Project* プルダウンメニューから、*Deploy Image* を選択します。
+*Image Stream Tag* ラジオボタンを選び、それぞれのフィールドで次の値を使用します。
 
 
-* Namespace: `{{EXPLORE_PROJECT_NAME}}{{USER_SUFFIX}}`
-* ImageStream: `nationalparks`
-* Tag: `live`
+|===
+|Namespace:| `{{EXPLORE_PROJECT_NAME}}{{USER_SUFFIX}}`
+|ImageStream:| `nationalparks`
+|Tag:| `live`
+|Name:| `nationalparks-live`
+|===
+
+image::pipeline-nationalparkslive-deploy.png[Nationalparks-Live Deploy]
 
 
 *Image Stream Tag* 領域で3つのドロップダウンを選択すると、標準の展開オプション "open up"の残りの部分が表示されます。
-
-
-変更するものはいくつかあります。
-* Name: `nationalparks-live`
 
 
 [WARNING]
@@ -207,6 +226,14 @@ image::pipeline-live-deploy-config.png[National Parks Live Deploy]
 * `MONGODB_DATABASE`: `mongodb`
 
 
+CLI で実行する場合
+```
+oc env dc nationalparks-live -e MONGODB_SERVER_HOST=mongodb-live -e MONGODB_USER=mongodb -e MONGODB_PASSWORD=mongodb -e MONGODB_DATABASE=mongodb
+```
+
+UIで実施する場合は、nationalparks の Deployment Config の詳細画面で *Environment* タブを選択します。
+
+
 image::pipeline-live-deploy-env.png[National Parks Live Deploy]
 
 
@@ -231,23 +258,18 @@ $ oc set volumes dc/nationalparks-live --add -m /deployments/config --configmap-
 
 {% endif %}
 
-#### Group Services
-
-*NATIONALPARKS LIVE* コンテナの右側にある *Group Service* をクリックし、ドロップダウンリストから`mongodb-live`を選択して、*Live* サービスをグループ化します。
-
-
-image::pipeline-live.png[National Parks Live]
-
-
 #### Add Route
 
-web コンソールを見ると、この方法でアプリケーションを作成すると、OpenShift では *Route* が作成されないことがわかります。*NATIONALPARKS LIVE* の右上隅にある *Create Route* をクリックし、*Create* を使用してデフォルト値のルートを作成します。
-同様にlink:databases[前のラボ] は、`nationalparks-live` ルートの url にブラウザをポイントしてデータベースを移入:
+web コンソールを見ると、この方法でアプリケーションを作成すると、OpenShift では *Route* が作成されないことがわかります。*NATIONALPARKS LIVE* の右下隅にある *Create Route* をクリックし、*Create* を使用してデフォルト値のルートを作成します。
+image::pipeline-nationalparkslive-route.png[Nationalparks Live Route]
+
+`nationalparks-live` の url にブラウザでアクセスして、接続の確認とデータのロードをおこないます。
 
 
 [source]
 ----
-http://nationalparks-live-{{EXPLORE_PROJECT_NAME}}{{USER_SUFFIX}}.{{ROUTER_ADDRESS}}/ws/data/load/
+http://nationalparks-live-{{EXPLORE_PROJECT_NAME}}{{USER_SUFFIX}}.{{ROUTER_ADDRESS}}/ws/data/al/
+http://nationalparks-live-{{EXPLORE_PROJECT_NAME}}{{USER_SUFFIX}}.{{ROUTER_ADDRESS}}/ws/data/loa/
 ----
 
 
@@ -259,7 +281,7 @@ http://nationalparks-live-{{EXPLORE_PROJECT_NAME}}{{USER_SUFFIX}}.{{ROUTER_ADDRE
 
 #### Label Service
 
-link:databases[前のラボ]で説明したように、`parksmap` web アプリケーションは OpenShift API を照会し、ラベル `type=parksmap-backend` を持つルートを検索し、検出されたエンドポイントを問い合わせしてマップデータを視覚化します。パイプラインを作成した後、`parksmap` は *Dev* コンテナの代わりに *Live* コンテナを使用して、*Dev* コンテナへのデプロイメントが `parksmap` アプリケーションを中断しないようにする必要があります。 あなたは、*Dev* ルートから `type` ラベルを削除し、*Live* ルートに追加することによってそれを行うことができます:
+`parksmap` web アプリケーションは OpenShift API を照会し、ラベル `type=parksmap-backend` を持つルートを検索し、検出されたエンドポイントを問い合わせしてマップデータを視覚化します。パイプラインを作成した後、`parksmap` は *Dev* コンテナの代わりに *Live* コンテナを使用して、*Dev* コンテナへのデプロイメントが `parksmap` アプリケーションを中断しないようにする必要があります。 あなたは、*Dev* ルートから `type` ラベルを削除し、*Live* ルートに追加することによってそれを行うことができます:
 
 
 [source]
@@ -340,7 +362,7 @@ image::pipeline-input.png[Manual Approval]
 image::pipeline-jenkins-input.png[Jenkins Approval,1000,align=center]
 
 
-パイプラインの実行は、`nationalparks` イメージのプロモートと展開を継続します。 これは、作成されたイメージに、テスト済みという "live" タグをつける。 これは、`imagechange` トリガーを引き起こす *Live* にデプロイされる。この段落を読み終える前に、このことが既に発生しています。
+パイプラインの実行は、`nationalparks` イメージのプロモートとデプロイを継続します。 これは、作成されたイメージに、テスト済みを示す "live" タグをつける。 タグ付けによって `imagechange` トリガーが発生し *Live* にデプロイされる。
 
 
 *Builds* &rarr; *Pipelines* で, *View History* をクリックしてください。 パイプラインの実行履歴を表示し、ビルドの時間のメトリックを繰り返してビルドプロセスを改善することができますので、パイプラインの概要に移動するだけでなく、通常、ビルド時の異常を検出するコードまたは構成の不正な変更を通知します。

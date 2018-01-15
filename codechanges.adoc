@@ -56,9 +56,9 @@ URL をクリップボードにコピーしたら、ローカルの GitLab に�
 [source,role=copypaste]
 ----
 {% if PARKSMAP_PY %}
-http://{{GITLAB_URL_PREFIX}}.{{ROUTER_ADDRESS}}/{{GITLAB_USER}}/nationalparks-py/tree/{{NATIONALPARKS_VERSION}}
+http://{{GITLAB_URL_OPENTLC}}/{{GITLAB_USER}}/nationalparks-py/tree/{{NATIONALPARKS_VERSION}}
 {% else %}
-http://{{GITLAB_URL_PREFIX}}.{{ROUTER_ADDRESS}}/{{GITLAB_USER}}/nationalparks
+http://{{GITLAB_URL_OPENTLC}}/{{GITLAB_USER}}/nationalparks
 {% endif %}
 ----
 
@@ -73,11 +73,12 @@ Password: {{GITLAB_PASSWORD}}
 
 
 
-画面右上の Settingsリンクをクリックし、"Integrations"をクリックします。
+画面右上の Settingsリンクをクリックし、左側のメニューからWebhooks を選択します。
+Add Webhook ボタンをクリックします。
 
 image::ocp-webhook2.png[Webhook]
 
-次の画面で、"URL" フィールドにリンクを貼り付けます。secret toke フィールドは空白のままにしておくことができます--シークレットは既に URL にあり、ペイロード内にある必要はありません。
+次の画面で、"Payload URL" フィールドに、コピーしておいたOpenShift の Generic Web Hook リンクを貼り付けます。secret toke フィールドは空白のままにしておくことができます--シークレットは既に URL にあり、ペイロード内にある必要はありません。
 
 
 image::ocp-webhook3.png[Webhook]
@@ -97,7 +98,7 @@ image::ocp-webhook4.png[Webhook]
 
 git リポジトリの適切なタグに戻るようにしてください。
 
-*link:http://{{GITLAB_URL_PREFIX}}.{{ROUTER_ADDRESS}}/{{GITLAB_USER}}/nationalparks-py/tree/{{NATIONALPARKS_VERSION}}[]*
+*link:http://{{GITLAB_URL_OPENTLC}}/{{GITLAB_USER}}/nationalparks-py/tree/{{NATIONALPARKS_VERSION}}[]*
 
 GitLab ページの上部にある"プロジェクト"をクリックし、ページの中央の"ファイル"を確認します。これは GitLab のリポジトリビューです。右上のドロップダウンメニューが `1.0.0` ブランチに設定されていることを確認します。ルートパスに移動し、`wsgi.py` ファイルをクリックします。
 
