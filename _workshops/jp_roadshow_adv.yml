@@ -38,7 +38,7 @@ vars:
 
 modules:
   activate:
-  - preface_adv
+  - preface-adv
   - install
   - explore
   - pipelines
