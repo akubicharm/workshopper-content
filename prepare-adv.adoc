@@ -2,9 +2,9 @@
 
 ### サンプルアプリケーションの構成
 
+image::parksmap-new-parks.png[Parksmap Web]
 
 image::prepare-application-architecture1.png[Application Architecture]
-image::parksmap-new-parks.png[Parksmap Web]
 
 |===
 |アプリケーション名|デプロイ方式|説明
@@ -13,7 +13,7 @@ image::parksmap-new-parks.png[Parksmap Web]
 |mongodb|Docker Image指定|国立公園の座標を保持するデータストア
 |===
 
-image::prepare-application-architecture1.png[Application Architecture]
+image::prepare-application-architecture2.png[Application Architecture]
 
 
 . テンプレートをダウンロードします
