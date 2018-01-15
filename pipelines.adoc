@@ -1,52 +1,62 @@
 ## Lab: Automating Deployment with CI/CD Pipeline
 
 ### Background: CI/CD Pipeline
-[silver]#Continuous Integration and Continuous Deployment refer to a set of practises with the intention of automating various aspects of delivery software.#
-[silver]#One of these practises is Pipeline which is an automated process to define the steps a change in code or configuration has to go through in order to reach upper environments such as staging and production.#
-[silver]#OpenShift supports CI/CD Pipelines by integrating the popular https://jenkins.io/doc/book/pipeline/overview/[Jenkins pipelines] into the platform and enables defining truly complex workflows directly within OpenShift.#
+// Continuous Integration and Continuous Deployment refer to a set of practises with
+the intention of automating various aspects of delivery software. One of these
+practises is Pipeline which is an automated process to define the steps a change
+in code or configuration has to go through in order to reach upper environments
+such as staging and production. OpenShift supports CI/CD Pipelines by integrating
+the popular https://jenkins.io/doc/book/pipeline/overview/[Jenkins pipelines] into
+the platform and enables defining truly complex workflows directly within OpenShift.
 
-継続的インテグレーションと継続的展開は、配信ソフトウェアのさまざまな側面を自動化することを意図して練習のセットを参照してください。
+継続的インテグレーションと継続的デリバリーは、ソフトウェアデリバリの様々な側面で自動化とともげ給される。
 これらの練習の1つは、コードまたは構成の変更がステージングやプロダクションなどの上位環境に到達するために通過する必要がある手順を定義する自動化されたプロセスであるパイプラインです。
 OpenShift は、人気のある https://jenkins.io/doc/book/pipeline/overview/[Jenkins pipelines] をプラットフォームに統合して CI/CD パイプラインをサポートし、OpenShift 内で直接複雑なワークフローを定義することができます。
 
+// In a previous lab, you deployed the `nationalparks` application using the
+https://{{DOCS_URL}}/latest/architecture/core_concepts/builds_and_image_streams.html#source-build[Source-to-Image (S2I)]
+mechanism. S2I already provides build automation by automatically running builds
+when source code changes, or an underlying image changes. Deployments are also automated
+by S2I and can be triggered when the image they are based on changes. In this lab,
+you will create a more complex workflow by creating a pipeline that extends the S2I
+functionality by adding more steps to the build and deploy process. The following
+diagram shows the pipeline you will create in this lab.
 
-[silver]#In a previous lab, you deployed the `nationalparks` application using the https://{{DOCS_URL}}/latest/architecture/core_concepts/builds_and_image_streams.html#source-build[Source-to-Image (S2I)] mechanism.#
-[silver]#S2I already provides build automation by automatically running builds when source code changes, or an underlying image changes.#
-[silver]#Deployments are also automated by S2I and can be triggered when the image they are based on changes.#
-[silver]#In this lab, you will create a more complex workflow by creating a pipeline that extends the S2I functionality by adding more steps to the build and deploy process.#
-[silver]#The following diagram shows the pipeline you will create in this lab.#
-
-前の実習では、https://{{DOCS_URL}}/latest/architecture/core_concepts/builds_and_image_streams.html#source-build[Source-to-Image (S2I)] を使用して `nationalparks` アプリケーションを配備しました。
+前の実習（または、演習の事前準備）では、https://{{DOCS_URL}}/latest/architecture/core_concepts/builds_and_image_streams.html#source-build[Source-to-Image (S2I)] を使用して `nationalparks` アプリケーションを配備しました。
 S2I は、ソースコードが変更されたとき、または基になるイメージの変更時にビルドを自動的に実行することで、ビルド自動化を提供します
-デプロイメントは S2I によって自動化され、変更に基づいてイメージがトリガされます。
-この実習では、ビルドおよび配置プロセスにさらにステップを追加することにより、S2I 機能を拡張するパイプラインを作成することにより、より複雑なワークフローを作成します。
+デプロイメントは S2I によって自動化され、イメージの変更に基づいてトリガされます。
+この実習では、ビルドおよびデプロイプロセスにさらにステップを追加することにより、S2I 機能を拡張するパイプラインを作成することにより、より複雑なワークフローを作成します。
 次の図は、この演習で作成するパイプラインを示しています。
-
 
 image::pipeline-diagram.png[CI/CD Pipeline Diagram,800,align="center"]
 
-[silver]#There are two environments for the `nationalparks` application in this pipeline.#
-[silver]#*Dev* container is the for development and test purposes where all code and configuration changes are deployed so that you can run automated tests against it.#
-[silver]#Furthermore, the test teams can run their manual tests on this container and report any bugs discovered through their test cases.#
-[silver]#If the tests are all successful and the _Deployment Manager_ in the team approves the change, it is then deployed to the *Live* container which is the production environment with defined SLA and is critical to function properly at all times.#
+// There are two environments for the `nationalparks` application in this pipeline.
+*Dev* container is the for development and test purposes where all code and
+configuration changes are deployed so that you can run automated tests against it.
+Furthermore, the test teams can run their manual tests on this container and
+report any bugs discovered through their test cases. If the tests are all successful
+and the _Deployment Manager_ in the team approves the change, it is then deployed to the
+*Live* container which is the production environment with defined SLA and is
+critical to function properly at all times.
 
 このパイプラインでは、`nationalparks` アプリケーションには2つの環境があります。
-*Dev* コンテナは、それに対して自動化されたテストを実行できるように、すべてのコードと構成の変更が展開する開発とテストの目的です。
+*Dev* コンテナは、開発とテスト用に、全ての変更が反映され、それに対して自動化されたテストを実行できる。
 さらに、テストチームはこのコンテナーで手動テストを実行し、テストケースを通じて検出されたバグを報告できます。
 テストがすべて成功し、チーム内の _Deployment Manager_ が変更を承認すると、SLA が定義された運用環境である *Live* コンテナに展開され、常時正常に機能することが重要になります。
 
+// The pipeline execution starts with a developer making a change in the application
+code or configuration. For every change, the following steps are executed with the
+goal of determining if the change is appropriate for deployment in the *Live*
+environment:
 
-[silver]#The pipeline execution starts with a developer making a change in the application code or configuration.#
-[silver]#For every change, the following steps are executed with the goal of determining if the change is appropriate for deployment in the *Live* environment:#
-
-. [silver]#Clone the code from Git repo#
-. [silver]#Build the code and run unit tests#
-. [silver]#Build a docker image from the code (S2I)#
-. [silver]#Deploy the docker image into *Dev*#
-. [silver]#Run automated tests against the *Dev* deployment#
-. [silver]#Run manual tests against the *Dev* deployment#
-. [silver]#Wait for the *Deployment Manager* to either approve or reject the deployment (e.g. manual tests have revealed an unacceptable number of bugs)#
-. [silver]#If approved, deploy to *Live*#
+// . Clone the code from Git repo
+// . Build the code and run unit tests
+// . Build a docker image from the code (S2I)
+// . Deploy the docker image into *Dev*
+// . Run automated tests against the *Dev* deployment
+// . Run manual tests against the *Dev* deployment
+// . Wait for the *Deployment Manager* to either approve or reject the deployment (e.g. manual tests have revealed an unacceptable number of bugs)
+// . If approved, deploy to *Live*
 
 パイプラインの実行は、アプリケーションコードまたは構成の変更を行う開発者から始まります。
 すべての変更について、次の手順は、変更が *Live* 環境での展開に適しているかどうかを判断する目的で実行されます。
@@ -60,54 +70,56 @@ image::pipeline-diagram.png[CI/CD Pipeline Diagram,800,align="center"]
 . *Devployment Manager* の判断（承認 or 拒否）待ち（例. テスト結果に受け入れ不可な数のBugがあったなど）
 . 承認されたら *Live* プロジェクトへデプロイ
 
-[silver]#Let's move on to deploy `Jenkins` and create this pipeline on OpenShift.#
 
-`Jenkins` を展開し、OpenShift 上でこのパイプラインを作成するに移動してみましょう。
+// [silver]#Let's move on to deploy `Jenkins` and create this pipeline on OpenShift.#
+
+//`Jenkins` を展開し、OpenShift 上でこのパイプラインを作成するに移動してみましょう。
+
 
 ### Exercise: Deploy Jenkins
 
-[silver]#OpenShift provides a supported Jenkins image which includes a rich set of plugins that enable the full pipeline flow. Click on the *Add to project* button. Then, scroll down to the *Technologies* section and click on *Continuous Integration & Deployment*:#
+// OpenShift provides a supported Jenkins image which includes a rich set of plugins that enable the full pipeline flow. Click on the *Add to project* button. Then, scroll down to the *Technologies* section and click on *Continuous Integration & Deployment*:
 
 OpenShift は、完全なパイプラインの流れを可能にするプラグインの豊富なセットが含まれていますサポートされているJenkinsのイメージを提供します。*Add to project* ボタンをクリックします。次に、*Technologies* セクションまでスクロールし、*Continuous Integration & Deployment* をクリックします。
 
 
 image::pipeline-technologies.png[CI/CD Technologies]
 
-[silver]#Find the `jenkins-ephemeral` template, and click on it:#
+// [silver]#Find the `jenkins-ephemeral` template, and click on it:
 
 `jenkins-ephemeral` テンプレートを見つけ、それをクリックしてください:
 
 image::pipeline-jenkins-catalog.png[Jenkins Ephemeral]
 
-[silver]#You can customize the Jenkins properties such as service name, admin password, memory allocation, etc through the parameters in the web console. We can leave all of the default values, so just click on *Create* to deploy Jenkins.  OpenShift deploys a Jenkins pod and also creates a service and route for the
-deployed container.#
+// You can customize the Jenkins properties such as service name, admin password, memory allocation, etc through the parameters in the web console. We can leave all of the default values, so just click on *Create* to deploy Jenkins.  OpenShift deploys a Jenkins pod and also creates a service and route for the
+deployed container.
 
 サービス名、管理者パスワード、メモリ割り当てなど、web コンソールのパラメータを使用して、Jenkinsのプロパティをカスタマイズすることができます。我々は、すべてのデフォルト値のままにすることができますので、*Create* をクリックして　Jenkinsを展開します。 OpenShift は、Jenkins Pod を配備し、また、配備されたコンテナのサービスとルートを作成します。
 
 
 image::pipeline-jenkins-pods.png[Jenkins Pods]
 
-[silver]#Click on the Jenkins route in order to open the Jenkins Console. You will again need to accept the certificate. The Jenkins image that is provided by Red Hat uses an OAuth integration with OpenShift. Your OpenShift user credentials also become the admin credentials for Jenkins:#
+// Click on the Jenkins route in order to open the Jenkins Console. You will again need to accept the certificate. The Jenkins image that is provided by Red Hat uses an OAuth integration with OpenShift. Your OpenShift user credentials also become the admin credentials for Jenkins:
 
 Jenkinsのルートをクリックしてコンソールを開きます。再度証明書を受け入れる必要があります。Red Hat によって提供されるJenkinsのイメージは、OpenShift との OAuth の統合を使用します。OpenShift ユーザーの資格情報は、Jenkinsの管理者の資格情報にもなります:
 
 
 image::pipeline-jenkins-credentials.png[Login with OpenShift]
 
-[silver]#Click *Login with OpenShift* and you will be taken to an OpenShift-branded login screen. Use your username (_{{USER_NAME}}_) and password (_{{USER_PASSWORD}}_) to access Jenkins. You will then be prompted to grant access:#
+// Click *Login with OpenShift* and you will be taken to an OpenShift-branded login screen. Use your username (_{{USER_NAME}}_) and password (_{{USER_PASSWORD}}_) to access Jenkins. You will then be prompted to grant access:
 
 *Login with OpenShift* をクリックすると、OpenShiftのログイン画面にリダイレクトされます。ユーザー名 (_{{USER_NAME}}_) とパスワード (_{{USER_PASSWORD}}_) を使用して、Jenkinsにアクセスします。次に、アクセスを許可するかどうかを確認するメッセージが表示されます。
 
 
 image::pipeline-jenkins-permissions.png[Grant Jenkins Permissions]
 
-[silver]#Click *Allow selected permissions*.#
+// Click *Allow selected permissions*.
 
 *Allow selected permissions* をクリックします。
 
 image::pipeline-jenkins-console.png[Jenkins Console]
 
-[silver]#The OpenShift Jenkins plugin uses the OpenShift REST API in order to integrate into various OpenShift operations. Since we want Jenkins to be able to do more than just look at our project, we will need to grant additional permissions. A Jenkins service account was created automatically when deploying Jenkins via the template. Run the following CLI command to allow the Jenkins service account to retrieve information and invoke action in OpenShift:#
+// The OpenShift Jenkins plugin uses the OpenShift REST API in order to integrate into various OpenShift operations. Since we want Jenkins to be able to do more than just look at our project, we will need to grant additional permissions. A Jenkins service account was created automatically when deploying Jenkins via the template. Run the following CLI command to allow the Jenkins service account to retrieve information and invoke action in OpenShift:
 
 OpenShift Jenkinsプラグインは、さまざまな OpenShift 操作に統合するために OpenShift REST API を使用しています。我々はJenkinsさんが私たちのプロジェクトを見て色々なことを行うことができるようにしたいので、我々は追加のアクセス許可を付与する必要があります。Jenkinsサービスアカウントは、テンプレートを介してJenkinsを展開するときに自動的に作成されました。次の CLI コマンドを実行して、Jenkinsサービスアカウントが情報を取得し、OpenShift でアクションを起動できるようにします。
 
@@ -118,7 +130,7 @@ $ oc policy add-role-to-user edit -z jenkins
 ----
 
 ### Exercise: Remove Dev from `parksmap`
-[silver]#Since we are going to be replacing the current `nationalparks` application with a *Live* version, we should remove the *Dev* version from the `parksmap` by taking away the *Route* label:#
+// Since we are going to be replacing the current `nationalparks` application with a *Live* version, we should remove the *Dev* version from the `parksmap` by taking away the *Route* label:
 
 我々は *Live* のバージョンでは、現在の `nationalparks` アプリケーションを置き換えることになるので、我々は *Route* ラベルを削除することによって、`parksmap` から *Dev* バージョンを削除する必要があります:
 
@@ -129,19 +141,19 @@ $ oc label route nationalparks type-
 
 ### Exercise: Create Live Environment
 
-[silver]#Before creating the pipeline, you need to create a *Live* deployment that runs the live version of `nationalparks` application. The `parksmap` front-end will talk to the *Live* `nationalparks`. This allows developers to make frequent changes in the *Dev* deployment without interfering with the live application.#
+// Before creating the pipeline, you need to create a *Live* deployment that runs the live version of `nationalparks` application. The `parksmap` front-end will talk to the *Live* `nationalparks`. This allows developers to make frequent changes in the *Dev* deployment without interfering with the live application.
 
 パイプラインを作成する前に、live バージョンの `nationalparks` アプリケーションを実行する *Live* デプロイメントを作成する必要があります。`parksmap` フロントエンドは、*Live* `nationalparks` と連携します。これにより、開発者は、ライブアプリケーションに干渉することなく、*Dev* デプロイメントに頻繁に変更を加えることができます。
 
 
 #### Live MongoDB
-[silver]#First you need to create a new MongoDB deployment for the *Live* environment. In the web console in your `{{EXPLORE_PROJECT_NAME}}{{USER_SUFFIX}}` project,  click the *Add to Project* button, and then find the `mongodb-ephemeral` template, and click it.  Use the following values in their respective fields:#
+// First you need to create a new MongoDB deployment for the *Live* environment. In the web console in your `{{EXPLORE_PROJECT_NAME}}{{USER_SUFFIX}}` project,  click the *Add to Project* button, and then find the `mongodb-ephemeral` template, and click it.  Use the following values in their respective fields:
 
-* [silver]#Database Service Name : `mongodb-live`#
-* [silver]#MongoDB Connection Username : `mongodb`#
-* [silver]#MongoDB Connection Password : `mongodb`#
-* [silver]#MongoDB Database Name: `mongodb`#
-* [silver]#MongoB Admin Password : `mongodb`#
+// * Database Service Name : `mongodb-live`
+// * MongoDB Connection Username : `mongodb`
+// * MongoDB Connection Password : `mongodb`
+// * MongoDB Database Name: `mongodb`
+// * MongoB Admin Password : `mongodb`
 
 まず、*Live* 環境用の新しい MongoDB 展開を作成する必要があります。web コンソールの `{{EXPLORE_PROJECT_NAME}}{{USER_SUFFIX}}` プロジェクトで、*Add to Project* ボタンをクリックし、`mongodb-ephemeral` テンプレートを見つけてクリックします。 それぞれのフィールドで次の値を使用します。
 
@@ -156,7 +168,7 @@ $ oc label route nationalparks type-
 |===
 
 
-[silver]#You can leave the rest of the values as their defaults, and then click *Create*. Then click *Continue to overview*. The MongoDB instance should quickly be deployed. If you're interested, take a look at Mongo's logs to see what it does when it starts up.#
+// You can leave the rest of the values as their defaults, and then click *Create*. Then click *Continue to overview*. The MongoDB instance should quickly be deployed. If you're interested, take a look at Mongo's logs to see what it does when it starts up.#
 
 残りの値はデフォルトとして残すことができ、*Create* をクリックします。次に *Containue* をクリックして概要に進みます。MongoDB インスタンスはすぐに配備される必要があります。あなたが興味を持っている場合は、それが起動したときに何をするかを確認するために Mongo のログを見てみましょう。
 
@@ -164,16 +176,16 @@ $ oc label route nationalparks type-
 {% if modules.configmap %}
 
 #### Live ConfigMap
-[silver]#The database configuration for the *Dev* `nationalparks` webservice was changed to use *ConfigMaps* in a previous lab. Similarly, we will use a *ConfigMap* for `nationalparks-live`. Download the live properties file to your local machine and create a distinct *ConfigMap*. The file is located here:#
+// The database configuration for the *Dev* `nationalparks` webservice was changed to use *ConfigMaps* in a previous lab. Similarly, we will use a *ConfigMap* for `nationalparks-live`. Download the live properties file to your local machine and create a distinct *ConfigMap*. The file is located here:#
 
-*Dev* `nationalparks` web ページのデータベース構成は、以前のラボで *ConfigMaps* を使用するように変更されました。同様に、我々は `nationalpark-live` のための *ConfigMap* を使用します。ライブプロパティファイルをローカルマシンにダウンロードし、別個の *ConfigMap* を作成します。このファイルは次の場所にあります。
+*Dev* `nationalparks` web ページのデータベース構成は、 *ConfigMaps* を使用するして接続情報のプロパティを設定します。同様に、我々は `nationalpark-live` のための *ConfigMap* を使用します。ライブプロパティファイルをローカルマシンにダウンロードし、別個の *ConfigMap* を作成します。このファイルは次の場所にあります。
 
 [source,role=copypaste]
 ----
 http://gitlab-ce-workshop-infra.{{ROUTER_ADDRESS}}/{{GITLAB_USER}}/nationalparks/raw/{{NATIONALPARKS_VERSION}}/ose3/application-live.properties
 ----
 
-[silver]#Then, run the following command to create the live *ConfigMap*:#
+// Then, run the following command to create the live *ConfigMap*:#
 
 次のコマンドを実行して、live *ConfigMap* を作成します。
 
@@ -184,13 +196,13 @@ $ oc create configmap nationalparks-live --from-file=application.properties=./ap
 {% endif %}
 
 #### Live Deployment
-[silver]#Now you can create the *Live* deployment based on the same `nationalparks` Docker image created in link:java[previous labs]. Click on *Builds* &rarr; *Images* and then `nationalparks` to inspect the *ImageStream*.#
+// Now you can create the *Live* deployment based on the same `nationalparks` Docker image created in link:java[previous labs]. Click on *Builds* &rarr; *Images* and then `nationalparks` to inspect the *ImageStream*.#
 
 これで、link:java[前の演習] で作成したのと同じ `nationalparks` Docker イメージに基づいて、*Live* デプロイメントを作成できます。をクリックして *Build* &rarr; *Images* とし、`nationalparks` *ImageStream* を検査する。
 
 image::pipeline-live-image.png[National Parks Image Stream]
 
-[silver]#The default behavior for OpenShift has every
+// The default behavior for OpenShift has every
 https://{{DOCS_URL}}/latest/architecture/core_concepts/builds_and_image_streams.html[S2I build] creating a new Docker image that is pushed into the internal registry, identified with the `latest` tag. Since we do not want to immediately run or deploy the *Live* version of `nationalparks` when the image changes, we want the ability for the *Dev* and *Live* deployments to run different versions of the `nationalparks` image simultaneously. This will allow developers to continue changing and deploying *Dev* without affecting the *Live* environment. In order to achieve that, you will create a new Docker image tag using the CLI.  This new tag will be what the *Live* deployment will look for changes to:#
 
 OpenShift のデフォルトの動作は、すべての https://{{DOCS_URL}}/latest/architecture/core_concepts/builds_and_image_streams.html[S2I build] 内部レジストリにプッシュされる新しい Docker イメージを作成し、`latest` のタグで識別します。イメージが変更されたときに `nationalparks` の *Live* バージョンをすぐに実行したり展開したりしたくないので、*Dev* および *Live* デプロイメントでは、 `nationalparks` イメージの異なるバージョンを同時に実行するための機能が必要になります。これにより、開発者は *Live* 環境に影響を与えることなく、 *Dev* の変更と展開を継続できます。そのためには、CLI を使用して新しい Docker イメージタグを作成します。 この新しいタグは、*Live* の展開が変更を検索するものになります:
@@ -201,21 +213,21 @@ OpenShift のデフォルトの動作は、すべての https://{{DOCS_URL}}/lat
 $ oc tag nationalparks:latest nationalparks:live
 ----
 
-[silver]#You should have seen a change on the *ImageStream* page in the UI.#
+// You should have seen a change on the *ImageStream* page in the UI.#
 
 あなたは、UI で *ImageStream* ページで変化を見たはずです。
 
-[silver]#This command says "please use the existing image that the tag `nationalparks:latest` points to and also point it at `nationalparks:live`." Or, in other words "create a new tag (`live`) that points to whatever `latest` points to.#
+// This command says "please use the existing image that the tag `nationalparks:latest` points to and also point it at `nationalparks:live`." Or, in other words "create a new tag (`live`) that points to whatever `latest` points to.#
 
 このコマンドは「既存のタグ `nationalparks:latest` を指し示すイメージと同じイメージを `nationalparks:live` で指し示してください。」または、「 `latest` と同じイメージを指し示す新しいタグ( `live` )を作ってください。」という意味です。
 
 
-[silver]#While _new_ builds will update the `latest` tag, only a manual command (or an automated workflow, like we will implement with Jenkins) will update the `live` tag. The `live` tag keeps referring to the pervious Docker image and therefore leaves the *Live* environment intact.#
+// While _new_ builds will update the `latest` tag, only a manual command (or an automated workflow, like we will implement with Jenkins) will update the `live` tag. The `live` tag keeps referring to the pervious Docker image and therefore leaves the *Live* environment intact.#
 
 _新しい_ ビルドは `latest` タグを更新しますが、 `live` タグの更新は、手動コマンドのみです (または自動化されたワークフロー, 我々はJenkinsで実装します)。 `live` タグは性 Docker イメージを参照し続けているため、*Live* 環境はそのまま残されます。
 
 
-[silver]#After creating the tag, you are ready to deploy the *Live* `nationalparks` based on the `nationalparks:live` image tag. In the web console in your `{{EXPLORE_PROJECT_NAME}}{{USER_SUFFIX}}` project,  click the *Add to Project* button, and then *Deploy Image* tab. Choose the *Image Stream Tag* radio button and use following values in each respective field:#
+// After creating the tag, you are ready to deploy the *Live* `nationalparks` based on the `nationalparks:live` image tag. In the web console in your `{{EXPLORE_PROJECT_NAME}}{{USER_SUFFIX}}` project,  click the *Add to Project* button, and then *Deploy Image* tab. Choose the *Image Stream Tag* radio button and use following values in each respective field:#
 
 タグを作成した後、`nationalparks:live` イメージタグに基づいて、*Live* `nationalparks` を展開する準備が整いました。web コンソールの `{{EXPLORE_PROJECT_NAME}}{{USER_SUFFIX}}` プロジェクトで、*Add to Project* ボタンをクリックし、*Deploy Image* タブを選択します。 *Image Stream Tag* ラジオボタンを選び、それぞれのフィールドで次の値を使用します。
 
@@ -223,11 +235,11 @@ _新しい_ ビルドは `latest` タグを更新しますが、 `live` タグ�
 * ImageStream: `nationalparks`
 * Tag: `live`
 
-[silver]#Once you make your three dropdown selections in the *Image Stream Tag* area, you will see the rest of the standard deployment options "open up".#
+// Once you make your three dropdown selections in the *Image Stream Tag* area, you will see the rest of the standard deployment options "open up".#
 
 *Image Stream Tag* 領域で3つのドロップダウンを選択すると、標準の展開オプション "open up"の残りの部分が表示されます。
 
-[silver]#There are only a few things to change:#
+// There are only a few things to change:#
 
 変更するものはいくつかあります。
 
@@ -235,7 +247,7 @@ _新しい_ ビルドは `latest` タグを更新しますが、 `live` タグ�
 
 [WARNING]
 ====
-[silver]#If you forget to change the name to `nationalparks-live` you will get an error about resources already existing -- because they do. `nationalparks` already exists as our *Dev* Deployment.#
+// If you forget to change the name to `nationalparks-live` you will get an error about resources already existing -- because they do. `nationalparks` already exists as our *Dev* Deployment.#
 
 名前を`nationalparks-live`に変更することを忘れた場合は、既に存在するリソースに関するエラーが表示されます。`nationalparks` は、*Dev* デプロイメントとして既に存在します。
 ====
@@ -248,7 +260,7 @@ image::pipeline-live-deploy-config.png[National Parks Live Deploy]
 
 {% else %}
 
-[silver]#Specify the following environment variable to wire the *Live* container to the *Live* database:#
+// Specify the following environment variable to wire the *Live* container to the *Live* database:#
 
 次の環境変数を指定して、*Live* コンテナを *Live* データベースに接続します。
 
@@ -262,7 +274,7 @@ image::pipeline-live-deploy-env.png[National Parks Live Deploy]
 
 {% endif %}
 
-[silver]#You can leave the rest of the values as their defaults, and then click *Create*. Then click *Continue to overview*.#
+// You can leave the rest of the values as their defaults, and then click *Create*. Then click *Continue to overview*.#
 
 残りの値はデフォルトとして残すことができ、*Create* をクリックします。次に、 *Containuer to overview* をクリックして進みます。
 
@@ -270,7 +282,7 @@ image::pipeline-live-deploy-env.png[National Parks Live Deploy]
 {% if modules.configmap %}
 
 #### Attach ConfigMap
-[silver]#Deploying the `nationalparks-live` image through the UI did not utilize the *ConfigMap*, so we have one more step -- to tell OpenShift where to put the properties file. Since you have already created the *ConfigMap*, all you have to do is use the `oc set volumes` command to put it in the right place:#
+// Deploying the `nationalparks-live` image through the UI did not utilize the *ConfigMap*, so we have one more step -- to tell OpenShift where to put the properties file. Since you have already created the *ConfigMap*, all you have to do is use the `oc set volumes` command to put it in the right place:#
 
 UI を通して `nationalparks-live` イメージを配備することは、*ConfigMap* を利用しませんでした。それで、私たちは、1つのより多くのステップを持っています--プロパティ・ファイルを置く場所を OpenShift に伝えるために。あなたはすでに *ConfigMap* を作成しているので、あなたがしなければならないすべては、適切な場所にそれを置くために `oc set volume` コマンドを使用しています:
 
@@ -283,18 +295,18 @@ $ oc set volumes dc/nationalparks-live --add -m /deployments/config --configmap-
 {% endif %}
 
 #### Group Services
-[silver]#Group the *Live* services by clicking on the *Group Service* on the right side of *NATIONALPARKS LIVE* container and choosing `mongodb-live` from the drop-down list.#
+// Group the *Live* services by clicking on the *Group Service* on the right side of *NATIONALPARKS LIVE* container and choosing `mongodb-live` from the drop-down list.#
 
 *NATIONALPARKS LIVE* コンテナの右側にある *Group Service* をクリックし、ドロップダウンリストから`mongodb-live`を選択して、*Live* サービスをグループ化します。
 
 image::pipeline-live.png[National Parks Live]
 
 #### Add Route
-[silver]#If you look at the web console, you will notice that, when you create the application this way, OpenShift doesn't create a *Route* for you. Click on *Create Route* on the top right corner of *NATIONALPARKS LIVE* and then *Create* to create a route with the default values.#
+// If you look at the web console, you will notice that, when you create the application this way, OpenShift doesn't create a *Route* for you. Click on *Create Route* on the top right corner of *NATIONALPARKS LIVE* and then *Create* to create a route with the default values.#
 
 web コンソールを見ると、この方法でアプリケーションを作成すると、OpenShift では *Route* が作成されないことがわかります。*NATIONALPARKS LIVE* の右上隅にある *Create Route* をクリックし、*Create* を使用してデフォルト値のルートを作成します。
 
-[silver]#Similar to the link:databases[previous labs], populate the database by pointing your browser to the `nationalparks-live` route url:#
+// Similar to the link:databases[previous labs], populate the database by pointing your browser to the `nationalparks-live` route url:#
 
 同様にlink:databases[前のラボ] は、`nationalparks-live` ルートの url にブラウザをポイントしてデータベースを移入:
 
@@ -305,13 +317,13 @@ http://nationalparks-live-{{EXPLORE_PROJECT_NAME}}{{USER_SUFFIX}}.{{ROUTER_ADDRE
 
 [NOTE]
 ====
-[silver]#If the application has not been deployed yet, you might get a __502 Bad Gateway error webpage__. This means that the application backing up the route is not yet ready. Wait until the pod is up.#
+// If the application has not been deployed yet, you might get a __502 Bad Gateway error webpage__. This means that the application backing up the route is not yet ready. Wait until the pod is up.#
 
 アプリケーションがまだデプロイされていない場合は、__502 の不正なゲートウェイエラー webpage__ が発生することがあります。これは、ルートをバックアップするアプリケーションがまだ準備できていないことを意味します。Podが起動するまで待ちます。
 ====
 
 #### Label Service
-[silver]#As discussed in link:databases[previous labs], the `parksmap` web app queries the OpenShift API and looks for routes that have the label `type=parksmap-backend` and interrogates the discovered endpoints to visualize their map data. After creating the pipeline, `parksmap` should use the *Live* container instead of the *Dev* container so that deployments to the *Dev* container does not disrupt the `parksmap` application.  You can do that by removing the `type` label from the *Dev* route and adding it to the *Live* route:#
+// As discussed in link:databases[previous labs], the `parksmap` web app queries the OpenShift API and looks for routes that have the label `type=parksmap-backend` and interrogates the discovered endpoints to visualize their map data. After creating the pipeline, `parksmap` should use the *Live* container instead of the *Dev* container so that deployments to the *Dev* container does not disrupt the `parksmap` application.  You can do that by removing the `type` label from the *Dev* route and adding it to the *Live* route:#
 
 
 link:databases[前のラボ]で説明したように、`parksmap` web アプリケーションは OpenShift API を照会し、ラベル `type=parksmap-backend` を持つルートを検索し、検出されたエンドポイントを問い合わせしてマップデータを視覚化します。パイプラインを作成した後、`parksmap` は *Dev* コンテナの代わりに *Live* コンテナを使用して、*Dev* コンテナへのデプロイメントが `parksmap` アプリケーションを中断しないようにする必要があります。 あなたは、*Dev* ルートから `type` ラベルを削除し、*Live* ルートに追加することによってそれを行うことができます:
@@ -323,11 +335,11 @@ $ oc label route nationalparks-live type=parksmap-backend
 
 {% if DISABLE_NATIONALPARKS_DEPLOYMENT_PIPELINE %}
 ### Exercise: Disable Automatic Deployment of nationalparks (dev)
-[silver]#When we created the `nationalparks` build earlier in the workshop, OpenShift configured the deployment of the image to occur automatically whenever the `:latest` tag was updated.#
+// When we created the `nationalparks` build earlier in the workshop, OpenShift configured the deployment of the image to occur automatically whenever the `:latest` tag was updated.#
 
 ワークショップで以前に `nationalparks` ビルドを作成したときに、OpenShift が `:latest` タグが更新されるたびに自動的に発生するようにイメージの展開を構成しました。
 
-[silver]#In our pipeline example, Jenkins is going to handle telling OpenShift to deploy the dev version of `nationalparks` if it builds successfully. In order to prevent two deployments, we will need to disable automatic deployments with a simple CLI statement:#
+// In our pipeline example, Jenkins is going to handle telling OpenShift to deploy the dev version of `nationalparks` if it builds successfully. In order to prevent two deployments, we will need to disable automatic deployments with a simple CLI statement:#
 
 私たちのパイプラインの例では、Jenkinsは、それが正常にビルドされた場合、`nationalparks` の dev のバージョンを展開する OpenShift 指示を処理するつもりです。2つの展開を防ぐために、単純な CLI ステートメントを使用して自動デプロイメントを無効にする必要があります。
 
@@ -341,19 +353,19 @@ $ oc set triggers dc/nationalparks --from-image=nationalparks:latest --remove
 
 ### Exercise: Create OpenShift Pipeline
 
-[silver]#The Pipeline is in fact a type of build that allows developers to define a Jenkins pipeline for execution by the Jenkins pipeline plugin. The build can be started, monitored, and managed by {{OPENSHIFT_NAME}} in the same way as any other build type. Pipeline workflows are defined in a Jenkinsfile, either embedded directly in the build configuration, or supplied in a Git repository and referenced by the build configuration.#
+// The Pipeline is in fact a type of build that allows developers to define a Jenkins pipeline for execution by the Jenkins pipeline plugin. The build can be started, monitored, and managed by {{OPENSHIFT_NAME}} in the same way as any other build type. Pipeline workflows are defined in a Jenkinsfile, either embedded directly in the build configuration, or supplied in a Git repository and referenced by the build configuration.#
 
 パイプラインは実際には開発者がJenkinsパイプラインプラグインによって実行のためのJenkinsパイプラインを定義することで可能となるビルドのタイプです。ビルドは、他のビルドの種類と同じ方法で、{{OPENSHIFT_NAME}} によって開始、監視、および管理できます。パイプラインワークフローは、ビルド構成に直接埋め込まれるか、または Git リポジトリで提供され、ビルド構成によって参照される Jenkinsfile で定義されます。
 
 
-[silver]#In order to create the pipeline, click on the *Add to project* button, find the `dev-live-pipeline` template, and click on it. Specify the project name and click on *Create*#
+// In order to create the pipeline, click on the *Add to project* button, find the `dev-live-pipeline` template, and click on it. Specify the project name and click on *Create*#
 
 パイプラインを作成するには、*Add to project* ボタンをクリックし、`dev-live-pipeline` テンプレートを見つけてクリックします。プロジェクト名を指定し、*Create* をクリックします。
 
 
 [NOTE]
 ====
-[silver]#Specify the name of the project (e.g. `{{EXPLORE_PROJECT_NAME}}{{USER_SUFFIX}}`) where `nationalparks` *Dev* and *Live* containers are deployed.#
+// Specify the name of the project (e.g. `{{EXPLORE_PROJECT_NAME}}{{USER_SUFFIX}}`) where `nationalparks` *Dev* and *Live* containers are deployed.#
 
 `nationalparks` *Dev* と *Live* コンテナがデプロイされる プロジェクト名を記述します（例 `{{EXPLORE_PROJECT_NAME}}{{USER_SUFFIX}}`)
 
@@ -362,20 +374,20 @@ $ oc set triggers dc/nationalparks --from-image=nationalparks:latest --remove
 
 image::pipeline-template.png[Pipeline Template]
 
-[silver]#In order to start the pipeline that you created in a previous step, Go to *Builds* &rarr; *Pipelines* on the left side-bar. Click `nationalparks-pipeline` and click on *Start Build* to start the execution.  You can click on *View Log* to take a look at the build logs as they progress through the pipeline or on *Build #N* to see the details of this specific pipeline execution as well as the pipeline definition using the https://jenkins.io/doc/book/pipeline/overview/[Jenkins DSL].#
+// In order to start the pipeline that you created in a previous step, Go to *Builds* &rarr; *Pipelines* on the left side-bar. Click `nationalparks-pipeline` and click on *Start Build* to start the execution.  You can click on *View Log* to take a look at the build logs as they progress through the pipeline or on *Build #N* to see the details of this specific pipeline execution as well as the pipeline definition using the https://jenkins.io/doc/book/pipeline/overview/[Jenkins DSL].#
 
 前の手順で作成したパイプラインを開始するには、左側のバーにある *Builds* &rarr; *Pipeline* に移動します。`nationalparks-pipeline` をクリックし、*Start Build* をクリックして実行を開始します。 *View Log* をクリックすると、パイプラインまたは *Build #N* で進行中のビルドログを見て、この特定のパイプライン実行の詳細と https://jenkins.io/doc/book/pipeline/overview/[JEnkins DSL] を使用したパイプライン定義を確認できます。
 
 
 image::pipeline-details.png[Pipeline Details]
 
-[silver]#Because of the way the pipeline was defined, if you return to the overview page you will also see the pipeline status there, associated with the relevant deployments:#
+// Because of the way the pipeline was defined, if you return to the overview page you will also see the pipeline status there, associated with the relevant deployments:#
 
 パイプラインの定義方法によって、概要ページに戻ると、関連する展開に関連付けられたパイプラインの状態も表示されます。
 
 image::pipeline-deploy-dev.png[Pipeline - Deploy to Dev]
 
-[silver]#Pipeline execution will pause after running automated tests against the *Dev* container. Visit the `nationalparks` *Dev* web service to query for data and verify the service works as expected.#
+// Pipeline execution will pause after running automated tests against the *Dev* container. Visit the `nationalparks` *Dev* web service to query for data and verify the service works as expected.#
 
 パイプラインの実行は、*Dev* コンテナに対して自動テストを実行した後、一時停止します。データを照会し、サービスが期待どおりに動作することを確認するには、`nationalparks` *Dev* web サービスを参照してください。
 
@@ -387,44 +399,44 @@ http://nationalparks-{{EXPLORE_PROJECT_NAME}}{{USER_SUFFIX}}.{{ROUTER_ADDRESS}}/
 
 [NOTE]
 ====
-[silver]#If the application has not been deployed yet, you might get a __502 Bad Gateway error webpage__. This means that the application backing up the route is not yet ready. Wait until the pod is up.#
+// If the application has not been deployed yet, you might get a __502 Bad Gateway error webpage__. This means that the application backing up the route is not yet ready. Wait until the pod is up.#
 
 アプリケーションがまだ展開されていない場合は、__502 の不正なゲートウェイエラー webpage__ が発生する可能性があります。これは、ルートをバックアップするアプリケーションがまだ準備できていないことを意味します。Podが起動されるまで待ちます。
 ====
 
 
-[silver]#After the test stage, pipeline waits for manual approval in order to deploy to the *Live* container.#
+// After the test stage, pipeline waits for manual approval in order to deploy to the *Live* container.#
 
 テスト段階の後、パイプラインは、*Live* コンテナに展開するために手動承認を待機します。
 
 image::pipeline-input.png[Manual Approval]
 
-[silver]#Click on *Input Required* link which takes you to the Jenkins Console for approving the deployment. This step typically will be integrated into your workflow process (e.g. JIRA Service Desk and ServiceNow) and will be performed as part of the overall deployment process without interacting directly with Jenkins. For simplicity in this lab, click on *Proceed* button to approve the build.#
+// Click on *Input Required* link which takes you to the Jenkins Console for approving the deployment. This step typically will be integrated into your workflow process (e.g. JIRA Service Desk and ServiceNow) and will be performed as part of the overall deployment process without interacting directly with Jenkins. For simplicity in this lab, click on *Proceed* button to approve the build.#
 
 *Input Required* リンクをクリックして、承認するためのJenkinsコンソールを開きます。この手順は通常、ワークフロープロセス (JIRA サービスデスクや ServiceNow など) に統合され、Jenkinsさんと直接やり取りすることなく、全体的な展開プロセスの一環として実行されます。この演習で簡単にするために、*Proceed* ボタンをクリックしてビルドを承認します。
 
 
 image::pipeline-jenkins-input.png[Jenkins Approval,1000,align=center]
 
-[silver]#Pipeline execution continues to promote and deploy the `nationalparks` image.  This is achieved by tagging the image that was just built and tested as "live", which causes the `imagechange` trigger on the *Live* deployment to act. This likely already happened before you finished reading this paragraph.#
+// Pipeline execution continues to promote and deploy the `nationalparks` image.  This is achieved by tagging the image that was just built and tested as "live", which causes the `imagechange` trigger on the *Live* deployment to act. This likely already happened before you finished reading this paragraph.#
 
 パイプラインの実行は、`nationalparks` イメージのプロモートと展開を継続します。 これは、作成されたイメージに、テスト済みという "live" タグをつける。 これは、`imagechange` トリガーを引き起こす *Live* にデプロイされる。この段落を読み終える前に、このことが既に発生しています。
 
 
-[silver]#In *Builds* &rarr; *Pipelines*, click on *View History* to go to the pipeline overview which shows the pipeline execution history as well as build time metrics so that you can iteratively improve the build process as well detect build time anomalies which usually signal a bad change in the code or configuration.#
+// In *Builds* &rarr; *Pipelines*, click on *View History* to go to the pipeline overview which shows the pipeline execution history as well as build time metrics so that you can iteratively improve the build process as well detect build time anomalies which usually signal a bad change in the code or configuration.#
 
 *Builds* &rarr; *Pipelines* で, *View History* をクリックしてください。 パイプラインの実行履歴を表示し、ビルドの時間のメトリックを繰り返してビルドプロセスを改善することができますので、パイプラインの概要に移動するだけでなく、通常、ビルド時の異常を検出するコードまたは構成の不正な変更を通知します。
 
 
 [NOTE]
 ====
-[silver]#Build metrics are generated and displayed after a few executions of the pipeline to determine trends.#
+// Build metrics are generated and displayed after a few executions of the pipeline to determine trends.#
 
 ビルドメトリックは、傾向を決定するためにパイプラインのいくつかの実行後に生成および表示されます。
 ====
 
 image::pipeline-history.png[OpenShift History]
 
-[silver]#Congratulations! Now you have a CI/CD Pipeline for the `nationalparks` application. If you visit the parks map again, you should see the map points!#
+// Congratulations! Now you have a CI/CD Pipeline for the `nationalparks` application. If you visit the parks map again, you should see the map points!#
 
 おめでとう!今、あなたは、`nationalparks` アプリケーションのための CI/CD パイプラインを持っています。再度公園の地図を訪問すれば、地図ポイントを見るべきである!
