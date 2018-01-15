@@ -44,6 +44,5 @@ modules:
   - prepare-adv
   - pipelines
   - codechanges
-  - templates
   - clustering
   - further-resources
