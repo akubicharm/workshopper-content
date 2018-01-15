@@ -224,6 +224,8 @@ modules:
           OC_VERSION: oc v1.5.1+7b451fc\nkubernetes v1.5.2+43a9be4
   explore:
     name: Exploring the CLI and Web Console
+  prepare-adv:
+    name: Prepare
   parksmap-architecture:
     name: Architecture Overview of the ParksMap Application
     vars:
