@@ -101,9 +101,9 @@ OpenShift Jenkinsプラグインは、さまざまな OpenShift 操作に統合�
 
 
 [NOTE]
-===
+====
 jenkins サービスアカウントへの権限付与は、application-dev-template を実行した時に実施済みなので、作業は不要です
-===
+====
 
 
 [source]
@@ -182,7 +182,8 @@ $ oc create configmap nationalparks-live --from-file=application.properties=./ap
 #### Live Deployment
 
 
-image:: pipeline-imagestream.png 
+image::pipeline-imagestream.png 
+
 イメージストリームは、OpenShift 内/外にある Docker Image へのポインタです。
 
 
@@ -299,7 +300,7 @@ http://nationalparks-live-{{EXPLORE_PROJECT_NAME}}{{USER_SUFFIX}}.{{ROUTER_ADDRE
 
 
 [NOTE]
-====
+===
 アプリケーションがまだデプロイされていない場合は、__502 の不正なゲートウェイエラー webpage__ が発生することがあります。これは、ルートをバックアップするアプリケーションがまだ準備できていないことを意味します。Podが起動するまで待ちます。
 ====
 
