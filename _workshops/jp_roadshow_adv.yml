@@ -36,6 +36,7 @@ vars:
   DISABLE_NATIONALPARKS_DEPLOYMENT_PIPELINE: true
   MW_NAME: "eap"
   CONSOLE_ADDRESS: komizo37.japanwest.cloudapp.azure.com
+  JENKINS_OAUTH: false
 
 modules:
   activate:
