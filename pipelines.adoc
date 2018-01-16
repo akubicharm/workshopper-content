@@ -100,7 +100,7 @@ image::pipeline-jenkins-console.png[Jenkins Console]
 OpenShift Jenkinsプラグインは、さまざまな OpenShift 操作に統合するために OpenShift REST API を使用しています。我々はJenkinsさんが私たちのプロジェクトを見て色々なことを行うことができるようにしたいので、我々は追加のアクセス許可を付与する必要があります。Jenkinsサービスアカウントは、テンプレートを介してJenkinsを展開するときに自動的に作成されました。次の CLI コマンドを実行して、Jenkinsサービスアカウントが情報を取得し、OpenShift でアクションを起動できるようにします。
 
 
-NOTE
+[NOTE]
 ===
 jenkins サービスアカウントへの権限付与は、application-dev-template を実行した時に実施済みなので、作業は不要です
 ===
@@ -293,8 +293,8 @@ image::pipeline-nationalparkslive-route.png[Nationalparks Live Route]
 
 [source]
 ----
-http://nationalparks-live-{{EXPLORE_PROJECT_NAME}}{{USER_SUFFIX}}.{{ROUTER_ADDRESS}}/ws/data/al/
-http://nationalparks-live-{{EXPLORE_PROJECT_NAME}}{{USER_SUFFIX}}.{{ROUTER_ADDRESS}}/ws/data/loa/
+http://nationalparks-live-{{EXPLORE_PROJECT_NAME}}{{USER_SUFFIX}}.{{ROUTER_ADDRESS}}/ws/data/all
+http://nationalparks-live-{{EXPLORE_PROJECT_NAME}}{{USER_SUFFIX}}.{{ROUTER_ADDRESS}}/ws/data/load
 ----
 
 
@@ -326,7 +326,7 @@ $ oc label route nationalparks-live type=parksmap-backend
 
 [source]
 ----
-$ oc set triggers dc/nationalparks --from-image=nationalparks:latest --remove
+$ oc set triggers dc/nationalparks-dev --from-image=nationalparks:latest --remove
 ----
 
 
@@ -337,7 +337,11 @@ $ oc set triggers dc/nationalparks --from-image=nationalparks:latest --remove
 パイプラインは実際には開発者がJenkinsパイプラインプラグインによって実行のためのJenkinsパイプラインを定義することで可能となるビルドのタイプです。ビルドは、他のビルドの種類と同じ方法で、{{OPENSHIFT_NAME}} によって開始、監視、および管理できます。パイプラインワークフローは、ビルド構成に直接埋め込まれるか、または Git リポジトリで提供され、ビルド構成によって参照される Jenkinsfile で定義されます。
 
 
-パイプラインを作成するには、*Add to project* ボタンをクリックし、`dev-live-pipeline` テンプレートを見つけてクリックします。プロジェクト名を指定し、*Create* をクリックします。
+`http://gogs-komizows.6923.rh-us-east-1.openshiftapps.com/komizo/nationalparks/raw/master/ocp37/application-buildpipeline-template.yaml` をダウンロードし、作成します。
+
+```
+oc process -f application-buildpipeline-template.yaml | oc create -f -
+```
 
 
 [NOTE]
