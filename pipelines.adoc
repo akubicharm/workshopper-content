@@ -1,5 +1,4 @@
-## Lab: Automating Deployment with CI/CD Pipeline
-
+## Lab: Automating Deployment with CI/CD Pipeline 
 ### Background: CI/CD Pipeline
 
 継続的インテグレーションと継続的デリバリーは、ソフトウェアデリバリの様々な側面で自動化とともげ給される。
@@ -54,12 +53,31 @@ image::pipeline-technologies.png[CI/CD Technologies]
 image::pipeline-jenkins-catalog.png[Jenkins Ephemeral]
 
 
+image::pipeline-jenkins-wizard.png[Jenkins Wizard]
+
+
+|===
+|パラメータ名|値|備考
+|* Add to Project|explore-XX|自分のプロジェクトを選択
+|Jenkins Service Name|Jenkins|変更せず
+|Jenkins JNLP Service Name|Jenkins-jnlp|変更せず
+|* Enable OAuth in Jenkins|false|
+|Memory Limit|512Mi|変更せず
+|Jenkins ImageStream Namespace|OpenShift|変更せず
+|Jenkins ImageStreamTag|jenkins:latest|変更せず
+|===
+
+
+
 サービス名、管理者パスワード、メモリ割り当てなど、web コンソールのパラメータを使用して、Jenkinsのプロパティをカスタマイズすることができます。我々は、すべてのデフォルト値のままにすることができますので、*Create* をクリックして　Jenkinsを展開します。 OpenShift は、Jenkins Pod を配備し、また、配備されたコンテナのサービスとルートを作成します。
 
 
 image::pipeline-jenkins-pods.png[Jenkins Pods]
 
+Jenkinsの Route を選択して、Secure Root を解除します。
 
+
+{% if JENKINSOAUTH %}
 Jenkinsのルートをクリックしてコンソールを開きます。再度証明書を受け入れる必要があります。Red Hat によって提供されるJenkinsのイメージは、OpenShift との OAuth の統合を使用します。OpenShift ユーザーの資格情報は、Jenkinsの管理者の資格情報にもなります:
 
 
@@ -76,9 +94,16 @@ image::pipeline-jenkins-permissions.png[Grant Jenkins Permissions]
 
 
 image::pipeline-jenkins-console.png[Jenkins Console]
+{% endif %}
 
 
 OpenShift Jenkinsプラグインは、さまざまな OpenShift 操作に統合するために OpenShift REST API を使用しています。我々はJenkinsさんが私たちのプロジェクトを見て色々なことを行うことができるようにしたいので、我々は追加のアクセス許可を付与する必要があります。Jenkinsサービスアカウントは、テンプレートを介してJenkinsを展開するときに自動的に作成されました。次の CLI コマンドを実行して、Jenkinsサービスアカウントが情報を取得し、OpenShift でアクションを起動できるようにします。
+
+
+NOTE
+===
+jenkins サービスアカウントへの権限付与は、application-dev-template を実行した時に実施済みなので、作業は不要です
+===
 
 
 [source]
