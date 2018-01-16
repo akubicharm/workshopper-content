@@ -182,7 +182,7 @@ $ oc create configmap nationalparks-live --from-file=application.properties=./ap
 #### Live Deployment
 
 
-image::pipeline-imagestream.png 
+image::pipeline-imagestream.png[Image Stream]
 
 イメージストリームは、OpenShift 内/外にある Docker Image へのポインタです。
 
