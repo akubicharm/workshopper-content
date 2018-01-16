@@ -18,7 +18,7 @@ image::prepare-application-architecture2.png[Application Architecture]
 
 . テンプレートをダウンロードします
 +
-`{{GITLAB_URL_PREFIX}}.{{ROUTER_ADDRESS}}/ocp37/application-complete-template.yaml` をダウンロードします
+`https://github.com/akubicharm/nationalparks/ocp37/application-dev-template.yaml` をダウンロードします。
 . 自分のプロジェクトに移動します
 +
 ```
