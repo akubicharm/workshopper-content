@@ -21,6 +21,24 @@
 |===
 
 
+### リポジトリ作成
+
+1. nationalparks のリポジトリをインポート
++
+GogsのDashboard画面の「My Repositories」横にある「+」をクリック
++
+「New Migration」をボタンをクリック
++
+|===
+|Clone Address|http://gogs-komizows.6923.rh-us-east-1.openshiftapps.com/komizo/nationalparks.git
+|Owner|dev
+|Repository Name|nationalparks
+|Visibility|チェックしない
+|Migration Type|チェックしない
+|===
++
+上記を入力後、「Migrate Repository」ボタンをクリック
+
 [NOTE]
 ====
 Webhook がエラーになる場合は、Payloadの内容をファイルに保存し、以下のコマンドを実行

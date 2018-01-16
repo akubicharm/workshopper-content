@@ -304,8 +304,8 @@ modules:
     requires:
   #    - java
   #    - databases
-#  application-health:
-#    name: Application Health
+  application-health:
+    name: Application Health
   pipelines:
     name: Automating Deployment with CI/CD Pipeline
     vars:
@@ -313,7 +313,7 @@ modules:
     requires:
   #    - java
   #    - databases
-      - application-health
+  #    - application-health
   codechanges:
     name: Using Source 2 Image for Code Changes
     requires:
