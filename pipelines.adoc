@@ -300,7 +300,7 @@ http://nationalparks-live-{{EXPLORE_PROJECT_NAME}}{{USER_SUFFIX}}.{{ROUTER_ADDRE
 
 
 [NOTE]
-===
+====
 アプリケーションがまだデプロイされていない場合は、__502 の不正なゲートウェイエラー webpage__ が発生することがあります。これは、ルートをバックアップするアプリケーションがまだ準備できていないことを意味します。Podが起動するまで待ちます。
 ====
 
