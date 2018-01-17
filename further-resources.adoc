@@ -1,53 +1,43 @@
 ## Further Resources
 
-[silver]#The exercices in this workshop has shown you how OpenShift can be used not only for deploying stateless web applications, but also applications which require persistent file system storage.#
 
-このワークショップの exercices では、ステートレス web アプリケーションのデプロイだけでなく、永続的なファイル・システム・ストレージを必要とするアプリケーションに OpenShift を使用する方法についても説明しました。
+### コンテナ版 OpenShift の実行方法
 
-[silver]#This flexibility makes OpenShift an ideal platform for deploying both web applications and databases.#
+Docker の実行環境がある場合には、コンテナ版の All in One 構成の OpenShift を簡単に実行することが可能です。
 
-この柔軟性により、OpenShift は web アプリケーションとデータベースの両方をデプロイするための理想的なプラットフォームとなります。
+環境の設定などは、 https://github.com/openshift/origin/blob/master/docs/cluster_up_down.md を参考にしてください。
 
-[silver]#If you have finished this workshop early and want to experiment some more, we have additional exercises you can try out using our online interactive learning environment.#
+```
+$ oc cluster up
+Starting OpenShift using registry.access.redhat.com/openshift3/ose:v3.7.14 ...
+-- Checking OpenShift client ... OK
+-- Checking Docker client ... OK
+-- Checking Docker version ... OK
+-- Checking for existing OpenShift container ... FAIL
+   Error: OpenShift is already running
+   Solution:
+     To start OpenShift again, stop the current cluster:
+     $ oc cluster down
 
-場合は、このワークショップを早く終了し、いくつかのより多くの実験をしたい場合は、我々のオンラインインタラクティブ学習環境を使用して試すことができます追加の演習があります。
+dhcp-193-95:counter kay$ oc cluster down
+dhcp-193-95:counter kay$ oc cluster up
+Starting OpenShift using registry.access.redhat.com/openshift3/ose:v3.7.14 ...
+OpenShift server started.
 
-* [silver]#*link:https://learn.openshift.com/[OpenShift Interactive Learning Portal]* - An online interactive learning environment where you can run through various scenarios related to using OpenShift.#
+The server is accessible via web console at:
+    https://127.0.0.1:8443
 
-*link:https://learn.openshift.com/[OpenShift Interactive Learning
-Portal]の使用に関連するさまざまなシナリオを実行できるオンラインの対話型学習環境。
+You are logged in as:
+    User:     developer
+    Password: <any value>
 
-[silver]#The online interactive learning environment is always available so you can continue to work on those exercises even after the workshop is over.#
-
-オンラインでインタラクティブな学習環境は、常に利用可能なので、ワークショップが終わった後も、これらの演習で作業を続けることができます。
-
-[silver]#Below you will find further resources for learning about OpenShift and running OpenShift on your own computer, as well as details about OpenShift Online or other OpenShift related products and services.#
-
-* *link:https://www.openshift.org/[OpenShift Origin]* - The upstream Open
-Source community project that powers OpenShift.
-
-* *link:https://www.openshift.org/minishift/[Minishift]* - A tool which can
-be used to install a local OpenShift cluster on your own computer, running
-in a virtual machine.
-
-* *link:https://manage.openshift.com/[OpenShift Online]* - A shared public
-hosting environment for running your applications using OpenShift.
-
-* *link:https://openshift.io/[OpenShift.io]* - An online development
-environment for planning, creating and deploying hybrid cloud services
-using OpenShift.
-
-* *link:https://www.openshift.com/dedicated[OpenShift Dedicated]* - A
-dedicated hosting environment for running your applications, managed and
-supported for you by Red Hat.
-
-* *link:https://www.openshift.com/[OpenShift Container Platform]* - The Red
-Hat supported OpenShift product for installation on premise or in hosted
-cloud environments.
+To login as administrator:
+    oc login -u system:admin
+```
 
 
-以下に、あなた自身のコンピュータ上で OpenShift と実行 OpenShift について学習するためのさらなるリソースを見つける, だけでなく、OpenShift オンラインまたは他の OpenShift 関連製品やサービスについての詳細.
-
+### 自習リソース
+OpenShift の実行環境と、自習用のリソースは以下の通りです。
 
 * *link:https://www.openshift.org/[OpenShift Origin]* - Upstream の OSSプロジェクト
 
@@ -61,8 +51,7 @@ cloud environments.
 
 * *link:https://www.openshift.com/[OpenShift Container Platform]* - オンプレミスまたはホステッドクラウド環境でのインストールに OpenShift 製品をサポートしています。
 
-The following free online eBooks are also available for download related to
-OpenShift.
+
 次の無料オンライン電子ブックは、OpenShift に関連するダウンロードもご利用いただけます。
 
 * *link:https://www.openshift.com/promotions/for-developers.html[OpenShift
