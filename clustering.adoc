@@ -9,11 +9,11 @@
 +
 image::clustering-jbosseap-1.png[Catalog]
 +
-カタログから*Middleware* &rarr; *Runtimes & Frameworks* を選択し、JBoss EAP 7.0(no https) を選択します。
+カタログから *Middleware* &rarr; *Runtimes & Frameworks* を選択し、JBoss EAP 7.0(no https) を選択します。
 +
 . ウィザード開始
 +
-* Information 画面
+. Information 画面
 +
 image::clustering-jbosseap-2.png[Wizard 1]
 +
@@ -38,7 +38,7 @@ image::clustering-jbosseap-3.png[Wizard 2]
 +
 image::clustering-jbosseap-4.png[Wizard 3]
 +
-*DO not bind at this time* を選択し、*Create* をクリックします
+*D not bind at this time* を選択し、*Create* をクリックします
 
 
 ### JBoss EAP Clustering
