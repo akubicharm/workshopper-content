@@ -96,4 +96,35 @@ image::clustering-details.png[Java Console Link,880,align="center"]
 
 image::clustering-hawtio.png[Java Console - Clustering,1000,align="center"]
 
+
+### Excersize: Session Replication
+ブラウザで、何回かデプロイしたアプリケーションにアクセスして、Counter がカウントアップされたことを確認します。
+
+Pod を確認して、1つのPodを削除します。
+
+```
+$ oc get pods --selector=application=eap-app
+NAME              READY     STATUS        RESTARTS   AGE
+NAME              READY     STATUS        RESTARTS   AGE
+eap-app-1-9vjbm   1/1       Running       0          8m
+eap-app-1-zp5rt   1/1       Running       0          1m
+
+$ oc delete pod eap-app-1-9vjbm
+```
+
+
+新たに生成さえた Pod が Running ステータスになったっことを確認後、生存時間の長い方の Pod を削除します。
+```
+$ oc get pods --selector=application=eap-app
+NAME              READY     STATUS        RESTARTS   AGE
+eap-app-1-6z4bg   1/1       Running       0          51s
+eap-app-1-zp5rt   1/1       Running       0          3m
+$ oc delete pod eap-app-1-zp5rt
+```
+
+もう一度、ブラウザをリロードしてカウンターがカウントアップされていることを確認します。
+セッション情報が引き継がれているので、カウンターがリセットされることなく、カウントアップされていることを確認できるはずです。
+
+
+
 // TODO: add stateful (session, cache, etc) data to the mlbparks backend.
