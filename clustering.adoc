@@ -1,7 +1,28 @@
 ## Lab: Clustering Stateful Java EE Applications
 
-### JBoss EAP のデプロイ
+クラスタリングを実現するために、JBoss EAP が Kubernetes の API を利用するので、サービスアカウントに適切な権限が付与されてる必要があります。
 
+事前準備で `default` Service Accountに `view` 権限を付与してあります。
+view 権限は、プロジェクト内のオブジェクトの変更はできませんが、オブジェクトを参照することが可能です。
+
+```
+oc get rolebindings
+```
+
+#### Service Account
+OpenShiftのAPIへのアクセスをコントロールするためのオブジェクト。各プロジェクトにはデフォルトで以下のサービスアカウントが作成される。
+通常のユーザと同様に Policy によって権限を付与することが可能で、設定された Policy にしたがって、利用可能な OpenShift の API が制限されます。
+
+|===
+|Service Account|使い方|
+|builder|Podのビルドをするためのサービスアカウント。systme:image-builder の権限を持ち、OpenShift内部でもっているDockerレジストリに生成したDocker Imageをpushする|
+|deployer|Podをデプロイするためのサービスアカウント。system:deployerの権限をもち、Replication ControllerやPodを参照、編集す
+ることが可能。|
+|default|builder,deployer以外のすべての操作が可能なサービスアカウント|
+|===
+
+
+### Excersize: JBoss EAP のデプロイ
 
 . カタログ選択
 +
@@ -31,7 +52,7 @@ image::clustering-jbosseap-3.png[Wizard 2]
 |Application Name|eap-app|
 |Git Repository URL|https://github.com/akubicharm/openshift-playground|
 |Git Reference|master|
-|Context Directory|app/session-replication/counter/dist
+|Context Directory|app/session-replication/counter/war
 |===
 +
 . Binding 画面
@@ -43,18 +64,18 @@ image::clustering-jbosseap-4.png[Wizard 3]
 
 ### JBoss EAP Clustering
 
-JBoss EAP のクラスタリングは、他の jboss eap コンテナを検索し、クラスタを形成するための Kubernetes 検出メカニズムを使用して実現されます。これは、'standalone-openshift.xml' で JGroups プロトコルスタックを '<openshift KUBE_PING/>' 要素で構成することによって行われます。
+JBoss EAP のクラスタリングは、他の jboss eap コンテナを検索し、クラスタを形成するための Kubernetes 検出メカニズムを使用して実現されます。これは、`standalone-openshift.xml` で JGroups プロトコルスタックを `<openshift KUBE_PING/>` 要素で構成することによって行われます。
 
 
 `KUBE_PING` を動作させるには、次の手順を実行する必要があります。
 
-. 'OPENSHIFT_KUBE_PING_NAMESPACE' 環境変数を設定する必要があります。設定されていない場合、サーバーは単一ノードのクラスタ ("1 つのクラスタ") として動作します。
-.' OPENSHIFT_KUBE_PING_LABELS ' 環境変数を設定する必要があります。設定されていない場合、アプリケーションの外部の pod (ただし、名前空間にある) は参加しようとします。
-. Kubernetes' REST api へのアクセスを許可するには、ポッドが実行されているサービスアカウントに権限を付与する必要があります。
+. `OPENSHIFT_KUBE_PING_NAMESPACE` 環境変数を設定する必要があります。設定されていない場合、サーバーは単一ノードのクラスタ ("1 つのクラスタ") として動作します。
+. `OPENSHIFT_KUBE_PING_LABELS` 環境変数を設定する必要があります。設定されていない場合、アプリケーションの外部の pod (ただし、名前空間にある) は参加しようとします。
+. Kubernetesの REST api へのアクセスを許可するには、Pod が実行されているサービスアカウントに権限を付与する必要があります。
 
 
-ラボ環境は、Kubernetes' REST API にアクセスできるように、既定のサービスアカウントが既に構成されています。
-これで、コンソール上の上矢印をクリックして、*JBoss EAP  * ポッドを2つにスケールアップすることができます。
+ラボ環境は、Kubernetes の REST API にアクセスできるように、既定のサービスアカウントが既に構成されています。
+これで、コンソール上の上矢印をクリックして、*JBoss EAP* Pod を2つにスケールアップすることができます。
 または、コマンドラインを使用してポッドをスケールアップし、2つのメンバクラスタを形成することもできます。
 
 [source]
