@@ -335,8 +335,8 @@ modules:
           MW_TEXT: "JBoss EAP"
   clustering:
     name: Clustering Stateful Java EE Applications
-    requires:
-      - permissions
+#    requires:
+#      - permissions
   quotas:
     name: Limiting application resource usage
   run-as-non-root:
