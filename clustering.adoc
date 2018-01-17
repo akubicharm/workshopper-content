@@ -59,7 +59,7 @@ image::clustering-jbosseap-3.png[Wizard 2]
 +
 image::clustering-jbosseap-4.png[Wizard 3]
 +
-*D not bind at this time* を選択し、*Create* をクリックします
+*Do not bind at this time* を選択し、*Create* をクリックします
 
 
 ### JBoss EAP Clustering
