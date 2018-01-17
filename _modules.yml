@@ -295,15 +295,15 @@ modules:
       USE_MAVEN:
   databases:
     name: Adding a Database (MongoDB)
-  #  requires:
-  #    - java
+    requires:
+      - java
   databases-py:
     name: Adding a Database (MongoDB)
   configmap:
     name: Externalizing Application Configurations
     requires:
-  #    - java
-  #    - databases
+      - java
+      - databases
   application-health:
     name: Application Health
   pipelines:
@@ -313,7 +313,7 @@ modules:
     requires:
   #    - java
   #    - databases
-  #    - application-health
+      - application-health
   codechanges:
     name: Using Source 2 Image for Code Changes
     requires:
