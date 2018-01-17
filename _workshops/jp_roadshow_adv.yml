@@ -47,5 +47,5 @@ modules:
   - pipelines
   - gogs-import
   - codechanges
-#  - clustering
+  - clustering
   - further-resources

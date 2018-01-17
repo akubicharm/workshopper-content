@@ -1,17 +1,50 @@
 ## Lab: Clustering Stateful Java EE Applications
 
-### JBoss EAP Clustering
+### JBoss EAP のデプロイ
 
-[silver]#Clustering in JBoss EAP is achieved using the Kubernetes discovery mechanism for finding other JBoss EAP containers and forming a cluster. This is done by configuring the JGroups protocol stack in `standalone-openshift.xml` with `<openshift.KUBE_PING/>` elements.#
+
+. カタログ選択
++
+*Add to Project* &rarr; *Browse Catalog でカタログを表示します。
++
+image::clustering-jbosseap-1.png[Catalog]
++
+カタログから*Middleware* &rarr; *Runtimes & Frameworks* を選択し、JBoss EAP 7.0(no https) を選択します。
++
+. ウィザード開始
++
+* Information 画面
++
+image::clustering-jbosseap-2.png[Wizard 1]
++
+内容を確認して *Next* をクリックします。
++
+. Configuration 画面
++
+image::clustering-jbosseap-3.png[Wizard 2]
++
+下記のパラメータを設定し、*Next* をクリックします。
++
+|===
+|パラメータ名|値|説明
+|Add to Project|explore-XX|プロジェクトを選択します
+|Application Name|eap-app|
+|Git Repository URL|https://github.com/akubicharm/openshift-playground|
+|Git Reference|master|
+|Context Directory|app/session-replication/counter/dist
+|===
++
+. Binding 画面
++
+image::clustering-jbosseap-4.png[Wizard 3]
++
+*DO not bind at this time* を選択し、*Create* をクリックします
+
+
+### JBoss EAP Clustering
 
 JBoss EAP のクラスタリングは、他の jboss eap コンテナを検索し、クラスタを形成するための Kubernetes 検出メカニズムを使用して実現されます。これは、'standalone-openshift.xml' で JGroups プロトコルスタックを '<openshift KUBE_PING/>' 要素で構成することによって行われます。
 
-
-
-[silver]#For `KUBE_PING` to work, the following steps must be taken:#
-. [silver]#The `OPENSHIFT_KUBE_PING_NAMESPACE` environment variable must be set. If not set, the server will act as if it is a single-node cluster (a "cluster of one").#
-. [silver]#The `OPENSHIFT_KUBE_PING_LABELS` environment variables should be set. If not set, pods outside of your application (albeit in your namespace) will try to join.
-. [silver]#Authorization must be granted to the service account the pod is running under to be allowed to access Kubernetes' REST api.#
 
 `KUBE_PING` を動作させるには、次の手順を実行する必要があります。
 
@@ -20,8 +53,7 @@ JBoss EAP のクラスタリングは、他の jboss eap コンテナを検索�
 . Kubernetes' REST api へのアクセスを許可するには、ポッドが実行されているサービスアカウントに権限を付与する必要があります。
 
 
-
-ラボ環境は、Kubernetes ' REST api にアクセスできるように、既定のサービスアカウントが既に構成されています。
+ラボ環境は、Kubernetes' REST API にアクセスできるように、既定のサービスアカウントが既に構成されています。
 これで、コンソール上の上矢印をクリックして、*JBoss EAP  * ポッドを2つにスケールアップすることができます。
 または、コマンドラインを使用してポッドをスケールアップし、2つのメンバクラスタを形成することもできます。
 
@@ -30,31 +62,16 @@ JBoss EAP のクラスタリングは、他の jboss eap コンテナを検索�
 $ oc scale dc/eap-app --replicas=2
 ----
 
-[silver]#For pods based on Java images, the web console also exposes access to a hawt.io-based JVM console for viewing and managing any relevant Java components.  A link is displayed in the pod's details on the *Applications* &rarr; *Pods* page, provided the container has a port named jolokia. On the console, click on mlbparks pods, then on any of the two pods deployed. On the *Details* tab, click on *Open Java Console*.#
-
-JBoss のPod の場合、web コンソールは、
-関連する Java コンポーネントを表示および管理するための hawt.io ベースの JVM コンソール。
-リンクは、ポッドの詳細に表示されます *Applications* &rarr; *Pods* ページで、
-コンテナーにjolokiaという名前のポートが指定されています。コンソールで、mlbparks ポッド, その後、デプロイされた2つのポッドのいずれかで.*Details*　タブで、
-*Open Java Console*。
-
-JBoss の pod の場合、web コンソールは、関連する java コンポーネントを表示および管理するための hawt.io ベースの JVM コンソールへのアクセスも公開します。
-コンテナに `jolokia` という名前のポートがある場合、リンクはポッドの詳細 (* アプリケーション * &rarr; * pod * ページ) に表示されます。
-コンソール上で、eap-app ポッドをクリックし、デプロイされた2つのポッドのいずれかにします。
-[詳細] タブで、[Java コンソールを開く *] をクリックします。
+JBoss EAP のPodは関連するJavaコンポーネントを表示するためのhawt.ioベースのJVMコンソールが利用できるようになっています。
+Podが公開しているポートにjolokiaとう名前があるPodは、*Applications* &rarr; *Pods* の詳細画面に JVM コンソールを開くリンクが表示されています。
+コンソールで eap-app のPodを選択し、*Details* タブに表示されている *Open Java Console* をクリックしてコンソールを開います。
 
 
 image::clustering-details.png[Java Console Link,880,align="center"]
 
-Java コンソールでは、* JMX * ブラウザを使用し、* jgroups &rarr; チャンネル &rarr; ee * をクリックします。右ペインには、JMX 属性のクラスタリングのリストが表示されます。
-
-
-[silver]#*view* which is the current state of the cluster. This attribute shows the name of two pods which are currently members of the cluster. When *mlbparks* pod gets scaled up or down, JBoss EAP gets notified by calling Kubernetes' REST API and updates the cluster status based on the number of pods available.#
-
-JMX の *view* 属性は、クラスタの現在の状態です。
-この属性は、現在クラスタのメンバである2つの pod の名前を示します。
-*eap-app* ポッドが拡大または縮小されると、JBoss EAP は Kubernetes' REST API を呼び出して通知を受け取り、利用可能な pod の数に基づいてクラスターの状態を更新します。
-
+表示された *JMX* ブラウザで、*jgroups &rarr; チャンネル &rarr; ee* をクリックします。右ペインには、JMX 属性のクラスタリングのリストが表示されます。*view* には、現在のクラスタのステータスが表示されます。
+属性には、クラスターのメンバーとなっている２つのPod名が表示されます。
+*eap-app* のPodをスケールアップ/ダウンすると、JBoss EAP は KuberneteのAPIを経由して通知を受け、有効なPod数に基づいてクラスタのステータスを更新します。
 
 image::clustering-hawtio.png[Java Console - Clustering,1000,align="center"]
 
