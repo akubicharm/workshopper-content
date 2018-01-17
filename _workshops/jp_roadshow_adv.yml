@@ -44,6 +44,7 @@ modules:
   - install
   - explore
   - prepare-adv
+  - application-health
   - pipelines
   - gogs-import
   - codechanges
