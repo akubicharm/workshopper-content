@@ -1,8 +1,10 @@
 ## Lab: Exploring the CLI and Web Console
 
+image::explore-auth.png[User, Group, Project]
+
 ### Command Line
 
-我々は、我々の ' oc ' コマンドラインツールがインストールされ、正常に私たちのパスに追加されたことを確認するためにしたい最初の事は、このロードショーのセッションのために提供されている OpenShift 環境にログインすることです。 ログインするためには、`oc` コマンドを使用して、認証するサーバーを指定します。 次のコマンドを発行します。
+我々は、我々の `oc` コマンドラインツールがインストールされ、正常に私たちのパスに追加されたことを確認するためにしたい最初の事は、このロードショーのセッションのために提供されている OpenShift 環境にログインすることです。 ログインするためには、`oc` コマンドを使用して、認証するサーバーを指定します。 次のコマンドを発行します。
 
 [source]
 ----
@@ -18,13 +20,13 @@ You can bypass the certificate check, but any data you send to the server could 
 Use insecure connections? (y/n):
 ----
 
-潜在的に安全でない接続を使用するには、*Y* を入力してください。 このメッセージを受け取った理由は、このワークショップで自己署名入りの証明書を使用しているためですが、OpenShift によって生成された CA 証明書は提供されませんでした。実際のシナリオでは、OpenShift の証明書のいずれかが標準の CA (例: Thawte、Verisign、StartSSL など) によって署名されるか、または既にシステムにインストールされている企業標準の CA によって署名が行われます。
+潜在的に安全でない接続を使用するには、*Y* を入力してください。 このメッセージが出力された理由は、このワークショップで自己署名入りの証明書を使用しているためですが、OpenShift によって生成された CA 証明書は提供されませんでした。実際のシナリオでは、OpenShift の証明書のいずれかが標準の CA (例: Thawte、Verisign、StartSSL など) によって署名されるか、または既にシステムにインストールされている企業標準の CA によって署名が行われます。
 
 [NOTE]
 ====
 一部のバージョンの Microsoft Windows では、エラーが発生することがあります。
-サーバーに無効な x.509 証明書があります。 このエラーが表示された場合は、
-次のコマンド:
+サーバーに無効な x.509 証明書があります。 このエラーが表示された場合は、次のコマンドを実行します。
+コマンド:
 
 [source]
 ----
@@ -60,14 +62,15 @@ oc new-project {{EXPLORE_PROJECT_NAME}}{{USER_SUFFIX}}
 ```
 ====
 
-おめでとう、あなたは今 OpenShift サーバーに認証されています。OpenShift マスターには、組み込みの OAuth サーバーが含まれています。開発者および管理者は、OAuth アクセストークンを取得して API を認証します。既定では、承認トークンは24時間持続します。ログインコマンドとその構成の詳細については、 https://{DOCS_URL}}/cli_reference/get_started_cli.html#basic-setup-and-login[OpenShift Documentation] を参照してください。
+OpenShift サーバーでの認証が成功しました。OpenShift マスターには、組み込みの OAuth サーバーが含まれています。開発者および管理者は、OAuth アクセストークンを取得して API を認証します。既定では、承認トークンは24時間持続します。ログインコマンドとその構成の詳細については、 https://{DOCS_URL}}/cli_reference/get_started_cli.html#basic-setup-and-login[OpenShift Documentation] を参照してください。
+
 
 ### Using a project
 
-プロジェクトは、展開の整理に役立つトップレベルの概念です。OpenShift プロジェクトを使用すると、ユーザー (またはユーザー) のコミュニティは、他のコミュニティから分離してコンテンツを整理および管理できます。各プロジェクトには、独自のリソース、ポリシー (アクションを実行できるかどうか)、および制約 (リソースのクォータと制限など) があります。プロジェクトは、作業に使用しているすべてのアプリケーションサービスとエンドポイント (またはチーム) を囲む "ラッパー" として機能します。 この最初の演習では、作成された *explore-XX* という名前のプロジェクトを使用し、アプリケーションを設定します。
+プロジェクトは、OpenShift上で実行するアプリケーションに必要なオブジェクトをまとめるトップレベルの概念です。OpenShift プロジェクトを使用すると、ユーザー (またはユーザーのコミュニティ）は、他のコミュニティから分離してコンテンツを整理および管理できます。各プロジェクトには、独自のリソース、ポリシー (アクションを実行できるかどうか)、および制約 (リソースのクォータと制限など) があります。プロジェクトは、作業に使用しているすべてのアプリケーションサービスとエンドポイント (またはチーム) を囲む "ラッパー" として機能します。 この最初の演習では、作成された *explore-XX* という名前のプロジェクトを使用し、アプリケーションを設定します。
 
 
-この演習では、いくつかの異なるコマンドを使用して、環境内のものが期待どおりに動作していることを確認します。 すべての用語を理解していない場合は、後の実習で詳しく説明しますのでご安心ください。
+この演習では、いくつかの異なるコマンドを使用して、環境内のオブジェクトが期待どおりに動作していることを確認します。
 
 {% if NO_USER_PROJECT == true %}
 [silver]#The first thing we want to do is create the *{{EXPLORE_PROJECT_NAME}}{{USER_SUFFIX}}* project. You can do this with the following command:#
@@ -88,7 +91,10 @@ Now using project "{{EXPLORE_PROJECT_NAME}}{{USER_SUFFIX}}" on server "https://{
 ----
 {% else %}
 
-まず最初に、*{{EXPLORE_PROJECT_NAME}}{{USER_SUFFIX}}* プロジェクトに切り替えます。あなたが次のコマンドでこれを行うことができます:
+まず最初に、*{{EXPLORE_PROJECT_NAME}}{{USER_SUFFIX}}* プロジェクトに切り替えます。 次のコマンドでこれを行うことができます。
+
+
+コマンド:
 
 [source,role=copypaste]
 ----
@@ -105,11 +111,12 @@ Now using project "{{EXPLORE_PROJECT_NAME}}{{USER_SUFFIX}}" on server "https://{
 
 ### The Web Console
 
-OpenShift は、ユーザーがブラウザを介して様々なタスクを実行できるように web ベースのコンソールが含まれています。 web コンソール動作についての感触を得るには、ブラウザを開き、次の url に移動します。
+OpenShift は、ユーザーがブラウザを介して様々なタスクを実行できるように web ベースのコンソールが含まれています。 
+web コンソールにはブラウザを開き、次の url に移動します。
 
 *link:https://{{CONSOLE_ADDRESS}}[]*
 
-最初に表示される画面は認証画面です。 次の資格情報を入力します。
+最初に表示される画面は認証画面です。 次のユーザーとパスワードを入力します。
 
 [source]
 ----
@@ -119,7 +126,7 @@ Password: {{USER_PASSWORD}}
 
 image::ocp-login.png[OpenShift Login Screen]
 
-web コンソールを認証した後、ユーザーが操作する権限を持つプロジェクトの一覧が表示されます。次のようなイメージが表示されます。
+web コンソールで認証した後、ユーザーが操作する権限を持つプロジェクトの一覧が表示されます。次のようなイメージが表示されます。
 
 image::explore-webconsole1.png[Web Console]
 
@@ -129,7 +136,7 @@ image::explore-webconsole2.png[Explore Project]
 
 {% if METRICS_ENABLED %}
 
-最後に、web コンソールにエラーが表示されます: _An error occurred getting metrics._ 我々は OpenShift のメトリックの集計のための別の自己署名証明書を受け入れる必要があります。そうしないと、メトリックは OpenShift UI に表示されません。
+最後に、web コンソールにエラーが表示されます: _An error occurred getting metrics._  OpenShift のメトリックの集計のための別の自己署名証明書を受け入れる必要があります。そうしないと、メトリックが OpenShift UI に表示されません。
 
 *Open metrics URL* というリンクをクリックし、証明書を受け入れます。
 
@@ -137,4 +144,3 @@ image::explore-webconsole2.png[Explore Project]
 
 
 ここでは、コマンドラインツールと、ラボ用の web コンソールを組み合わせて使用します。
-準備をして！
