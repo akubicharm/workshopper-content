@@ -159,7 +159,7 @@ config:
       value: "OpenShift Container Platform"
     - name: OPENSHIFT_VERSION      
       desc: OpenShift version used in the workshop
-      value: "3.5"
+      value: "3.6"
 
 modules:
   environment:
