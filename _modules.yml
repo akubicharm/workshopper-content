@@ -279,10 +279,10 @@ modules:
     name: Creating Routes
   logging:
     name: Exploring OpenShift's Logging Capabilities
-#  permissions:
-#    name: Role-Based Access Control
-#    vars:
-#      SUFFIX:
+  permissions:
+    name: Role-Based Access Control
+    vars:
+      SUFFIX:
   remote-ops:
     name: Remote Operations
   java:
@@ -335,8 +335,8 @@ modules:
           MW_TEXT: "JBoss EAP"
   clustering:
     name: Clustering Stateful Java EE Applications
-#    requires:
-#      - permissions
+    requires:
+      - permissions
   quotas:
     name: Limiting application resource usage
   run-as-non-root:
