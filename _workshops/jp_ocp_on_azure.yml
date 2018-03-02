@@ -37,7 +37,7 @@ vars:
   EXPLORE_PROJECT_NAME: "explore"
   DISABLE_NATIONALPARKS_DEPLOYMENT_PIPELINE: true
   MW_NAME: "eap"
-  CONSOLE_ADDRESS: "https://masterdnsjsaeqvrpbhr2y.japaneast.cloudapp.azure.com"
+  CONSOLE_ADDRESS: "masterdnsjsaeqvrpbhr2y.japaneast.cloudapp.azure.com"
 
 modules:
   activate:
