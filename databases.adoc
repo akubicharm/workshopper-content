@@ -68,9 +68,9 @@ S2I ビルドの方式でアプリケーションをビルドする場合には�
 このラボでは、テンプレートを利用して、あらかじめ定義されたパラメータの値を設定することでカスタマイズを行っています。
 今回のケースでは、パラメータでカスタマイズしている項目は、ユーザ、パスワード、データベース名と管理者パスワードです。
 
-image::ocp-mongo-template-deploy1png[MongoDB]
-image::ocp-mongo-template-deploy2png[MongoDB]
-image::ocp-mongo-template-deploy3png[MongoDB]
+image::ocp-mongo-template-deploy1.png[MongoDB2]
+image::ocp-mongo-template-deploy2.png[MongoDB2]
+image::ocp-mongo-template-deploy3.png[MongoDB3]
 
 // [silver]#You can see that some of the fields say *"generated if empty"*. This is a feature of *Templates* in OpenShift that will be covered in the next lab. For now, be sure to use the following values in their respective fields:#
 
