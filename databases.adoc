@@ -52,13 +52,13 @@ OpenShift に含まれている MongoDB イメージを使用しています。
 
 // [silver]#In the web console in your `{{EXPLORE_PROJECT_NAME}}{{USER_SUFFIX}}` project, again click the *"Add to Project"* button. Click the *Data Stores* category.#
 
-Web コンソールの `{{EXPLORE_PROJECT_NAME}}{{USER_SUFFIX}}` プロジェクトで、もう一度クリックして、*Add to Project* ボタン。クリックして、*Data Stores* カテゴリを選択します。
+Web コンソールの `{{EXPLORE_PROJECT_NAME}}{{USER_SUFFIX}}` プロジェクトのオーバービュー画面右上の *Add to Project* プルダウンメニューから *Browse Catalog* を選択。カタログ一覧から Databases -> Mongodb を選択します。
 
 image::mongodb-datastores.png[Data Stores]
 
 // [silver]#Type `mongodb` in the search box, and then scroll down to find the *MongoDB (Ephemeral)* template, and click it.  You will notice that there are several MongoDB templates available, some of which come with application servers pre-configured.  We just need a database, though, so the ephemeral Mongo template is what you should choose.#
 
-検索ボックスに `mongodb` と入力し、下にスクロールして *MongoDB (Ephemeral)* テンプレートを見つけてクリックします。 使用可能な MongoDB テンプレートがいくつかあり、そのうちのいくつかがアプリケーションサーバーにあらかじめ構成されていることがわかります。 私たちは、しかし、データベースを必要とするので MongoDB(Ephemeral) テンプレートを選択する必要があります。
+*MongoDB (Ephemeral)* テンプレートをクリックします。 使用可能な MongoDB テンプレートがいくつかあり、そのうちのいくつかがアプリケーションサーバーにあらかじめ構成されていることがわかります。 私たちは、しかし、データベースを必要とするので MongoDB(Ephemeral) テンプレートを選択する必要があります。
 
 image::ocp-mongodb-template.png[MongoDB]
 
@@ -68,7 +68,9 @@ S2I ビルドの方式でアプリケーションをビルドする場合には�
 このラボでは、テンプレートを利用して、あらかじめ定義されたパラメータの値を設定することでカスタマイズを行っています。
 今回のケースでは、パラメータでカスタマイズしている項目は、ユーザ、パスワード、データベース名と管理者パスワードです。
 
-image::ocp-mongo-template-deploy.png[MongoDB]
+image::ocp-mongo-template-deploy1png[MongoDB]
+image::ocp-mongo-template-deploy2png[MongoDB]
+image::ocp-mongo-template-deploy3png[MongoDB]
 
 // [silver]#You can see that some of the fields say *"generated if empty"*. This is a feature of *Templates* in OpenShift that will be covered in the next lab. For now, be sure to use the following values in their respective fields:#
 

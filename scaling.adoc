@@ -8,7 +8,7 @@
 
 // [silver]#A *DeploymentConfiguration* (DC) defines how something in OpenShift should be deployed. From the https://{{DOCS_URL}}/latest/architecture/core_concepts/deployments.html#deployments-and-deployment-configurations[deployments documentation]:#
 
-*DeploymentConfiguration* (DC)は OpenShift での Pod の配置方法を定義します。https://{{DOCS_URL}}/latest/architecture/core_concepts/deployments.html#deployments-and-deployment-configurations[deployments ドキュメント] の抜粋
+*DeploymentConfiguration* (DC)は OpenShift での Pod の配置方法を定義します。 https://{{DOCS_URL}}/latest/architecture/core_concepts/deployments.html#deployments-and-deployment-configurations[deployments documentation] の抜粋
 
 [source]
 ----

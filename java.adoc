@@ -103,14 +103,16 @@ GitLab 資格情報です: *{{GITLAB_USER}}/{{GITLAB_PASSWORD}}*
 
 // [silver]#In the OpenShift web console, find your `{{EXPLORE_PROJECT_NAME}}{{USER_SUFFIX}}` project, and then click the *"Add to Project"* button. You will see a list of categories of runtimes, and other types of components that you can deploy and run on OpenShift.#
 
-OpenShift web コンソールで、`{{EXPLORE_PROJECT_NAME}}{{USER_SUFFIX}}` プロジェクトを見つけて、*Add to Project* ボタンをクリックします。ランタイムのカテゴリと、OpenShift で展開および実行できるその他の種類のコンポーネントの一覧が表示されます。
+OpenShift web コンソールで、`{{EXPLORE_PROJECT_NAME}}{{USER_SUFFIX}}` プロジェクトのオーバービュー画面右上の、*Add to Project* プルダウンメニューから *Browse Catalog* クリックします。ランタイムのカテゴリと、OpenShift で展開および実行できるその他の種類のコンポーネントの一覧が表示されます。
 
 // [silver]#Type _"jdk"_ into the search box, and then select the item titled `redhat-openjdk18-openshift`.#
 
 検索ボックスに _"jdk"_ を入力し、選択項目のタイトル
 
 
-image::ocp-runtimes.png[Runtimes]
+image::ocp-runtimes1png[Runtimes1]
+image::ocp-runtimes2png[Runtimes2]
+image::ocp-runtimes3png[Runtimes3]
 
 // [silver]#After you click `redhat-openjdk18-openshift`, on the next screen you will need to enter a name and a Git repository URL. For the name, enter `nationalparks`, and for the Git repository URL, enter:#
 
@@ -198,10 +200,10 @@ $ oc logs -f builds/nationalparks-1
 // [silver]#After the build has completed and successfully:#
 
 
-* // [silver]#The S2I process will push the resulting Docker-formatted image to the internal OpenShift registry#
-* // [silver]#The *DeploymentConfiguration* (DC) will detect that the image has changed, and this will cause a new deployment to happen.#
-* // [silver]#A *ReplicationController* (RC) will be spawned for this new deployment.#
-* // [silver]#The RC will detect no *Pods* are running and will cause one to be deployed, as our default replica count is just 1.#
+// * [silver]#The S2I process will push the resulting Docker-formatted image to the internal OpenShift registry#
+// * [silver]#The *DeploymentConfiguration* (DC) will detect that the image has changed, and this will cause a new deployment to happen.#
+// * [silver]#A *ReplicationController* (RC) will be spawned for this new deployment.#
+// * [silver]#The RC will detect no *Pods* are running and will cause one to be deployed, as our default replica count is just 1.#
 
 
 ビルドが完了しました。
