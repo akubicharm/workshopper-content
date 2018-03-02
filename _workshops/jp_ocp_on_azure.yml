@@ -18,15 +18,17 @@ vars:
   USER_SUFFIX: "-XX"
   OPENSHIFT_NAME: "OpenShift Container Platform"
   OPENSHIFT_SHORTNAME: "OCP"
-  OPENSHIFT_VERSION: "3.5"
+  OPENSHIFT_VERSION: "3.7"
   GITLAB_USER: "dev"
   GITLAB_PASSWORD: "dev"
   GITLAB_URL_PREFIX: "gogs-workshop-infra"
+  GITLAB_URL_OPENTLC: "http://gogs-komizows.6923.rh-us-east-1.openshiftapps.com
+  GITLAB_USER: "komizo"
   ETHERPAD_URL_PREFIX: "etherpad-workshop-infra"
   JAVA_BUILDER_PROPER: "JBoss EAP 7"
   JAVA_BUILDER_STRING: "jboss-eap70-openshift:1.4"
-  USER_NAME: "testdrive"
-  USER_PASSWORD: "password"
+  USER_NAME: "devXX"
+  USER_PASSWORD: "devXX"
   PARKSMAP_IMAGENAME: "parksmap"
   PARKSMAP_VERSION: "1.2.0"
   PARKSMAP_PY: false
@@ -35,6 +37,7 @@ vars:
   EXPLORE_PROJECT_NAME: "explore"
   DISABLE_NATIONALPARKS_DEPLOYMENT_PIPELINE: true
   MW_NAME: "eap"
+  CONSOLE_ADDRESS: "https://masterdnsjsaeqvrpbhr2y.japaneast.cloudapp.azure.com"
 
 modules:
   activate:
