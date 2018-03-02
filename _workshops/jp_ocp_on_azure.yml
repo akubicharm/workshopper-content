@@ -22,7 +22,7 @@ vars:
   GITLAB_USER: "dev"
   GITLAB_PASSWORD: "dev"
   GITLAB_URL_PREFIX: "gogs-workshop-infra"
-  GITLAB_URL_OPENTLC: "http://gogs-komizows.6923.rh-us-east-1.openshiftapps.com
+  GITLAB_URL_OPENTLC: "http://gogs-komizows.6923.rh-us-east-1.openshiftapps.com"
   GITLAB_USER: "komizo"
   ETHERPAD_URL_PREFIX: "etherpad-workshop-infra"
   JAVA_BUILDER_PROPER: "JBoss EAP 7"
