@@ -110,9 +110,9 @@ OpenShift web コンソールで、`{{EXPLORE_PROJECT_NAME}}{{USER_SUFFIX}}` プ
 検索ボックスに _"jdk"_ を入力し、選択項目のタイトル
 
 
-image::ocp-runtimes1png[Runtimes1]
-image::ocp-runtimes2png[Runtimes2]
-image::ocp-runtimes3png[Runtimes3]
+image::ocp-runtimes1.png[Runtimes1]
+image::ocp-runtimes2.png[Runtimes2]
+image::ocp-runtimes3.png[Runtimes3]
 
 // [silver]#After you click `redhat-openjdk18-openshift`, on the next screen you will need to enter a name and a Git repository URL. For the name, enter `nationalparks`, and for the Git repository URL, enter:#
 
