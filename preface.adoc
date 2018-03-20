@@ -1,6 +1,7 @@
 ## OpenShift ワークショプ
 
 ### Agenda
+. このドキュメント
 . CLIのインストール
 . CLI とWeb Consoleの利用
 . Docker Imageのデプロイ
