@@ -3,7 +3,6 @@
 ### Agenda
 . CLIのインストール
 . CLI とWeb Consoleの利用
-. Git リポジトリコンテナのデプロイ
 . Docker Imageのデプロイ
 . スケールアップ/ダウン
 . Routeを作ってアプリケーションを公開
