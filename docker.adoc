@@ -196,15 +196,15 @@ Pod 詳細の右上のプルダウンメニューで"Edit YAML"を選択する�
 
 
 PodのOverview
-+
+
 image::docker-pod-overview.png[Pod Overview] 
 
 Podの詳細画面で Edit YAML を選択
-+
+
 image::docker-pod-details.png[Pod Details]
 
 YAML形式で内容を確認
-+
+
 image::docker-pod-edityaml.png[Pod Edit Yaml]
 
 // [silver]#Getting the parks map image running may take a little while to complete. Each OpenShift node that is asked to run the image has to pull (download) it if the node does not already have it cached locally. You can check on the status of the image download and deployment in the *Pod* details page, or from the command line with the `oc get pods` command that you used before.#
