@@ -130,7 +130,7 @@ web コンソールで認証した後、ユーザーが操作する権限を持�
 
 image::explore-webconsole1.png[Web Console]
 
-*{{EXPLORE_PROJECT_NAME}}{{USER_SUFFIX}}* プロジェクトをクリックします。 *{{EXPLORE_PROJECT_NAME}}{{USER_SUFFIX}}* プロジェクトをクリックすると、プロジェクトの一部として実行しているすべてのルート、サービス、デプロイ、およびポッドが一覧表示され、プロジェクトの概要ページに運ばれます。今は何もないが、それは変更することです。
+*{{EXPLORE_PROJECT_NAME}}{{USER_SUFFIX}}* プロジェクトをクリックします。 *{{EXPLORE_PROJECT_NAME}}{{USER_SUFFIX}}* プロジェクトをクリックすると、プロジェクトの一部として実行しているすべてのルート、サービス、デプロイ、およびポッドが一覧表示され、プロジェクトの概要ページに運ばれます。今は何も表示されていません。
 
 image::explore-webconsole2.png[Explore Project]
 

@@ -3,6 +3,7 @@
 OpenShift にアプリケーションをデプロイする方法の一つである、Docker Image を指定したアプリケーションのデプロイを実行します。
 
 image::docker-component-diagram.png[Parksmap Component Diagram]
+
  
 
 ### Application description
@@ -13,6 +14,8 @@ image::docker-component-diagram.png[Parksmap Component Diagram]
 image::roadshow-app-architecture-parksmap-1.png[Application architecture,800,align="center"]
 
 ### Exercise: Deploying your first Image
+
+image::docker-image-build.png[Docker Image Build]
 
 // Let's start by doing the simplest thing possible - get a plain old Docker-formatted image to run on OpenShift. This is incredibly simple to do.  With {{OPENSHIFT_NAME}} {{OPENSHIFT_VERSION}} it can be done directly from the web console.
 
@@ -61,24 +64,25 @@ image::parksmap-image-options.png[Explore Project]
 
 画面の下部にある青色の "Create" ボタンをクリックし、"Continue to overview" リンクを押します。Overview ページに表示されるさまざまなメッセージを見てみましょう。
 
-// [silver]#WINNING! These few steps are the only ones you need to run to get a "vanilla" Docker-formatted image deployed on OpenShift. This should work with any
-Docker-formatted image that follows best practices, such as defining an EXPOSE port, not needing to run specifically as the *root user* or other user name, and a single non-exiting CMD to execute on start.#
-
-これらのいくつかの手順は、作成済みのDocker形式のイメージを取得してOpenShiftに展開するための手順です。これは、すべての docker では、公開ポートの定義、*root user* または他のユーザー名として実行する必要がなく、開始後に実行される1つの非終了 CMD など、ベストプラクティスに従ったイメージがフォーマットされています。
+// [silver]#WINNING! These few steps are the only ones you need to run to get a "vanilla" Docker-formatted image deployed on OpenShift. This should work with any Docker-formatted image that follows best practices, such as defining an EXPOSE port, not needing to run specifically as the *root user* or other user name, and a single non-exiting CMD to execute on start.#
 
 たった数ステップで、既存のDockerイメージからOpenShift上にアプリケーションがデプロイできます。次の条件を満たすコンテナイメージならばこの方式が利用できます。
 EXPOSE ポートが定義されていること。rootユーザのような特定のユーザで実行しないこと、単一で起動後にexitしないCMDが指定されていること。
 
 
+[NOTE]
+Dockerfileの例
+====
 ```
 FROM jboss/base-jdk:8
 
-MAINTAINER Erik Jacobs <erikmjacobs@gmail.com>
+MAINTAINER Erik Jacobs <foo@bar>
 
 COPY parksmap-web.jar /parksmap.jar
 CMD java -jar /parksmap.jar
 EXPOSE 8080
 ```
+====
 
 ### Background: Containers and Pods
 
@@ -135,7 +139,7 @@ parksmap-1-hx0kv   1/1       Running   0          2m
 
 // [silver]#The above output lists all of the *Pods* in the current *Project*, including the *Pod* name, state, restarts, and uptime. Once you have a *Pod*'s name, you can get more information about the *Pod* using the *oc get* command.  To make the output readable, I suggest changing the output type to *YAML* using the following syntax:#
 
-上記の出力には、*Pods* の名前、状態、再起動回数、稼働時間など、現在の *Project* 内のすべての *Pod* が一覧表示されます。 *Pod* の名前がわかれば、"oc get" コマンド を使用して *Pod* についての詳細情報を得ることができます。 出力を読みやすくするために、次の構文を使用して出力の種類を *YAML* に変更することをお勧めします。
+上記の出力には、*Pods* の名前、状態、再起動回数、稼働時間など、現在の *Project* 内のすべての *Pod* が一覧表示されます。 *Pod* の名前がわかれば、*oc get* コマンド を使用して *Pod* についての詳細情報を得ることができます。 出力を読みやすくするために、次の構文を使用して出力の種類を *YAML* に変更することをお勧めします。
 
 
 [NOTE]
@@ -182,13 +186,21 @@ urceVersion":"36222"}}
 ...............
 ----
 
+
+image::docker-pod-overview.png[Pod Overview]
+image::docker-pod-details.png[Pod Details]
+image::docker-pod-edityaml.png[Pod Edit Yaml]
+
 // [silver]#The web interface also shows a lot of the same information on the *Pod* details page. If you click in the *Pod* circle, and then click the *Pod* name, you will find the details page. You can also get there by clicking "Applications", then "Pods", at the left, and then clicking the *Pod* name.#
 
 web インターフェイスには、*Pod* の詳細ページに情報が多数表示されます。*Pod* の円をクリックし、*Pod* 名をクリックすると、詳細ページが表示されます。また、そこから "Applications" をクリックして取得することができます, 次に *Pod* 名をクリックします。
 
+Pod 詳細の右上のプルダウンメニューで"Edit YAML"を選択すると、`oc get pods -o yaml` での出力と同様にYAML形式でPodの情報を参照することが可能です。
+でも、編集はしないでください！！！
+
 // [silver]#Getting the parks map image running may take a little while to complete. Each OpenShift node that is asked to run the image has to pull (download) it if the node does not already have it cached locally. You can check on the status of the image download and deployment in the *Pod* details page, or from the command line with the `oc get pods` command that you used before.#
 
-Parksmap アプリケーションが実行されるまでには、少しかかる場合があります。Podを稼働させる各 OpenShift ノードは、コンテナイメージがローカルにキャッシュされていない場合は、それをダウンロード(Docker Pull)する必要があります。 Webコンソールの *Pod* の詳細ページまてゃ `oc get pod` コマンドで、イメージのダウンロードとデプロイの状況を確認することができます。
+Parksmap アプリケーションが実行されるまでには、少しかかる場合があります。Podを稼働させる各 OpenShift ノードは、コンテナイメージがローカルにキャッシュされていない場合は、それをダウンロード(Docker Pull)する必要があります。 Webコンソールの *Pod* の詳細ページや `oc get pod` コマンドで、イメージのダウンロードとデプロイの状況を確認することができます。
 
 
 ### Background: A Little About the Docker Daemon
@@ -235,7 +247,7 @@ https://{{DOCS_URL}}/latest/architecture/core_concepts/pods_and_services.html#se
 
 // [silver]#Now that we understand the basics of what a *Service* is, let's take a look at the *Service* that was created for the image that we just deployed.  In order to view the *Services* defined in your *Project*, enter in the following command:#
 
-先ほどデプロイした Pod の Service を確認します。*Project* ないの *Service* の一覧は、次のコマンドで取得します。
+先ほどデプロイした Pod の Service を確認します。*Project* 内の *Service* の一覧は、次のコマンドで取得します。
 
 [source]
 ----
@@ -253,23 +265,26 @@ NAME       CLUSTER-IP       EXTERNAL-IP   PORT(S)    AGE
 parksmap   172.30.169.213   <none>        8080/TCP   3h
 ----
 
+
 // [silver]#In the above output, we can see that we have a *Service* named `parksmap` with an IP/Port combination of 172.30.169.213/8080TCP. Your IP address may be different, as each *Service* receives a unique IP address upon creation. *Service* IPs are fixed and never change for the life of the *Service*.#
 
 上記の出力では、我々は 172.30.169.213/8080TCP のIP/Port の組み合わせで `parksmap` という名前の *Service* を持っていることがわかります。各 *Service* は、作成時に一意の IP アドレスを設定されるので、IP アドレスが上記のサンプルとは異なる場合があります。*Service* IPs は固定されており、*Service* の有効な間は変更することはありません。
 
 // [silver]#In the web console, service information is available by clicking "Applications" and then clicking "Services" in the "Networking" submenu.#
 
-web コンソールでは、「Applications」 をクリックし、「Networking」 サブメニューの「Services」 をクリックして、サービス情報を表示できます。
-
 // [silver]#You can also get more detailed information about a *Service* by using the following command to display the data in YAML:#
 
 また、次のコマンドを使用して YAML でデータを表示することにより、*Service* に関する詳細な情報を取得することもできます。
-
 
 [source]
 ----
 $ oc get service parksmap -o yaml
 ----
+
+image::docker-service-details.png[Service Details]
+
+web コンソールで確認する場合は、 右側のタブで *Applications* -> *Services* を選択すると、サービスの一覧が表示されます。
+さらに詳細を表示する場合は、一覧から *parksmap* のサービスを選択して詳細を表示します。YAML形式で確認する場合は、右上の *Actions* から *Edit YAML* を選択します。
 
 // [silver]#You should see output similar to the following:#
 
@@ -340,6 +355,9 @@ parksmap-1-hx0kv   1/1       Running   0          3h
 ----
 $ oc get pod parksmap-1-hx0kv -o yaml
 ----
+
+
+先ほどと同様に、web コンソールでPodの詳細画面を表示し、右上の *Actions* メニューから *Edit YAML* を選択して、YAML形式で表示します。
 
 // [silver]#Under the `metadata` section you should see the following:#
 
