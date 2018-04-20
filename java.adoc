@@ -123,7 +123,7 @@ Git リポジトリの URL を入力してください。
 
 [source,role=copypaste]
 ----
-http://{{GITLAB_URL_OPENTLC}}/{{GITLAB_USER}}/nationalparks.git
+{{GITLAB_URL_OPENTLC}}/{{GITLAB_USER}}/nationalparks.git
 ----
 
 [NOTE]
