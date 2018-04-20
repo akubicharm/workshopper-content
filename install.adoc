@@ -163,3 +163,5 @@ $ oc version
 応急処置として、OpenShift の CLI をインストール済みのコンテナイメージを公開しています。
 OpenShift のDocker Imageデプロイで `docker.io/akubicharm/centos-oc` を指定して、コンテナイメージをデプロイしてください。
 ハンズオンのラボ環境では、カタログのOthersカテゴリにテンプレートが登録されていますのでそちらを選択してください。
+
+image::install-oc-container.png[CLI Container]
